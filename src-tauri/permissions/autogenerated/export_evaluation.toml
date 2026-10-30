@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-export-evaluation"
+description = "Enables the export_evaluation command without any pre-configured scope."
+commands.allow = ["export_evaluation"]
+
+[[permission]]
+identifier = "deny-export-evaluation"
+description = "Denies the export_evaluation command without any pre-configured scope."
+commands.deny = ["export_evaluation"]

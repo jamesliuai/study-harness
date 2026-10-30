@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.host-policy",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

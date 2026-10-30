@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-development-action"
+description = "Enables the development_action command without any pre-configured scope."
+commands.allow = ["development_action"]
+
+[[permission]]
+identifier = "deny-development-action"
+description = "Denies the development_action command without any pre-configured scope."
+commands.deny = ["development_action"]

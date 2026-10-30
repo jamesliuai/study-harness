@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Transcript",
+  "type": "object",
+  "properties": {
+    "audio_seconds": {
+      "type": "number",
+      "format": "double"
+    },
+    "format": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "recognized_text": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "recognized_text",
+    "audio_seconds",
+    "format"
+  ]
+}

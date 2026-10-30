@@ -1,0 +1,28 @@
+{
+  "contract": "study-harness.review-record",
+  "expect": "invalid",
+  "why": "A model subject cannot carry template fields.",
+  "value": {
+    "contract": "study-harness.review-record",
+    "schemaVersion": "1.0",
+    "reviewId": "review-model-quadratic-1",
+    "subject": {
+      "kind": "model",
+      "templateId": "x",
+      "version": "1.0.0",
+      "contentDigest": "sha256:2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    "reviewer": {
+      "name": "A. Reviewer",
+      "role": "Mathematics content reviewer",
+      "affiliation": "Example University"
+    },
+    "date": "2026-10-20",
+    "scope": "Closed-form iterates, regime classification and numerical-limit statuses for the declared parameter domain.",
+    "limitations": [
+      "Does not cover learning effects of the activity."
+    ],
+    "referenceSuiteDigest": "sha256:79067c23031b90d45d9a682d42238e1ae2c564984a4360e181f51edd23642dae",
+    "outcome": "approved-with-limitations"
+  }
+}

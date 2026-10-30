@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review",
+  "type": "object",
+  "properties": {
+    "assessment_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "due_at": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "interval_days": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "scheduler_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "simulated": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string"
+    },
+    "supporting_attempts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "task_family": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "session_id",
+    "objective_id",
+    "task_family",
+    "due_at",
+    "reason",
+    "scheduler_version",
+    "supporting_attempts",
+    "assessment_ids",
+    "interval_days",
+    "status",
+    "simulated"
+  ]
+}

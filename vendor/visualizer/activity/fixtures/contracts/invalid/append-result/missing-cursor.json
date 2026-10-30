@@ -1,0 +1,15 @@
+{
+  "contract": "study-harness.append-result",
+  "expect": "invalid",
+  "why": "cursor is required.",
+  "value": {
+    "acknowledged": [
+      {
+        "eventId": "evt-0002",
+        "durableSequence": 2,
+        "hostTimestamp": "2026-10-26T09:01:00Z"
+      }
+    ],
+    "duplicates": []
+  }
+}

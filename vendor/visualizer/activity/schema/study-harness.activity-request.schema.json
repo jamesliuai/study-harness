@@ -1,0 +1,104 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.activity-request-1.0.json",
+  "title": "Study Harness activity request",
+  "type": "object",
+  "properties": {
+    "activityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "objectiveIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+      },
+      "maxItems": 32
+    },
+    "hostSessionId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "hostSessionRevision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "template": {
+      "type": "object",
+      "properties": {
+        "templateId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 48,
+          "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+        }
+      },
+      "required": [
+        "templateId",
+        "version"
+      ],
+      "additionalProperties": false
+    },
+    "parameters": {
+      "$ref": "#/$defs/ParameterValues"
+    },
+    "scenarioId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "mode": {
+      "enum": [
+        "approved",
+        "exploratory"
+      ]
+    },
+    "stageId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    }
+  },
+  "required": [
+    "activityId",
+    "objectiveIds",
+    "hostSessionId",
+    "hostSessionRevision",
+    "template",
+    "mode"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ParameterValues": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": -1000000000000000,
+        "maximum": 1000000000000000
+      },
+      "maxProperties": 64,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+      }
+    }
+  }
+}

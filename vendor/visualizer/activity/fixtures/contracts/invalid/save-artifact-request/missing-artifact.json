@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.save-artifact-request",
+  "expect": "invalid",
+  "why": "artifact is required.",
+  "value": {
+    "operationId": "op-save-1"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.append-events-request",
+  "expect": "invalid",
+  "why": "events is required.",
+  "value": {
+    "activityId": "act-quadratic-0001"
+  }
+}

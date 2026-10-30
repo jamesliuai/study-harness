@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assessment",
+  "type": "object",
+  "properties": {
+    "assessed_at": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "dispute_state": {
+      "type": "string"
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RubricFinding"
+      }
+    },
+    "grader_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "rubric_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "attempt_id",
+    "rubric_version",
+    "findings",
+    "uncertainty",
+    "dispute_state",
+    "grader_version",
+    "stale",
+    "verdict",
+    "assessed_at",
+    "request_id"
+  ],
+  "$defs": {
+    "RubricFinding": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "result",
+        "excerpt"
+      ]
+    }
+  }
+}

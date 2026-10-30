@@ -1,0 +1,15 @@
+PRAGMA foreign_keys = ON;
+CREATE TABLE sessions(id TEXT PRIMARY KEY, revision INTEGER NOT NULL, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE objectives(id TEXT PRIMARY KEY, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE activities(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE, objective_id TEXT NOT NULL REFERENCES objectives(id), version INTEGER NOT NULL CHECK(version>0), data TEXT NOT NULL CHECK(json_valid(data)), reference_solution TEXT NOT NULL, rubric TEXT NOT NULL);
+CREATE TABLE attempts(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE, activity_id TEXT NOT NULL REFERENCES activities(id), submission_id TEXT NOT NULL UNIQUE, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE assistance(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE, activity_id TEXT NOT NULL REFERENCES activities(id), attempt_id TEXT REFERENCES attempts(id), data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE assessments(id TEXT PRIMARY KEY, attempt_id TEXT NOT NULL REFERENCES attempts(id) ON DELETE CASCADE, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE reviews(id TEXT PRIMARY KEY, objective_id TEXT NOT NULL REFERENCES objectives(id), data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE sources(id TEXT PRIMARY KEY, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE VIRTUAL TABLE source_search USING fts5(source_id UNINDEXED, title, content);
+CREATE TABLE requests(id TEXT PRIMARY KEY, session_id TEXT NOT NULL REFERENCES sessions(id), attempt_id TEXT REFERENCES attempts(id), kind TEXT NOT NULL, status TEXT NOT NULL, reserved_microusd INTEGER NOT NULL CHECK(reserved_microusd>=0), created_at TEXT NOT NULL, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE usage(request_id TEXT PRIMARY KEY REFERENCES requests(id), cost_microusd INTEGER NOT NULL CHECK(cost_microusd>=0), data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE settings(key TEXT PRIMARY KEY,value TEXT NOT NULL CHECK(json_valid(value)));
+CREATE TABLE scenes(activity_id TEXT PRIMARY KEY REFERENCES activities(id) ON DELETE CASCADE,data TEXT NOT NULL CHECK(json_valid(data)));
+PRAGMA user_version = 1;

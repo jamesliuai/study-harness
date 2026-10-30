@@ -1,0 +1,6 @@
+{
+  "contract": "explorable-models.model-manifest",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

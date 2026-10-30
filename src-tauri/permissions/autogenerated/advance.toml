@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-advance"
+description = "Enables the advance command without any pre-configured scope."
+commands.allow = ["advance"]
+
+[[permission]]
+identifier = "deny-advance"
+description = "Denies the advance command without any pre-configured scope."
+commands.deny = ["advance"]

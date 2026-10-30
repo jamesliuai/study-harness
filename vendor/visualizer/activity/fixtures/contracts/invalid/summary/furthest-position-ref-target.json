@@ -1,0 +1,163 @@
+{
+  "contract": "study-harness.interaction-summary",
+  "expect": "invalid",
+  "why": "A static position has no index.",
+  "value": {
+    "contract": "study-harness.interaction-summary",
+    "schemaVersion": "1.0",
+    "summarizerVersion": "1.0.0",
+    "activityId": "act-quadratic-0001",
+    "audience": "tutor",
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "cursor": {
+      "fromSequence": 1,
+      "toSequence": 42,
+      "acknowledgedThrough": 40
+    },
+    "complete": false,
+    "committedConfigurations": [
+      {
+        "runId": "run-0001",
+        "params": {
+          "a": 1,
+          "eta": 0.5,
+          "x0": 8
+        },
+        "furthestPosition": {
+          "kind": "static",
+          "index": 0
+        },
+        "cause": "initial",
+        "sequence": 2,
+        "observations": {
+          "x": {
+            "status": "valid",
+            "value": 0.001953125
+          },
+          "loss": {
+            "status": "valid",
+            "value": 0.0000019073486328125
+          }
+        }
+      },
+      {
+        "runId": "run-0002",
+        "params": {
+          "a": 1,
+          "eta": 1.5,
+          "x0": 8
+        },
+        "furthestPosition": {
+          "kind": "index",
+          "index": 3,
+          "maxIndex": 1000
+        },
+        "cause": "commit",
+        "sequence": 21,
+        "observations": {
+          "x": {
+            "status": "valid",
+            "value": -1
+          },
+          "regime": {
+            "status": "valid",
+            "value": "alternating-convergence"
+          }
+        }
+      }
+    ],
+    "previewObservations": [
+      {
+        "previewId": "pv-3",
+        "outcome": "committed",
+        "samplingPolicy": "first-last-evenly-spaced",
+        "rendered": [
+          {
+            "params": {
+              "a": 1,
+              "eta": 0.6,
+              "x0": 8
+            },
+            "frameId": "frame-pv-3-1"
+          },
+          {
+            "params": {
+              "a": 1,
+              "eta": 1.5,
+              "x0": 8
+            },
+            "frameId": "frame-pv-3-9"
+          }
+        ],
+        "omitted": 7
+      }
+    ],
+    "revealed": [
+      {
+        "exposureId": "exp-0001",
+        "groups": [
+          "g-trajectory",
+          "g-position"
+        ],
+        "displayStatus": "displayed",
+        "sequence": 12
+      },
+      {
+        "exposureId": "exp-0002",
+        "groups": [
+          "g-trajectory"
+        ],
+        "displayStatus": "uncertain",
+        "sequence": 14
+      }
+    ],
+    "comparisons": [
+      {
+        "runId": "run-0001",
+        "label": "η = 0.5",
+        "action": "retained",
+        "sequence": 24
+      }
+    ],
+    "responses": [
+      {
+        "responseId": "resp-1",
+        "taskId": "task-regime-1",
+        "taskRevision": 1,
+        "kind": "prediction",
+        "modality": "text",
+        "stageId": "predict",
+        "status": "superseded",
+        "supersededBy": "resp-2"
+      },
+      {
+        "responseId": "resp-2",
+        "taskId": "task-regime-1",
+        "taskRevision": 1,
+        "kind": "prediction",
+        "modality": "text",
+        "stageId": "predict",
+        "status": "submitted"
+      }
+    ],
+    "omitted": {
+      "committedConfigurations": 0,
+      "previewObservations": 0,
+      "events": 0
+    },
+    "limitations": [
+      "Events 41–42 are not yet acknowledged by the host.",
+      "Exposure exp-0002 is uncertain and counted as potentially seen."
+    ],
+    "text": "Explored 2 committed configurations of gradient descent on a quadratic loss. 1 preview was committed. Revealed content: descent path, position and loss."
+  }
+}

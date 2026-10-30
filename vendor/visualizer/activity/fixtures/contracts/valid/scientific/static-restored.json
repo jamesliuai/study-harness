@@ -1,0 +1,30 @@
+{
+  "contract": "study-harness.scientific-snapshot",
+  "expect": "valid",
+  "why": "Static run restored from an artifact.",
+  "value": {
+    "contract": "study-harness.scientific-snapshot",
+    "schemaVersion": "1.0",
+    "model": {
+      "modelId": "vector-orientation",
+      "version": "1.0.0",
+      "digest": "sha256:ea7b1b14301616597051092b082a76e59255a42e92c52fa65882ac22252d9301"
+    },
+    "scientificRevision": "sha256:2e9e0d6c755fd24af5fbcd8ee00fa215f57a6c5186e11cbc73515bfbef0239dc",
+    "runtime": {
+      "id": "explorable-models-activity",
+      "version": "0.3.0-preview.1"
+    },
+    "runId": "run-orient-7",
+    "restoredFrom": "artifact-orient-1",
+    "params": {
+      "theta": 1.0471975511965976,
+      "phi": -0.7853981633974483
+    },
+    "position": {
+      "kind": "static"
+    },
+    "terminal": true,
+    "comparisons": []
+  }
+}

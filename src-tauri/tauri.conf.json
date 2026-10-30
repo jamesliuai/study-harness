@@ -1,0 +1,40 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "Study Harness",
+  "version": "0.1.0",
+  "identifier": "dev.studyharness.desktop",
+  "build": {
+    "beforeDevCommand": "npm run dev",
+    "devUrl": "http://127.0.0.1:1420",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../dist"
+  },
+  "app": {
+    "windows": [],
+    "security": {
+      "csp": "default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' blob:; font-src 'self'; connect-src 'self' ipc: http://ipc.localhost; worker-src 'self'; media-src 'self' blob:; object-src 'none'; frame-src 'none'; frame-ancestors 'none'; base-uri 'none'; form-action 'none'",
+      "capabilities": ["main"]
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": ["app"],
+    "category": "Education",
+    "shortDescription": "A local STEM study workspace",
+    "resources": {
+      "../LICENSE": "LICENSE",
+      "../licenses/": "licenses/",
+      "../docs/PRIVACY.md": "PRIVACY.md",
+      "../docs/RECOVERY.md": "RECOVERY.md",
+      "../docs/SUPPORT.md": "SUPPORT.md",
+      "../docs/EVALUATION-PROTOCOL.md": "EVALUATION-PROTOCOL.md"
+    },
+    "macOS": {
+      "minimumSystemVersion": "14.0",
+      "infoPlist": "Info.plist",
+      "entitlements": "Entitlements.plist",
+      "signingIdentity": "-",
+      "hardenedRuntime": true
+    }
+  }
+}

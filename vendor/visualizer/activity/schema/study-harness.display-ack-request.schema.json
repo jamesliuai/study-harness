@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.display-ack-request-1.0.json",
+  "title": "Study Harness display acknowledgement request",
+  "type": "object",
+  "properties": {
+    "activityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "exposureId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "receiptId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "projectionDigest": {
+      "type": "string",
+      "minLength": 71,
+      "maxLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "frameId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "monotonicMs": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1000000000000000
+    }
+  },
+  "required": [
+    "activityId",
+    "exposureId",
+    "receiptId",
+    "projectionDigest",
+    "frameId",
+    "monotonicMs"
+  ],
+  "additionalProperties": false
+}

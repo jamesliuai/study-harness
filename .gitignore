@@ -1,0 +1,38 @@
+node_modules/
+dist/
+src-tauri/target/
+*.db
+*.db-shm
+*.db-wal
+.env*
+.DS_Store
+playwright-report/
+test-results/
+
+*.tsbuildinfo
+src-tauri/gen/
+
+tests/.goal2-*.json
+
+.local-checkpoints/
+
+public/pdf/
+output/
+__pycache__/
+*.pyc
+
+# Local agent configuration and instructions
+[Aa][Gg][Ee][Nn][Tt][Ss].[Mm][Dd]
+.codex/
+.agents/
+.claude/
+
+# Local study data and exports
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+*.sqlite3-journal
+*.db-journal
+
+# Local development records (not part of the public source distribution)
+.local-publication/

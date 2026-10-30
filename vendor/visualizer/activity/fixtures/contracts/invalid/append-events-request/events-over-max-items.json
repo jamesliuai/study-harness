@@ -1,0 +1,901 @@
+{
+  "contract": "study-harness.append-events-request",
+  "expect": "invalid",
+  "why": "At most 32 events per batch.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "events": [
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0001",
+        "activityId": "act-quadratic-0001",
+        "sequence": 1,
+        "operationId": "op-1",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 1250.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0002",
+        "activityId": "act-quadratic-0001",
+        "sequence": 2,
+        "operationId": "op-2",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 1501,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0003",
+        "activityId": "act-quadratic-0001",
+        "sequence": 3,
+        "operationId": "op-3",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 1751.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0004",
+        "activityId": "act-quadratic-0001",
+        "sequence": 4,
+        "operationId": "op-4",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 2002,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0005",
+        "activityId": "act-quadratic-0001",
+        "sequence": 5,
+        "operationId": "op-5",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 2252.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0006",
+        "activityId": "act-quadratic-0001",
+        "sequence": 6,
+        "operationId": "op-6",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 2503,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0007",
+        "activityId": "act-quadratic-0001",
+        "sequence": 7,
+        "operationId": "op-7",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 2753.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0008",
+        "activityId": "act-quadratic-0001",
+        "sequence": 8,
+        "operationId": "op-8",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 3004,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0009",
+        "activityId": "act-quadratic-0001",
+        "sequence": 9,
+        "operationId": "op-9",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 3254.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0010",
+        "activityId": "act-quadratic-0001",
+        "sequence": 10,
+        "operationId": "op-10",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 3505,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0011",
+        "activityId": "act-quadratic-0001",
+        "sequence": 11,
+        "operationId": "op-11",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 3755.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0012",
+        "activityId": "act-quadratic-0001",
+        "sequence": 12,
+        "operationId": "op-12",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 4006,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0013",
+        "activityId": "act-quadratic-0001",
+        "sequence": 13,
+        "operationId": "op-13",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 4256.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0014",
+        "activityId": "act-quadratic-0001",
+        "sequence": 14,
+        "operationId": "op-14",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 4507,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0015",
+        "activityId": "act-quadratic-0001",
+        "sequence": 15,
+        "operationId": "op-15",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 4757.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0016",
+        "activityId": "act-quadratic-0001",
+        "sequence": 16,
+        "operationId": "op-16",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 5008,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0017",
+        "activityId": "act-quadratic-0001",
+        "sequence": 17,
+        "operationId": "op-17",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 5258.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0018",
+        "activityId": "act-quadratic-0001",
+        "sequence": 18,
+        "operationId": "op-18",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 5509,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0019",
+        "activityId": "act-quadratic-0001",
+        "sequence": 19,
+        "operationId": "op-19",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 5759.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0020",
+        "activityId": "act-quadratic-0001",
+        "sequence": 20,
+        "operationId": "op-20",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 6010,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0021",
+        "activityId": "act-quadratic-0001",
+        "sequence": 21,
+        "operationId": "op-21",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 6260.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0022",
+        "activityId": "act-quadratic-0001",
+        "sequence": 22,
+        "operationId": "op-22",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 6511,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0023",
+        "activityId": "act-quadratic-0001",
+        "sequence": 23,
+        "operationId": "op-23",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 6761.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0024",
+        "activityId": "act-quadratic-0001",
+        "sequence": 24,
+        "operationId": "op-24",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 7012,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0025",
+        "activityId": "act-quadratic-0001",
+        "sequence": 25,
+        "operationId": "op-25",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 7262.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0026",
+        "activityId": "act-quadratic-0001",
+        "sequence": 26,
+        "operationId": "op-26",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 7513,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0027",
+        "activityId": "act-quadratic-0001",
+        "sequence": 27,
+        "operationId": "op-27",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 7763.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0028",
+        "activityId": "act-quadratic-0001",
+        "sequence": 28,
+        "operationId": "op-28",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 8014,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0029",
+        "activityId": "act-quadratic-0001",
+        "sequence": 29,
+        "operationId": "op-29",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 8264.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0030",
+        "activityId": "act-quadratic-0001",
+        "sequence": 30,
+        "operationId": "op-30",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 8515,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0031",
+        "activityId": "act-quadratic-0001",
+        "sequence": 31,
+        "operationId": "op-31",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 8765.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0032",
+        "activityId": "act-quadratic-0001",
+        "sequence": 32,
+        "operationId": "op-32",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 9016,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0033",
+        "activityId": "act-quadratic-0001",
+        "sequence": 33,
+        "operationId": "op-33",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "activity.resumed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {},
+        "monotonicMs": 9266.5,
+        "causes": []
+      }
+    ]
+  }
+}

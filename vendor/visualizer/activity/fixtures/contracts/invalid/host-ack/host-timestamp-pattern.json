@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "invalid",
+  "why": "Timestamps include seconds.",
+  "value": {
+    "ok": true,
+    "hostTimestamp": "2026-10-26T09:01Z"
+  }
+}

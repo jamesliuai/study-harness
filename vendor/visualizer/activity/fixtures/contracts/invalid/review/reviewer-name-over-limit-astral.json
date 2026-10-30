@@ -1,0 +1,28 @@
+{
+  "contract": "study-harness.review-record",
+  "expect": "invalid",
+  "why": "Name of 201 code points exceeds 200.",
+  "value": {
+    "contract": "study-harness.review-record",
+    "schemaVersion": "1.0",
+    "reviewId": "review-model-quadratic-1",
+    "subject": {
+      "kind": "model",
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "scientificRevision": "sha256:c090f3b7bd3b4810c11d03ab8a061181f1d0a3a90c1a36c2ac444a85e1694bb7"
+    },
+    "reviewer": {
+      "name": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "role": "Mathematics content reviewer",
+      "affiliation": "Example University"
+    },
+    "date": "2026-10-20",
+    "scope": "Closed-form iterates, regime classification and numerical-limit statuses for the declared parameter domain.",
+    "limitations": [
+      "Does not cover learning effects of the activity."
+    ],
+    "referenceSuiteDigest": "sha256:79067c23031b90d45d9a682d42238e1ae2c564984a4360e181f51edd23642dae",
+    "outcome": "approved-with-limitations"
+  }
+}

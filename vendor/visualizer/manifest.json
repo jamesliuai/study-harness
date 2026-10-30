@@ -1,0 +1,66 @@
+{
+  "complete": true,
+  "createdAt": "2026-10-30T03:46:42.937Z",
+  "source": {
+    "commit": "ed6b56aed87f9016369a0e9b54d55bed655727c4",
+    "dirty": false
+  },
+  "lockSha256": "bb4ad9a5e06a4cb57c5552e2485fd18ba666c25fd9b4d98ac0705845811fb961",
+  "node": "v22.22.3",
+  "packages": [
+    {
+      "name": "@explorable-models/core",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-core-0.3.0-preview.1.tgz",
+      "sha256": "4012a599af0943d849810d2a69899736e890bbb73902bbebde4f4661b649b431",
+      "integrity": "sha512-egwQRp5XdserKbpnbK061YlIY8Gvh1uwNY56lwGqZSS9RXH/xCBon2hPQ4+zQcchaEZFPDPOl7GGF0UI0xYiKg==",
+      "bytes": 455083,
+      "files": 213
+    },
+    {
+      "name": "@explorable-models/activity",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-activity-0.3.0-preview.1.tgz",
+      "sha256": "a9a93b8daa34ed9e4cf6725029da62534068f262a6d925f3d746a9af94d5fef5",
+      "integrity": "sha512-fPJjDfjenCf8YCSImAf8x1ral4BGpFKUJYi60be0Kh2sFz1Sy97BWFYPAt1lff7bW+Hovu1bZIXKNzmxRDmzGQ==",
+      "bytes": 864282,
+      "files": 660
+    },
+    {
+      "name": "@explorable-models/catalog",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-catalog-0.3.0-preview.1.tgz",
+      "sha256": "17785a1defdbc385d4e4e8414074f58c9a2bf1cbdab0212f9b3480a469374859",
+      "integrity": "sha512-MGfaLSjquwAC29GObwgyV7LvtRSRHZYVIIx3EQLHSsmMxjXBQ68acJtfwqf/yo7qFH+4TryfXZuVhKQptmucfQ==",
+      "bytes": 265469,
+      "files": 159
+    },
+    {
+      "name": "@explorable-models/player",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-player-0.3.0-preview.1.tgz",
+      "sha256": "4754dad577674ded647196a3369b5b39b74cd520092f0e57a34f8b8967f7f4ae",
+      "integrity": "sha512-F0jHxR13OCLCMIAWH7tR9FDQChD8+FT0HPUDhPSLau73P+RiBRRCU9R3qpYsZiqF1zu0aWbjmRjmOtc2dZNcNQ==",
+      "bytes": 1071635,
+      "files": 123
+    },
+    {
+      "name": "@explorable-models/player-3d",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-player-3d-0.3.0-preview.1.tgz",
+      "sha256": "1e8cd8358701bdee7df62994f715882a6c0458a13b9e20158aba3e9ba011373b",
+      "integrity": "sha512-OohcPGx+nerHBfH8vLAvRJu2fdamOw92wwpV3xaZ29nOxI2po1mcUmPOBNJdr9sCrpByW79+O2wYSlA1+j7X4Q==",
+      "bytes": 122482,
+      "files": 34
+    },
+    {
+      "name": "@explorable-models/agent",
+      "version": "0.3.0-preview.1",
+      "file": "explorable-models-agent-0.3.0-preview.1.tgz",
+      "sha256": "d713b3eae4407af59087fee820d7194bd1e414e33832e394eb312daa36f538d7",
+      "integrity": "sha512-krHR+oKiGvDwURhq/YUfE44+K4v73byt6sENBCX8ywra/MQ9djfo39e6dgTQQghmR81e3z8aZCytAxygzAZrYw==",
+      "bytes": 119707,
+      "files": 27
+    }
+  ]
+}

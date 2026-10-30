@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "invalid",
+  "why": "hostTimestamp is required.",
+  "value": {
+    "ok": true
+  }
+}

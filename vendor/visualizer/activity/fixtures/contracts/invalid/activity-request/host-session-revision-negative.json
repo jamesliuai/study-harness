@@ -1,0 +1,23 @@
+{
+  "contract": "study-harness.activity-request",
+  "expect": "invalid",
+  "why": "Revisions are non-negative.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "objectiveIds": [
+      "obj-descent-regimes"
+    ],
+    "hostSessionId": "session-7f3a",
+    "hostSessionRevision": -1,
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0"
+    },
+    "parameters": {
+      "eta": 0.5,
+      "x0": 8,
+      "a": 1
+    },
+    "mode": "approved"
+  }
+}

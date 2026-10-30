@@ -1,0 +1,88 @@
+{
+  "contract": "study-harness.presentation-snapshot",
+  "expect": "invalid",
+  "why": "At most 16 views.",
+  "value": {
+    "contract": "study-harness.presentation-snapshot",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "views": {
+      "k0": {
+        "camera": null,
+        "layers": []
+      },
+      "k1": {
+        "camera": null,
+        "layers": []
+      },
+      "k2": {
+        "camera": null,
+        "layers": []
+      },
+      "k3": {
+        "camera": null,
+        "layers": []
+      },
+      "k4": {
+        "camera": null,
+        "layers": []
+      },
+      "k5": {
+        "camera": null,
+        "layers": []
+      },
+      "k6": {
+        "camera": null,
+        "layers": []
+      },
+      "k7": {
+        "camera": null,
+        "layers": []
+      },
+      "k8": {
+        "camera": null,
+        "layers": []
+      },
+      "k9": {
+        "camera": null,
+        "layers": []
+      },
+      "k10": {
+        "camera": null,
+        "layers": []
+      },
+      "k11": {
+        "camera": null,
+        "layers": []
+      },
+      "k12": {
+        "camera": null,
+        "layers": []
+      },
+      "k13": {
+        "camera": null,
+        "layers": []
+      },
+      "k14": {
+        "camera": null,
+        "layers": []
+      },
+      "k15": {
+        "camera": null,
+        "layers": []
+      },
+      "k16": {
+        "camera": null,
+        "layers": []
+      }
+    },
+    "selection": "m-point",
+    "layout": "card",
+    "displayUnits": {
+      "eta": "dimensionless",
+      "x0": "dimensionless"
+    },
+    "locale": "en-GB",
+    "formatVersion": "1.0"
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Budget",
+  "type": "object",
+  "properties": {
+    "limits": {
+      "$ref": "#/$defs/Limits"
+    },
+    "month": {
+      "type": "string"
+    },
+    "month_spent_microusd": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "session_spent_microusd": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "unresolved_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "session_spent_microusd",
+    "month_spent_microusd",
+    "unresolved_count",
+    "limits",
+    "month"
+  ],
+  "$defs": {
+    "Limits": {
+      "type": "object",
+      "properties": {
+        "monthly_microusd": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "session_microusd": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "session_microusd",
+        "monthly_microusd"
+      ]
+    }
+  }
+}

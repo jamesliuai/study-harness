@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-source-rpc"
+description = "Enables the source_rpc command without any pre-configured scope."
+commands.allow = ["source_rpc"]
+
+[[permission]]
+identifier = "deny-source-rpc"
+description = "Denies the source_rpc command without any pre-configured scope."
+commands.deny = ["source_rpc"]

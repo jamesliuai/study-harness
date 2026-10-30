@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-delete-records"
+description = "Enables the delete_records command without any pre-configured scope."
+commands.allow = ["delete_records"]
+
+[[permission]]
+identifier = "deny-delete-records"
+description = "Denies the delete_records command without any pre-configured scope."
+commands.deny = ["delete_records"]

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProviderStatus",
+  "type": "object",
+  "properties": {
+    "last_error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_error_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "last_error_kind": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "state": {
+      "type": "string"
+    },
+    "verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "state"
+  ]
+}

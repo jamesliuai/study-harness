@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Diagnostics",
+  "type": "object",
+  "properties": {
+    "allowed_audio_format": {
+      "type": "string"
+    },
+    "app_version": {
+      "type": "string"
+    },
+    "database_path": {
+      "type": "string"
+    },
+    "provider_endpoint": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "sqlite_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "app_version",
+    "schema_version",
+    "sqlite_version",
+    "database_path",
+    "provider_endpoint",
+    "allowed_audio_format"
+  ]
+}

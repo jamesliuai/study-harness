@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "valid",
+  "why": "Plain acknowledgement.",
+  "value": {
+    "ok": true,
+    "hostTimestamp": "2026-10-26T09:01:00Z"
+  }
+}

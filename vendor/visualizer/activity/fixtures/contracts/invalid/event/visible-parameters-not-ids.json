@@ -1,0 +1,45 @@
+{
+  "contract": "study-harness.interaction-event",
+  "expect": "invalid",
+  "why": "visibleParameters lists parameter IDs.",
+  "value": {
+    "contract": "study-harness.interaction-event",
+    "schemaVersion": "1.0",
+    "eventId": "evt-0036",
+    "activityId": "act-quadratic-0001",
+    "sequence": 36,
+    "operationId": "op-36",
+    "actor": {
+      "kind": "learner",
+      "binding": "surface-main"
+    },
+    "type": "parameters.committed",
+    "revisions": {
+      "scientific": {
+        "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+        "runId": "run-0002",
+        "version": 5
+      },
+      "presentation": 2,
+      "activity": 3,
+      "hostSession": 4,
+      "policy": 3
+    },
+    "payload": {
+      "runId": "run-0003",
+      "previousRunId": "run-0002",
+      "params": {
+        "a": 1,
+        "eta": 0.75,
+        "x0": 8
+      },
+      "cause": "commit",
+      "gesture": "exact",
+      "visibleParameters": [
+        42
+      ]
+    },
+    "monotonicMs": 10018,
+    "causes": []
+  }
+}

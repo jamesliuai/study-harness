@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SaveAttempt",
+  "type": "object",
+  "properties": {
+    "expected_revision": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "response": {
+      "type": "string"
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "submission_id": {
+      "type": "string"
+    },
+    "transcript_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "session_id",
+    "expected_revision",
+    "submission_id",
+    "response"
+  ]
+}

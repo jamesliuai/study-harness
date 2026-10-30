@@ -1,0 +1,11 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "IDs are at most 128 characters.",
+  "value": {
+    "activityId": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "lastSequence": 0,
+    "lastEventId": null,
+    "checkpointDigest": null
+  }
+}

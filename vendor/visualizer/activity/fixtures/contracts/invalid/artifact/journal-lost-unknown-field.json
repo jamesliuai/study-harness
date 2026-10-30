@@ -1,0 +1,464 @@
+{
+  "contract": "study-harness.activity-artifact",
+  "expect": "invalid",
+  "why": "A journal-loss record rejects unknown fields.",
+  "value": {
+    "contract": "study-harness.activity-artifact",
+    "schemaVersion": "1.0",
+    "artifactId": "artifact-0004",
+    "kind": "backup",
+    "schemas": [
+      {
+        "contract": "study-harness.activity-artifact",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.activity-instance",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.scientific-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.presentation-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "version": "1.0"
+      }
+    ],
+    "runtime": {
+      "id": "explorable-models-activity",
+      "version": "0.3.0-preview.1"
+    },
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "policyRef": {
+      "policyId": "policy-unit-4",
+      "revision": 5
+    },
+    "instance": {
+      "contract": "study-harness.activity-instance",
+      "schemaVersion": "1.0",
+      "activityId": "act-quadratic-0001",
+      "objectiveIds": [
+        "obj-descent-regimes"
+      ],
+      "hostSessionId": "session-7f3a",
+      "hostSessionRevision": 11,
+      "template": {
+        "templateId": "quadratic-descent-regimes",
+        "version": "1.0.0",
+        "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+      },
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "initialParameters": {
+        "a": 1,
+        "eta": 0.5,
+        "x0": 8
+      },
+      "mode": "approved",
+      "stage": {
+        "id": "explain",
+        "enteredAtSequence": 57
+      },
+      "activityRevision": 9,
+      "policy": {
+        "policyId": "policy-unit-4",
+        "revision": 5
+      },
+      "context": {
+        "kind": "independent",
+        "taskRef": "task-regime-quiz-2"
+      },
+      "responses": [
+        {
+          "responseId": "resp-1",
+          "taskId": "task-regime-1",
+          "taskRevision": 1,
+          "kind": "prediction",
+          "modality": "text",
+          "stageId": "predict",
+          "status": "superseded",
+          "supersededBy": "resp-2"
+        },
+        {
+          "responseId": "resp-2",
+          "taskId": "task-regime-1",
+          "taskRevision": 1,
+          "kind": "prediction",
+          "modality": "speech-derived",
+          "stageId": "predict",
+          "status": "submitted"
+        },
+        {
+          "responseId": "resp-3",
+          "taskId": "task-explain-1",
+          "taskRevision": 1,
+          "kind": "explanation",
+          "modality": "text",
+          "stageId": "explain",
+          "status": "submitted"
+        }
+      ],
+      "allowedActions": [
+        "operate.presentation",
+        "save"
+      ],
+      "persistence": "pending-recovery",
+      "closed": false
+    },
+    "scientific": {
+      "contract": "study-harness.scientific-snapshot",
+      "schemaVersion": "1.0",
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "scientificRevision": "sha256:c090f3b7bd3b4810c11d03ab8a061181f1d0a3a90c1a36c2ac444a85e1694bb7",
+      "runtime": {
+        "id": "explorable-models-activity",
+        "version": "0.3.0-preview.1"
+      },
+      "runId": "run-0002",
+      "params": {
+        "a": 1,
+        "eta": 1.5,
+        "x0": 8
+      },
+      "position": {
+        "kind": "index",
+        "index": 3,
+        "maxIndex": 1000
+      },
+      "terminal": false,
+      "comparisons": [
+        {
+          "runId": "run-0001",
+          "label": "η = 0.5",
+          "params": {
+            "a": 1,
+            "eta": 0.5,
+            "x0": 8
+          },
+          "position": {
+            "kind": "index",
+            "index": 12,
+            "maxIndex": 1000
+          }
+        }
+      ]
+    },
+    "presentation": {
+      "contract": "study-harness.presentation-snapshot",
+      "schemaVersion": "1.0",
+      "revision": 2,
+      "views": {
+        "plot": {
+          "camera": {
+            "kind": "2d",
+            "center": [
+              0,
+              25
+            ],
+            "zoom": 1
+          },
+          "layers": [
+            "g-landscape",
+            "g-trajectory"
+          ]
+        },
+        "values": {
+          "camera": null,
+          "layers": []
+        }
+      },
+      "selection": "m-point",
+      "layout": "card",
+      "displayUnits": {
+        "eta": "dimensionless",
+        "x0": "dimensionless"
+      },
+      "locale": "en-GB",
+      "formatVersion": "1.0"
+    },
+    "exposures": [
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0001",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-reveal-1",
+        "scope": "reveal",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 3,
+        "intendedStage": "explore",
+        "displayStatus": "displayed",
+        "displayed": {
+          "projectionDigest": "sha256:a38cdae9dec3cb8e88113886679526c9916a6773fa28cb1b924d3c00ce480384",
+          "frameId": "frame-run-0002-i3",
+          "monotonicMs": 48213.5
+        }
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0002",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-explore-1",
+        "scope": "exploration",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          },
+          {
+            "groupId": "g-rule",
+            "contentDigest": "sha256:27532a61ed6e35d5d5c118aa803537a78a77bb64e9283746773fae733fbb1bcd"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 4,
+        "intendedStage": "explore",
+        "parameterDomain": {
+          "eta": [
+            0,
+            2
+          ],
+          "x0": [
+            -10,
+            10
+          ]
+        },
+        "displayStatus": "uncertain",
+        "uncertainty": {
+          "code": "INTERRUPTED_BEFORE_ACK",
+          "reason": "The surface closed before the display acknowledgement was recorded; treated as potentially exposed."
+        }
+      }
+    ],
+    "journal": {
+      "cursor": {
+        "activityId": "act-quadratic-0001",
+        "lastSequence": 40,
+        "lastEventId": "evt-0040",
+        "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+      },
+      "pendingEventIds": [
+        "evt-0041",
+        "evt-0042"
+      ],
+      "pendingEvents": [
+        {
+          "contract": "study-harness.interaction-event",
+          "schemaVersion": "1.0",
+          "eventId": "evt-0041",
+          "activityId": "act-quadratic-0001",
+          "sequence": 41,
+          "operationId": "op-41",
+          "actor": {
+            "kind": "learner",
+            "binding": "surface-main"
+          },
+          "type": "activity.suspended",
+          "revisions": {
+            "scientific": {
+              "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+              "runId": "run-0002",
+              "version": 5
+            },
+            "presentation": 2,
+            "activity": 3,
+            "hostSession": 4,
+            "policy": 3
+          },
+          "payload": {
+            "reason": "hidden"
+          },
+          "monotonicMs": 11270.5,
+          "causes": []
+        },
+        {
+          "contract": "study-harness.interaction-event",
+          "schemaVersion": "1.0",
+          "eventId": "evt-0042",
+          "activityId": "act-quadratic-0001",
+          "sequence": 42,
+          "operationId": "op-42",
+          "actor": {
+            "kind": "learner",
+            "binding": "surface-main"
+          },
+          "type": "activity.resumed",
+          "revisions": {
+            "scientific": {
+              "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+              "runId": "run-0002",
+              "version": 5
+            },
+            "presentation": 2,
+            "activity": 3,
+            "hostSession": 4,
+            "policy": 3
+          },
+          "payload": {},
+          "monotonicMs": 11521,
+          "causes": []
+        }
+      ],
+      "lost": {
+        "count": 1,
+        "types": [
+          "reveal.displayed"
+        ],
+        "afterSequence": 38,
+        "payloads": []
+      }
+    },
+    "pending": {
+      "kind": "none"
+    },
+    "contentRefs": [
+      "note-derivation",
+      "note-assumption"
+    ],
+    "reviewRefs": [
+      "review-model-quadratic-1"
+    ],
+    "lineage": {
+      "endedExposureIds": [
+        "exp-0001"
+      ],
+      "reopenRequired": true
+    },
+    "integrity": {
+      "algorithm": "sha256",
+      "entries": [
+        {
+          "path": "contract",
+          "digest": "sha256:48b1d8e57e55b06e4907d4e7425bfc16ca3cebe22d5471afdb8756182be24514"
+        },
+        {
+          "path": "schemaVersion",
+          "digest": "sha256:a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc"
+        },
+        {
+          "path": "artifactId",
+          "digest": "sha256:4dde1f3340ac7ba8b547a268f57aa60848b59bef70ee7658ae4e222239ba297a"
+        },
+        {
+          "path": "kind",
+          "digest": "sha256:b5c415fee876dbf4c9569128432e19d7092838a194811c4cf35fec9fca146fed"
+        },
+        {
+          "path": "schemas",
+          "digest": "sha256:0090d0326f909e65c0b78d58ace40333e2d9fd2490695d5967fca6114b000d03"
+        },
+        {
+          "path": "runtime",
+          "digest": "sha256:7cb32578c719f3193ef09b2cbc0e8c12f900f102815ca5856dbb5265c9ef5cd1"
+        },
+        {
+          "path": "template",
+          "digest": "sha256:40aaea4b4865558e0803dae24b7fa8cc6c8b707a480f48f4c7227ea9bb33a509"
+        },
+        {
+          "path": "model",
+          "digest": "sha256:3cd54752dd370c3abcd910de35fe6ce36ff8b8fe6b5df6d7fdb879e5fb1d234f"
+        },
+        {
+          "path": "policyRef",
+          "digest": "sha256:73197363a4e83ac11365e9814731bba0f54b41054c1d13a38f1d04f25fffe7d4"
+        },
+        {
+          "path": "instance",
+          "digest": "sha256:6f2736f91feb5807073f0e07810dfb2ca159e1d74ef8eb8bb75d9106d3a3511b"
+        },
+        {
+          "path": "scientific",
+          "digest": "sha256:13588cc18c3ec52e2ed01bd928875cc7668462ee70f07bc0c445daa3f36d26b1"
+        },
+        {
+          "path": "presentation",
+          "digest": "sha256:eb0d71cdd7a8b07dd396668de2ead0283f2d2a1f79ac944175cb3a876177b4df"
+        },
+        {
+          "path": "exposures",
+          "digest": "sha256:e2b75c9297ac0fcbc460db7e7a58983d6af375de53025395a0ea086bdc0deb40"
+        },
+        {
+          "path": "journal",
+          "digest": "sha256:cf8255f452c40e137c4be12e576b82be67a8d000a869b291c7bc828541fbf6e9"
+        },
+        {
+          "path": "pending",
+          "digest": "sha256:2ff9cdff091aef6faf5f29ea2e9d90021c8046bb62ad5a5591d615403ad52203"
+        },
+        {
+          "path": "contentRefs",
+          "digest": "sha256:e319825f0351a7fb1bdeadea391398716ca7b4a3a1c6bc3b4a6d713f453b742e"
+        },
+        {
+          "path": "reviewRefs",
+          "digest": "sha256:7b6d7250754c16d2a3ca7054391638a57fdde73f434a0b4bfe798207058ad2f5"
+        },
+        {
+          "path": "lineage",
+          "digest": "sha256:3498fb1a541c23c91f60181b1b33ae4cf9217a6d88a8aad8a3c8d42da0fc00b4"
+        }
+      ],
+      "digest": "sha256:e9ac62fc8533111f96a84ece62303d6e4cdb53ee91874d2d4f06516f2a763710"
+    }
+  }
+}

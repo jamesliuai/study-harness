@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeletionPreview",
+  "type": "object",
+  "properties": {
+    "attempt_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "notice": {
+      "type": "string"
+    },
+    "scope": {
+      "type": "string"
+    },
+    "session_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "target_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "scope",
+    "target_id",
+    "session_ids",
+    "attempt_count",
+    "notice"
+  ]
+}

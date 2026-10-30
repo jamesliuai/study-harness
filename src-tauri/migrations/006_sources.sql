@@ -1,0 +1,10 @@
+CREATE TABLE source_blobs(source_id TEXT PRIMARY KEY REFERENCES sources(id) ON DELETE CASCADE, kind TEXT NOT NULL, bytes BLOB NOT NULL);
+CREATE TABLE source_chunks(id TEXT PRIMARY KEY, source_id TEXT NOT NULL REFERENCES sources(id) ON DELETE CASCADE, ordinal INTEGER NOT NULL, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE source_selections(session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE, chunk_id TEXT NOT NULL REFERENCES source_chunks(id) ON DELETE CASCADE, PRIMARY KEY(session_id,chunk_id));
+CREATE TABLE source_uses(session_id TEXT NOT NULL REFERENCES sessions(id) ON DELETE CASCADE, source_id TEXT NOT NULL REFERENCES sources(id) ON DELETE CASCADE, PRIMARY KEY(session_id,source_id));
+CREATE TABLE request_source_context(request_id TEXT PRIMARY KEY REFERENCES requests(id) ON DELETE CASCADE, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE source_citations(request_id TEXT NOT NULL REFERENCES requests(id) ON DELETE CASCADE, assistance_id TEXT NOT NULL REFERENCES assistance(id) ON DELETE CASCADE, source_id TEXT NOT NULL REFERENCES sources(id) ON DELETE CASCADE, data TEXT NOT NULL CHECK(json_valid(data)));
+CREATE TABLE deletion_context(session_id TEXT PRIMARY KEY);
+DROP TRIGGER retain_assistance;
+CREATE TRIGGER retain_assistance BEFORE DELETE ON assistance WHEN NOT EXISTS(SELECT 1 FROM deletion_context WHERE session_id=OLD.session_id) BEGIN SELECT RAISE(ABORT,'Assistance is removed only by intentional scoped deletion'); END;
+PRAGMA user_version = 6;

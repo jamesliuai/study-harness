@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-update-limits"
+description = "Enables the update_limits command without any pre-configured scope."
+commands.allow = ["update_limits"]
+
+[[permission]]
+identifier = "deny-update-limits"
+description = "Denies the update_limits command without any pre-configured scope."
+commands.deny = ["update_limits"]

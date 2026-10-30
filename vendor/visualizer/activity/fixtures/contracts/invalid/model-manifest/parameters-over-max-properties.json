@@ -1,0 +1,1139 @@
+{
+  "contract": "explorable-models.model-manifest",
+  "expect": "invalid",
+  "why": "At most 64 parameters.",
+  "value": {
+    "contract": "explorable-models.model-manifest",
+    "schemaVersion": "1.0",
+    "modelId": "quadratic-descent",
+    "version": "1.0.0",
+    "title": "Gradient descent on a quadratic loss",
+    "summary": "Fixed-step gradient descent on f(x) = a·x²/2. Each step multiplies the position by r = 1 − η·a.",
+    "execution": {
+      "kind": "kernel",
+      "kernelId": "quadratic-gradient-descent",
+      "kernelVersion": "1.0.0",
+      "mode": "discrete",
+      "maxIndex": 1000
+    },
+    "capabilities": [
+      {
+        "id": "discrete-iteration",
+        "version": "1.0"
+      }
+    ],
+    "parameters": {
+      "k0": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k1": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k2": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k3": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k4": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k5": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k6": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k7": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k8": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k9": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k10": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k11": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k12": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k13": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k14": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k15": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k16": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k17": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k18": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k19": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k20": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k21": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k22": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k23": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k24": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k25": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k26": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k27": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k28": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k29": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k30": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k31": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k32": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k33": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k34": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k35": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k36": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k37": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k38": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k39": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k40": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k41": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k42": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k43": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k44": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k45": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k46": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k47": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k48": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k49": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k50": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k51": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k52": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k53": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k54": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k55": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k56": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k57": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k58": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k59": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k60": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k61": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k62": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k63": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "k64": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      }
+    },
+    "quantities": {
+      "x": {
+        "label": "Current position",
+        "symbol": "x_n",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Iterate x at the current index n."
+      },
+      "loss": {
+        "label": "Current loss",
+        "symbol": "f(x_n)",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Loss a·x²/2 at the current iterate."
+      },
+      "multiplier": {
+        "label": "Step multiplier",
+        "symbol": "r",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "r = 1 − η·a; every step multiplies x by r."
+      },
+      "point": {
+        "label": "Current point",
+        "shape": {
+          "kind": "vector",
+          "length": 2
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "The point (x_n, f(x_n)) on the loss curve.",
+        "coordinateFrame": "plot"
+      },
+      "start": {
+        "label": "Starting point on the curve",
+        "shape": {
+          "kind": "vector",
+          "length": 2
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "The point (x_0, f(x_0)).",
+        "coordinateFrame": "plot"
+      },
+      "regime": {
+        "label": "Regime",
+        "shape": {
+          "kind": "category",
+          "values": [
+            "zero-start",
+            "stationary",
+            "monotone-convergence",
+            "one-step",
+            "alternating-convergence",
+            "oscillation",
+            "divergence"
+          ]
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Convergence regime classified from x0 and η·a."
+      }
+    },
+    "geometry": {
+      "landscape": {
+        "kind": "polyline2",
+        "label": "Loss curve",
+        "description": "f(x) = a·x²/2 sampled on [−10, 10].",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 201
+      },
+      "iterates": {
+        "kind": "points2",
+        "label": "Iterates",
+        "description": "Points (x_k, f(x_k)) for k = 0…n.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 1001
+      },
+      "steps": {
+        "kind": "segments2",
+        "label": "Steps",
+        "description": "Segments joining consecutive iterates.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 1000
+      }
+    },
+    "constraints": [
+      {
+        "id": "step-product",
+        "expression": "eta*a",
+        "max": 4,
+        "maxInclusive": true,
+        "message": "The step product η·a must be at most 4.",
+        "recovery": "Lower the learning rate or the curvature."
+      }
+    ],
+    "interpretation": {
+      "coordinateConvention": "x increases to the right; loss is plotted upward.",
+      "assumptions": [
+        "Exact gradient, fixed step size, no noise."
+      ],
+      "limitations": [
+        "One-dimensional quadratic only; not a model of stochastic training."
+      ]
+    },
+    "limits": {
+      "maxIndex": 1000,
+      "maxGeometryElements": 3000,
+      "maxOperations": 1000000
+    },
+    "sources": [
+      {
+        "id": "derivation",
+        "kind": "derivation",
+        "citation": "x[n+1] = x[n] − η·a·x[n] = (1 − η·a)·x[n]."
+      }
+    ],
+    "referenceSuite": {
+      "suiteId": "quadratic-descent-reference",
+      "digest": "sha256:79067c23031b90d45d9a682d42238e1ae2c564984a4360e181f51edd23642dae"
+    }
+  }
+}

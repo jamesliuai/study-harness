@@ -1,0 +1,50 @@
+{
+  "name": "study-harness",
+  "version": "0.1.0",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/copy-pdf-assets.mjs && vite --host 127.0.0.1",
+    "build": "node scripts/visualizer-catalog.mjs && node scripts/copy-pdf-assets.mjs && tsc -b && vite build",
+    "test": "vitest run",
+    "tauri": "tauri",
+    "desktop": "tauri dev",
+    "package": "tauri build --bundles app",
+    "contracts": "cargo run --manifest-path src-tauri/Cargo.toml --bin export-contracts --features dev-tools && prettier --write src/generated/contracts.ts",
+    "check": "npm run build && npm test && cargo test --manifest-path src-tauri/Cargo.toml",
+    "format": "prettier --write src tests scripts/*.mjs vite.config.ts",
+    "format:check": "prettier --check src tests scripts/*.mjs vite.config.ts",
+    "desktop:offline": "tauri dev --config src-tauri/tauri.offline.conf.json --features offline-provider",
+    "package:offline": "tauri build --config src-tauri/tauri.offline.conf.json --debug --features offline-provider --bundles app",
+    "test:core": "cargo test --manifest-path src-tauri/Cargo.toml"
+  },
+  "dependencies": {
+    "@explorable-models/activity": "file:vendor/visualizer/packages/explorable-models-activity-0.3.0-preview.1.tgz",
+    "@explorable-models/agent": "file:vendor/visualizer/packages/explorable-models-agent-0.3.0-preview.1.tgz",
+    "@explorable-models/catalog": "file:vendor/visualizer/packages/explorable-models-catalog-0.3.0-preview.1.tgz",
+    "@explorable-models/core": "file:vendor/visualizer/packages/explorable-models-core-0.3.0-preview.1.tgz",
+    "@explorable-models/player": "file:vendor/visualizer/packages/explorable-models-player-0.3.0-preview.1.tgz",
+    "@explorable-models/player-3d": "file:vendor/visualizer/packages/explorable-models-player-3d-0.3.0-preview.1.tgz",
+    "@tauri-apps/api": "2.12.4",
+    "katex": "0.19.1",
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "@tauri-apps/cli": "2.12.4",
+    "@types/katex": "0.16.8",
+    "@types/node": "^26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "prettier": "3.9.10",
+    "typescript": "7.0.2",
+    "vite": "8.3.5",
+    "vitest": "5.0.5"
+  }
+}

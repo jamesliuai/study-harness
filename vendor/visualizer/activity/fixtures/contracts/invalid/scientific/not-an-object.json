@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.scientific-snapshot",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

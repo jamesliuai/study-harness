@@ -1,0 +1,289 @@
+{
+  "schema_version": 1,
+  "id": "quadratics-and-recurrences",
+  "version": "unit-content-v2",
+  "title": "Gradients, curvature and convergence",
+  "policy_version": "checked-unit-policy-v1",
+  "provisional_notice": "Analytically checked personal-development unit. Independent human subject review and live grading evaluation are pending.",
+  "objectives": [
+    {
+      "id": "quadratic-derivative",
+      "outcome": "Connect a quadratic, its derivative, tangent and secant",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [],
+      "visual_template": "function-derivative",
+      "assumptions": [
+        "Real differentiable quadratic; coefficients are constants.",
+        "A secant uses distinct points; h=0 is undefined."
+      ],
+      "explanation": "For f(x)=x², f′(x)=2x. At x=2 the tangent slope is 4. A secant from 2 to 2+h has slope 4+h for h≠0; its limit is 4, although substituting h=0 in the original quotient is undefined.",
+      "worked_example": "Related example, not your task: f(x) = 2x² − 3x + 1 at x = 1.\n1. Differentiate term by term: f′(x) = 4x − 3, so the tangent slope at x = 1 is f′(1) = 1.\n2. Secant from 1 to 1 + h with h ≠ 0: f(1) = 0 and f(1 + h) = 2h² + h, so the secant slope is (2h² + h)/h = 2h + 1.\n3. As h → 0 the secant slope 2h + 1 tends to 1, the tangent slope. Substituting h = 0 into the original quotient gives 0/0, which is undefined; the limit is what defines the derivative.\n4. f(1) = 0 is a height and f′(1) = 1 is a rate of change. Keep the value and the slope separate.",
+      "contrasting_cases": [
+        "At x=0 the tangent is horizontal; that does not mean every secant slope is zero.",
+        "Compare the value f(2)=4 with the slope f′(2)=4: their numerical equality here is accidental."
+      ],
+      "acceptable_alternatives": [
+        "Use the power rule with constants.",
+        "Expand the difference quotient and take its limit with h≠0."
+      ],
+      "rubric_version": "quadratic-derivative-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "quadratic-update",
+      "outcome": "Derive a finite gradient step and explain overshoot",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-derivative"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "Positive curvature; fixed constant step; exact scalar arithmetic.",
+        "A local downhill direction does not guarantee a decrease after an arbitrary finite step."
+      ],
+      "explanation": "For f(x)=x², η=0.75 and x=4, the derivative is 8 and x′=4−0.75·8=−2. The step crosses the minimum but the loss falls from 16 to 4. With η=1.25, x′=−6 and the loss rises to 36.",
+      "worked_example": "Related example, not your task: f(x) = 3x²/2 (a = 3), starting at x = 2.\n1. f′(x) = 3x, so f′(2) = 6 and f(2) = 6.\n2. With η = 0.5: x′ = 2 − 0.5·6 = −1 and f(−1) = 1.5. The step crosses the minimum, yet the loss falls: 1.5/6 = 0.25 = (1 − 0.5·3)².\n3. With η = 0.8: x′ = 2 − 0.8·6 = −2.8 and f(−2.8) = 11.76. The loss rises: 11.76/6 = 1.96 = (1 − 0.8·3)².\n4. In general x′ = (1 − ηa)x and the loss ratio is (1 − ηa)². The downhill direction was right both times; only the size of the finite step differed.",
+      "contrasting_cases": [
+        "A negative next position can have lower loss.",
+        "A locally downhill direction can overshoot when the step is too large."
+      ],
+      "acceptable_alternatives": [
+        "Substitute the derivative directly in x′=x−ηf′(x).",
+        "Derive the recurrence for the error from the minimum."
+      ],
+      "rubric_version": "quadratic-update-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "quadratic-convergence",
+      "outcome": "Derive and justify the convergence interval",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-update"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "f(x)=(a/2)x², a>0; fixed step; exact arithmetic.",
+        "A nonzero start is required for the converse; zero stays zero."
+      ],
+      "explanation": "The multiplier is q=1−ηa. Since xₙ=qⁿx₀, convergence from every nonzero start is equivalent to |q|<1. Thus 0<η<2/a. For a=2, η=0.75 gives q=−0.5.",
+      "worked_example": "Related example, not your task: a = 4, η = 0.3, x₀ = 5.\n1. The update xₜ₊₁ = xₜ − ηa·xₜ = (1 − ηa)xₜ has multiplier q = 1 − 0.3·4 = −0.2.\n2. So xₙ = qⁿx₀ = (−0.2)ⁿ·5: 5, −1, 0.2, −0.04, …\n3. |q| = 0.2 < 1, so the distance to the minimum shrinks to 0; q < 0, so the sign alternates on the way.\n4. In general |1 − ηa| < 1 exactly when 0 < η < 2/a. Here 2/a = 0.5 and η = 0.3 lies inside that range.",
+      "contrasting_cases": [
+        "η=1/a reaches zero in one update.",
+        "η=2/a has q=−1 and constant magnitude for a nonzero start."
+      ],
+      "acceptable_alternatives": [
+        "Solve |1−ηa|<1.",
+        "Use the geometric closed form or compare the error magnitude on each step."
+      ],
+      "rubric_version": "quadratic-convergence-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "quadratic-regimes",
+      "outcome": "Separate sign alternation from magnitude convergence",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-convergence"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "Real scalar recurrence with constant multiplier.",
+        "Classifications assume a nonzero start unless stated otherwise."
+      ],
+      "explanation": "Multipliers 0.5 and −0.5 both shrink magnitudes. Only −0.5 alternates signs. A multiplier of −1 alternates at constant magnitude; −1.5 alternates with growth.",
+      "worked_example": "Related example, not your task: start at x₀ = 10 and use xₙ = qⁿx₀.\n1. q = 0.6: 10, 6, 3.6, 2.16 … shrinks and keeps its sign.\n2. q = −0.6: 10, −6, 3.6, −2.16 … shrinks and alternates.\n3. q = −1: 10, −10, 10, −10 … alternates at constant magnitude, so it does not converge.\n4. q = 1.2: 10, 12, 14.4, 17.28 … grows and keeps its sign.\n5. The magnitude |q| decides shrinking or growing; the sign of q decides whether the iterates alternate.",
+      "contrasting_cases": [
+        "Crossing zero and diverging are separate properties.",
+        "A positive factor greater than one diverges without alternation."
+      ],
+      "acceptable_alternatives": [
+        "Classify the sign and |q| separately.",
+        "Write qⁿx₀ and analyze its sign and absolute value."
+      ],
+      "rubric_version": "quadratic-regimes-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "quadratic-curvature",
+      "outcome": "Predict how curvature changes a safe constant step",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-convergence"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "Positive scalar curvature and exact fixed-step updates.",
+        "The bound applies to this quadratic, not arbitrary stochastic or nonconvex losses."
+      ],
+      "explanation": "At η=0.3, a=2 gives q=0.4, a=5 gives q=−0.5, and a=8 gives q=−1.4. Increasing curvature can turn same-side convergence into alternating convergence and then divergence.",
+      "worked_example": "Related example, not your task: hold η = 0.25 and change the curvature a.\n1. The multiplier is q = 1 − 0.25a.\n2. a = 2 gives q = 0.5 (same-side convergence); a = 6 gives q = −0.5 (alternating convergence); a = 10 gives q = −1.5 (alternating divergence).\n3. Convergence needs 0 < η < 2/a. For a = 10 the bound is 0.2, and η = 0.25 exceeds it.\n4. Doubling the curvature halves the safe upper step size, so a step that works on a gentle curve can fail on a steeper one.",
+      "contrasting_cases": [
+        "Doubling a halves the upper step-size bound.",
+        "A step that works on one curvature may fail on another."
+      ],
+      "acceptable_alternatives": [
+        "Compute q for each curvature.",
+        "Compare η with 1/a and 2/a."
+      ],
+      "rubric_version": "quadratic-curvature-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "quadratic-boundaries",
+      "outcome": "Handle zero starts, stationary steps and exact boundary cases",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-convergence"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "Exact arithmetic; scalar positive curvature.",
+        "Numerical overflow is a representation limit, not an undefined mathematical recurrence."
+      ],
+      "explanation": "For x₀=0 every iterate remains zero, even if |q|>1. At η=0 a nonzero start stays fixed. At ηa=1 it reaches zero in one step. At ηa=2 it alternates without shrinking.",
+      "worked_example": "Related example, not your task: a = 4 with η = 0, 0.25, 0.5 and 0.75, so q = 1 − 4η = 1, 0, −1, −2.\n1. From x₀ = 3: η = 0 stays at 3, 3, 3; η = 0.25 reaches 0 in one step; η = 0.5 alternates 3, −3, 3 without shrinking; η = 0.75 gives 3, −6, 12, growing while alternating.\n2. From x₀ = 0: every case stays at 0, because 0 is a fixed point of xₜ₊₁ = qxₜ.\n3. A computer run of the last case eventually overflows. That is a limit of the number format, not a mathematically undefined iterate.",
+      "contrasting_cases": [
+        "η=0 converges only when the initial point already is zero.",
+        "Floating-point underflow to zero is different from a proof about exact iterates."
+      ],
+      "acceptable_alternatives": [
+        "Use the recurrence directly for each boundary.",
+        "Use xₙ=qⁿx₀ with a separate n=0 convention."
+      ],
+      "rubric_version": "quadratic-boundaries-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "recurrence-transfer",
+      "outcome": "Recognize convergence in a shifted recurrence without an optimization cue",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-regimes"
+      ],
+      "visual_template": "quadratic-gradient-descent",
+      "assumptions": [
+        "Real scalar recurrence zₙ₊₁=m+r(zₙ−m), constant r.",
+        "The fixed point m and the error zₙ−m must be distinguished."
+      ],
+      "explanation": "For zₙ₊₁=3−0.8(zₙ−3), let eₙ=zₙ−3. Then eₙ₊₁=−0.8eₙ, so the errors alternate and shrink; zₙ tends to 3, not zero.",
+      "worked_example": "Related example, not your task: zₖ₊₁ = 2 − 0.5(zₖ − 2) with z₀ = 6.\n1. The fixed point is z* = 2, because 2 − 0.5(2 − 2) = 2.\n2. Shift to the error eₖ = zₖ − 2: eₖ₊₁ = −0.5eₖ, a recurrence that tends to zero.\n3. eₖ = (−0.5)ᵏ·4: 4, −2, 1, −0.5, so zₖ = 6, 0, 3, 1.5 …\n4. The errors alternate and shrink, so zₖ tends to 2 while crossing it. With factor −1 the error keeps magnitude 4 and z alternates 6, −2, 6 … unless it starts at 2.",
+      "contrasting_cases": [
+        "The error can tend to zero while the state tends to a nonzero fixed point.",
+        "Changing the factor to −1 produces a two-cycle except at the fixed point."
+      ],
+      "acceptable_alternatives": [
+        "Translate to the error recurrence.",
+        "Find the fixed point and solve zₙ=m+rⁿ(z₀−m)."
+      ],
+      "rubric_version": "recurrence-transfer-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    },
+    {
+      "id": "surface-gradient",
+      "outcome": "Relate a quadratic surface, gradient and contour tangent",
+      "subject": "Optimization and recurrence reasoning",
+      "prerequisites": [
+        "quadratic-derivative",
+        "quadratic-curvature"
+      ],
+      "visual_template": "quadratic-surface-gradient",
+      "assumptions": [
+        "f(x,y)=a x²/2+bxy+c y²/2; constant real coefficients.",
+        "Positive definite bowl requires a>0 and ac−b²>0; gradient direction is undefined when the gradient is zero."
+      ],
+      "explanation": "For f=x²+xy+2y², ∇f=(2x+y,x+4y). At (1,−2) it is (0,−7). The gradient points toward greatest local increase and is perpendicular to the level contour; the negative gradient points toward local decrease.",
+      "worked_example": "Related example, not your task: f(x, y) = x² + 2xy + 3y² at (1, 1).\n1. ∇f = (2x + 2y, 2x + 6y), so ∇f(1, 1) = (4, 8).\n2. The steepest local decrease is along −∇f = (−4, −8), or the unit vector (−1, −2)/√5.\n3. A contour tangent t satisfies ∇f·t = 0; for example t = (2, −1), since 4·2 + 8·(−1) = 0.\n4. Written as (ax² + 2bxy + cy²)/2 the coefficients are a = 2, b = 2, c = 6, with a > 0 and ac − b² = 8 > 0, so the surface is a bowl. At the origin ∇f = (0, 0) and has no direction.",
+      "contrasting_cases": [
+        "At the origin the gradient vector is zero and has no direction.",
+        "A negative curvature or saddle invalidates a bowl-based explanation."
+      ],
+      "acceptable_alternatives": [
+        "Compute the two partial derivatives.",
+        "Use the symmetric matrix H=[[a,b],[b,c]] and compute Hp."
+      ],
+      "rubric_version": "surface-gradient-rubric-v1",
+      "rubric_criteria": [
+        "Setup: use the stated function, recurrence and assumptions to form a valid mathematical model.",
+        "Interpretation: answer the requested behavior or geometric relationship, including exceptional cases.",
+        "Justification: explain the result with a valid derivation; accept equivalent methods and abstain on ambiguity."
+      ],
+      "validation": {
+        "analytical_reference": "unit-oracles-v1",
+        "human_subject_review": null,
+        "status": "analytically checked; human review pending"
+      },
+      "evidence_scope": "Evidence is limited to the stated objective and recorded assistance. Numerical variants are near transfer; no broad mastery claim."
+    }
+  ]
+}

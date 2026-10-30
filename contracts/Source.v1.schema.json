@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Source",
+  "type": "object",
+  "properties": {
+    "anchor": {
+      "type": "string"
+    },
+    "extraction_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "import_scope": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "sha256": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "sha256",
+    "title",
+    "anchor",
+    "extraction_version",
+    "import_scope"
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskSpec",
+  "type": "object",
+  "properties": {
+    "activity_id": {
+      "type": "string"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "content_version": {
+      "type": "string"
+    },
+    "frozen_at": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "reference_solution": {
+      "type": "string"
+    },
+    "rubric": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rubric_criteria": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "transfer_scope": {
+      "type": "string"
+    },
+    "validation_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "activity_id",
+    "kind",
+    "assumptions",
+    "reference_solution",
+    "rubric",
+    "content_version",
+    "validation_version",
+    "frozen_at",
+    "transfer_scope"
+  ]
+}

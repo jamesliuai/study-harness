@@ -1,0 +1,3 @@
+CREATE TABLE request_versions(request_id TEXT PRIMARY KEY REFERENCES requests(id) ON DELETE CASCADE, data TEXT NOT NULL CHECK(json_valid(data)));
+INSERT INTO request_versions SELECT r.id,json_object('request_id',r.id,'app_version','legacy unrecorded','requested_model',COALESCE(json_extract(u.data,'$.model'),'legacy unrecorded'),'reported_model',NULL,'prompt_version','legacy unrecorded','prompt_sha256','','content_version','legacy unrecorded','task_version',0,'scheduler_version','legacy unrecorded','policy_version','legacy unrecorded','visualizer_manifest_sha256','','recorded_at',r.created_at,'provenance','Pre-schema-8 history; missing versions are not reconstructed or certified') FROM requests r LEFT JOIN usage u ON u.request_id=r.id;
+PRAGMA user_version = 8;

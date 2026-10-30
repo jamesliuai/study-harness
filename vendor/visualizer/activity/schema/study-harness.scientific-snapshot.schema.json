@@ -1,0 +1,232 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.scientific-snapshot-1.0.json",
+  "title": "Study Harness scientific snapshot",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "study-harness.scientific-snapshot"
+    },
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "model": {
+      "$ref": "#/$defs/ModelRef"
+    },
+    "scientificRevision": {
+      "type": "string",
+      "minLength": 71,
+      "maxLength": 71,
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "runtime": {
+      "$ref": "#/$defs/RuntimeRef"
+    },
+    "runId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "restoredFrom": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "params": {
+      "$ref": "#/$defs/ParameterValues"
+    },
+    "position": {
+      "$ref": "#/$defs/FramePosition"
+    },
+    "terminal": {
+      "type": "boolean"
+    },
+    "comparisons": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "runId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "params": {
+            "$ref": "#/$defs/ParameterValues"
+          },
+          "position": {
+            "$ref": "#/$defs/FramePosition"
+          }
+        },
+        "required": [
+          "runId",
+          "label",
+          "params",
+          "position"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 16
+    }
+  },
+  "required": [
+    "contract",
+    "schemaVersion",
+    "model",
+    "scientificRevision",
+    "runtime",
+    "runId",
+    "params",
+    "position",
+    "terminal",
+    "comparisons"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "FramePosition": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "static"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "index"
+            },
+            "index": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            },
+            "maxIndex": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          },
+          "required": [
+            "kind",
+            "index",
+            "maxIndex"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "time"
+            },
+            "time": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1000000000000000
+            },
+            "endTime": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1000000000000000
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "time",
+            "endTime"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "ModelRef": {
+      "type": "object",
+      "properties": {
+        "modelId": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 48,
+          "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+        },
+        "digest": {
+          "type": "string",
+          "minLength": 71,
+          "maxLength": 71,
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        }
+      },
+      "required": [
+        "modelId",
+        "version",
+        "digest"
+      ],
+      "additionalProperties": false
+    },
+    "ParameterValues": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number",
+        "minimum": -1000000000000000,
+        "maximum": 1000000000000000
+      },
+      "maxProperties": 64,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+      }
+    },
+    "RuntimeRef": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        "version": {
+          "type": "string",
+          "minLength": 5,
+          "maxLength": 48,
+          "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+        }
+      },
+      "required": [
+        "id",
+        "version"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

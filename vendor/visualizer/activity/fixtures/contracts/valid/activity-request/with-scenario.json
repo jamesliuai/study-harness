@@ -1,0 +1,18 @@
+{
+  "contract": "study-harness.activity-request",
+  "expect": "valid",
+  "why": "Exploratory request selecting a scenario and stage.",
+  "value": {
+    "activityId": "act-orient-0003",
+    "objectiveIds": [],
+    "hostSessionId": "session-7f3a",
+    "hostSessionRevision": 0,
+    "template": {
+      "templateId": "vector-orientation-explore",
+      "version": "1.2.0"
+    },
+    "scenarioId": "s-equator",
+    "mode": "exploratory",
+    "stageId": "explore"
+  }
+}

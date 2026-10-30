@@ -1,0 +1,59 @@
+{
+  "contract": "study-harness.activity-records",
+  "expect": "invalid",
+  "why": "An independent lineage names its task.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposures": [
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0001",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-reveal-1",
+        "scope": "reveal",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 3,
+        "intendedStage": "explore",
+        "displayStatus": "displayed",
+        "displayed": {
+          "projectionDigest": "sha256:a38cdae9dec3cb8e88113886679526c9916a6773fa28cb1b924d3c00ce480384",
+          "frameId": "frame-run-0002-i3",
+          "monotonicMs": 48213.5
+        }
+      }
+    ],
+    "assistance": [],
+    "activity": {
+      "stage": "explore",
+      "activityRevision": 3,
+      "closed": false,
+      "lineage": {
+        "context": {
+          "kind": "independent"
+        },
+        "fromActivityRevision": 4
+      },
+      "stageReceiptId": "rcpt-stage-2"
+    }
+  }
+}

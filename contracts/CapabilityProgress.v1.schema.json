@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CapabilityProgress",
+  "type": "object",
+  "properties": {
+    "assessment": {
+      "type": "string"
+    },
+    "detail": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "minutes": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "visual": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "why": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "objective_id",
+    "outcome",
+    "why",
+    "status",
+    "minutes",
+    "assessment",
+    "origin",
+    "prerequisites",
+    "label",
+    "detail"
+  ]
+}

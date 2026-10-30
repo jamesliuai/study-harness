@@ -1,0 +1,84 @@
+{
+  "contract": "study-harness.activity-instance",
+  "expect": "invalid",
+  "why": "At most 32 objective IDs.",
+  "value": {
+    "contract": "study-harness.activity-instance",
+    "schemaVersion": "1.0",
+    "activityId": "act-quadratic-0001",
+    "objectiveIds": [
+      "obj-0",
+      "obj-1",
+      "obj-2",
+      "obj-3",
+      "obj-4",
+      "obj-5",
+      "obj-6",
+      "obj-7",
+      "obj-8",
+      "obj-9",
+      "obj-10",
+      "obj-11",
+      "obj-12",
+      "obj-13",
+      "obj-14",
+      "obj-15",
+      "obj-16",
+      "obj-17",
+      "obj-18",
+      "obj-19",
+      "obj-20",
+      "obj-21",
+      "obj-22",
+      "obj-23",
+      "obj-24",
+      "obj-25",
+      "obj-26",
+      "obj-27",
+      "obj-28",
+      "obj-29",
+      "obj-30",
+      "obj-31",
+      "obj-32"
+    ],
+    "hostSessionId": "session-7f3a",
+    "hostSessionRevision": 4,
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "initialParameters": {
+      "a": 1,
+      "eta": 0.5,
+      "x0": 8
+    },
+    "mode": "approved",
+    "stage": {
+      "id": "predict",
+      "enteredAtSequence": 3
+    },
+    "activityRevision": 2,
+    "policy": {
+      "policyId": "policy-unit-4",
+      "revision": 3
+    },
+    "context": {
+      "kind": "instructional"
+    },
+    "responses": [],
+    "allowedActions": [
+      "operate.parameters",
+      "operate.presentation",
+      "request-reveal",
+      "save"
+    ],
+    "persistence": "saved",
+    "closed": false
+  }
+}

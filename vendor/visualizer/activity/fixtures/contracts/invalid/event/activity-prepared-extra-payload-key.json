@@ -1,0 +1,38 @@
+{
+  "contract": "study-harness.interaction-event",
+  "expect": "invalid",
+  "why": "The activity.prepared payload is closed.",
+  "value": {
+    "contract": "study-harness.interaction-event",
+    "schemaVersion": "1.0",
+    "eventId": "evt-0001",
+    "activityId": "act-quadratic-0001",
+    "sequence": 1,
+    "operationId": "op-1",
+    "actor": {
+      "kind": "host",
+      "binding": "host-api"
+    },
+    "type": "activity.prepared",
+    "revisions": {
+      "scientific": {
+        "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+        "runId": "run-0002",
+        "version": 5
+      },
+      "presentation": 2,
+      "activity": 3,
+      "hostSession": 4,
+      "policy": 3
+    },
+    "payload": {
+      "templateId": "quadratic-gradient-descent",
+      "templateVersion": "1.0.0",
+      "mode": "approved",
+      "stageId": "predict",
+      "review": "reviewed"
+    },
+    "monotonicMs": 1250.5,
+    "causes": []
+  }
+}

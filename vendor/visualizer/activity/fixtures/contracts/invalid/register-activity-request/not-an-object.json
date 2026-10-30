@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.register-activity-request",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

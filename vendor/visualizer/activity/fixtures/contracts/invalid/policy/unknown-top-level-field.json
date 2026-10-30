@@ -1,0 +1,92 @@
+{
+  "contract": "study-harness.host-policy",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "contract": "study-harness.host-policy",
+    "schemaVersion": "1.0",
+    "policyId": "policy-unit-4",
+    "revision": 3,
+    "issuedAt": "2026-10-26T09:00:00Z",
+    "expiresAt": "2026-10-26T17:00:00Z",
+    "revoked": false,
+    "mode": "approved",
+    "approved": [
+      {
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        }
+      }
+    ],
+    "allowedTools": [
+      "discover",
+      "prepare",
+      "inspect.learner",
+      "request-reveal",
+      "operate.parameters",
+      "operate.navigation",
+      "operate.playback",
+      "operate.presentation",
+      "summarize",
+      "save",
+      "restore",
+      "close"
+    ],
+    "visibleGroups": [
+      "g-plot",
+      "g-landscape",
+      "g-trajectory",
+      "g-position",
+      "g-multiplier",
+      "g-values",
+      "g-equation-view",
+      "g-rule",
+      "g-table",
+      "g-controls",
+      "g-alternatives",
+      "g-notes"
+    ],
+    "permittedControls": [
+      "eta",
+      "x0",
+      "a"
+    ],
+    "export": {
+      "learnerSnapshot": true,
+      "capture": true,
+      "backup": true
+    },
+    "inspection": {
+      "developer": false,
+      "tutor": "learner-visible",
+      "teacher": true
+    },
+    "independentTask": {
+      "active": false,
+      "taskRef": null,
+      "permittedTools": [
+        "inspect.learner"
+      ],
+      "neutralScaffold": [
+        "g-plot",
+        "g-landscape"
+      ]
+    },
+    "sampling": {
+      "allowed": false,
+      "maxPositions": 0
+    },
+    "exploratory": {
+      "allowed": false,
+      "maxParametersOverride": 0
+    },
+    "unexpectedField": true
+  }
+}

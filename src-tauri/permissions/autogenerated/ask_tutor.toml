@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-ask-tutor"
+description = "Enables the ask_tutor command without any pre-configured scope."
+commands.allow = ["ask_tutor"]
+
+[[permission]]
+identifier = "deny-ask-tutor"
+description = "Denies the ask_tutor command without any pre-configured scope."
+commands.deny = ["ask_tutor"]

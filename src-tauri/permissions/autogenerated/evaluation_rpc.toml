@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-evaluation-rpc"
+description = "Enables the evaluation_rpc command without any pre-configured scope."
+commands.allow = ["evaluation_rpc"]
+
+[[permission]]
+identifier = "deny-evaluation-rpc"
+description = "Denies the evaluation_rpc command without any pre-configured scope."
+commands.deny = ["evaluation_rpc"]

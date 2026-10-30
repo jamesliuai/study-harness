@@ -1,0 +1,46 @@
+{
+  "contract": "study-harness.presentation-snapshot",
+  "expect": "valid",
+  "why": "Perspective 3D camera with degree display units.",
+  "value": {
+    "contract": "study-harness.presentation-snapshot",
+    "schemaVersion": "1.0",
+    "revision": 14,
+    "views": {
+      "scene": {
+        "camera": {
+          "kind": "3d",
+          "projection": "perspective",
+          "position": [
+            3,
+            -3,
+            2.5
+          ],
+          "target": [
+            0,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0,
+            1
+          ],
+          "preset": "iso-front"
+        },
+        "layers": [
+          "g-vector",
+          "g-frame"
+        ]
+      }
+    },
+    "selection": null,
+    "layout": "expanded",
+    "displayUnits": {
+      "theta": "deg",
+      "phi": "deg"
+    },
+    "locale": "en-US",
+    "formatVersion": "1.0"
+  }
+}

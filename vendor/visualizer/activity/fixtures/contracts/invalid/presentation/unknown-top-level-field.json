@@ -1,0 +1,39 @@
+{
+  "contract": "study-harness.presentation-snapshot",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "contract": "study-harness.presentation-snapshot",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "views": {
+      "plot": {
+        "camera": {
+          "kind": "2d",
+          "center": [
+            0,
+            25
+          ],
+          "zoom": 1
+        },
+        "layers": [
+          "g-landscape",
+          "g-trajectory"
+        ]
+      },
+      "values": {
+        "camera": null,
+        "layers": []
+      }
+    },
+    "selection": "m-point",
+    "layout": "card",
+    "displayUnits": {
+      "eta": "dimensionless",
+      "x0": "dimensionless"
+    },
+    "locale": "en-GB",
+    "formatVersion": "1.0",
+    "unexpectedField": true
+  }
+}

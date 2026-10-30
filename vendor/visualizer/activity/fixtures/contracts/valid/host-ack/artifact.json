@@ -1,0 +1,10 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "valid",
+  "why": "Acknowledgement with an artifact digest and offset timestamp.",
+  "value": {
+    "ok": true,
+    "hostTimestamp": "2026-10-26T09:41:10.000123-05:00",
+    "artifactDigest": "sha256:0f2e00c294cd29188a9c7e5fe0f8dee68a9c34f27c549dbca2b93ad8ce2d2e76"
+  }
+}

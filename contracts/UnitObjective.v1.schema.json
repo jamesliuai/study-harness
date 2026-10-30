@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UnitObjective",
+  "type": "object",
+  "properties": {
+    "coverage_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "delayed_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "id": {
+      "type": "string"
+    },
+    "independent_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "outcome": {
+      "type": "string"
+    },
+    "prerequisites": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "simulated_independent_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "validation_status": {
+      "type": "string"
+    },
+    "visual_template": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "outcome",
+    "prerequisites",
+    "visual_template",
+    "validation_status",
+    "coverage_count",
+    "independent_count",
+    "simulated_independent_count",
+    "delayed_count"
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.register-activity-request",
+  "expect": "invalid",
+  "why": "instance is required.",
+  "value": {
+    "operationId": "op-prepare-1"
+  }
+}

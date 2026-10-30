@@ -1,0 +1,12 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "lastSequence": 0,
+    "lastEventId": null,
+    "checkpointDigest": null,
+    "unexpectedField": true
+  }
+}

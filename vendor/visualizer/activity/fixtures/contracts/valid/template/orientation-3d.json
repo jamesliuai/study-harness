@@ -1,0 +1,389 @@
+{
+  "contract": "study-harness.activity-template",
+  "expect": "valid",
+  "why": "3D activity with degree display units for radian parameters and a partial projection plus an equivalent description.",
+  "value": {
+    "contract": "study-harness.activity-template",
+    "schemaVersion": "1.0",
+    "templateId": "vector-orientation-explore",
+    "version": "1.2.0",
+    "model": {
+      "modelId": "vector-orientation",
+      "version": "1.0.0",
+      "digest": "sha256:ea7b1b14301616597051092b082a76e59255a42e92c52fa65882ac22252d9301"
+    },
+    "title": "Orienting a unit vector",
+    "purpose": "Relate the polar angle and azimuth of a unit vector to its Cartesian components.",
+    "dimension": "3d",
+    "locale": "en-US",
+    "requires": [
+      {
+        "id": "spatial-3d",
+        "version": "1.0"
+      }
+    ],
+    "groups": [
+      {
+        "id": "g-scene",
+        "kind": "view",
+        "label": "Scene",
+        "description": "Three-dimensional view.",
+        "solutionBearing": false,
+        "members": [
+          "scene"
+        ]
+      },
+      {
+        "id": "g-vector",
+        "kind": "mark",
+        "label": "Vector",
+        "description": "The unit vector and its tip.",
+        "solutionBearing": false,
+        "members": [
+          "m-arrow",
+          "m-tip"
+        ]
+      },
+      {
+        "id": "g-frame",
+        "kind": "mark",
+        "label": "Reference frame",
+        "description": "Axes and sphere grid.",
+        "solutionBearing": false,
+        "members": [
+          "m-axes",
+          "m-sphere"
+        ]
+      },
+      {
+        "id": "g-components",
+        "kind": "quantity",
+        "label": "Components",
+        "description": "Cartesian components.",
+        "solutionBearing": false,
+        "members": [
+          "direction",
+          "origin",
+          "vx",
+          "vy",
+          "vz"
+        ]
+      },
+      {
+        "id": "g-values-view",
+        "kind": "view",
+        "label": "Component readout",
+        "description": "Numeric components.",
+        "solutionBearing": false,
+        "members": [
+          "values"
+        ]
+      },
+      {
+        "id": "g-equations",
+        "kind": "equation",
+        "label": "Component formula",
+        "description": "Components with current values.",
+        "solutionBearing": false,
+        "members": [
+          "eq-components"
+        ]
+      },
+      {
+        "id": "g-equation-view",
+        "kind": "view",
+        "label": "Formula view",
+        "description": "The component formula.",
+        "solutionBearing": false,
+        "members": [
+          "equation"
+        ]
+      },
+      {
+        "id": "g-controls",
+        "kind": "control",
+        "label": "Angles",
+        "description": "Polar angle and azimuth.",
+        "solutionBearing": false,
+        "members": [
+          "theta",
+          "phi"
+        ]
+      },
+      {
+        "id": "g-alternatives",
+        "kind": "alternative",
+        "label": "Equivalents",
+        "description": "Text and projection equivalents.",
+        "solutionBearing": false,
+        "members": [
+          "alt-values",
+          "alt-projection"
+        ]
+      }
+    ],
+    "views": [
+      {
+        "id": "scene",
+        "kind": "scene3d",
+        "group": "g-scene",
+        "title": "Unit vector",
+        "description": "The unit vector drawn from the origin inside a unit sphere grid with labelled axes.",
+        "bounds3": [
+          -1.5,
+          1.5,
+          -1.5,
+          1.5,
+          -1.5,
+          1.5
+        ],
+        "equalAspect": true,
+        "axes": {
+          "x": {
+            "label": "x",
+            "unit": "dimensionless"
+          },
+          "y": {
+            "label": "y",
+            "unit": "dimensionless"
+          },
+          "z": {
+            "label": "z",
+            "unit": "dimensionless"
+          }
+        },
+        "marks": [
+          {
+            "id": "m-axes",
+            "kind": "segments",
+            "group": "g-frame",
+            "label": "Axes",
+            "bindings": {
+              "geometry": "axes"
+            },
+            "style": {
+              "role": "muted",
+              "dash": "solid",
+              "marker": "none",
+              "weight": "thin"
+            }
+          },
+          {
+            "id": "m-sphere",
+            "kind": "surface",
+            "group": "g-frame",
+            "label": "Sphere grid",
+            "bindings": {
+              "geometry": "sphere"
+            },
+            "style": {
+              "role": "muted",
+              "dash": "dashed",
+              "marker": "none",
+              "weight": "thin"
+            }
+          },
+          {
+            "id": "m-arrow",
+            "kind": "arrow",
+            "group": "g-vector",
+            "label": "Unit vector",
+            "bindings": {
+              "vector": "direction",
+              "origin": "origin"
+            },
+            "style": {
+              "role": "primary",
+              "dash": "solid",
+              "marker": "none",
+              "weight": "bold"
+            }
+          },
+          {
+            "id": "m-tip",
+            "kind": "point",
+            "group": "g-vector",
+            "label": "Tip",
+            "bindings": {
+              "at": "direction"
+            },
+            "style": {
+              "role": "accent",
+              "dash": "solid",
+              "marker": "circle",
+              "weight": "regular"
+            }
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "kind": "values",
+        "group": "g-values-view",
+        "title": "Components",
+        "description": "The x, y and z components of the unit vector.",
+        "equalAspect": false,
+        "marks": [],
+        "quantities": [
+          "vx",
+          "vy",
+          "vz"
+        ]
+      },
+      {
+        "id": "equation",
+        "kind": "equation",
+        "group": "g-equation-view",
+        "title": "Components",
+        "description": "Component formula with current values.",
+        "equalAspect": false,
+        "marks": [],
+        "equations": [
+          "eq-components"
+        ]
+      }
+    ],
+    "controls": [
+      {
+        "parameter": "theta",
+        "group": "g-controls",
+        "label": "Polar angle θ",
+        "displayUnits": [
+          "deg",
+          "rad"
+        ],
+        "slider": true,
+        "exact": true,
+        "step": 1,
+        "description": "Angle from the +z axis."
+      },
+      {
+        "parameter": "phi",
+        "group": "g-controls",
+        "label": "Azimuth φ",
+        "displayUnits": [
+          "deg",
+          "rad"
+        ],
+        "slider": true,
+        "exact": true,
+        "step": 1,
+        "description": "Angle from +x toward +y."
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "s-equator",
+        "label": "On the equator",
+        "description": "θ = 90°: the vector lies in the x–y plane.",
+        "parameters": {
+          "theta": 1.5707963267948966,
+          "phi": 0
+        },
+        "group": "g-controls"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq-components",
+        "group": "g-equations",
+        "label": "Components",
+        "tex": "\\hat{v} = (\\sin\\theta\\cos\\varphi, \\sin\\theta\\sin\\varphi, \\cos\\theta) = ({{q:vx}}, {{q:vy}}, {{q:vz}})",
+        "plain": "v = (sin θ cos φ, sin θ sin φ, cos θ) = ({{q:vx}}, {{q:vy}}, {{q:vz}})"
+      }
+    ],
+    "stages": [
+      {
+        "id": "explore",
+        "kind": "explore",
+        "instruction": "Change θ and φ and watch the components.",
+        "visible": {
+          "g-scene": "interactive",
+          "g-vector": "interactive",
+          "g-frame": "fixed",
+          "g-components": "fixed",
+          "g-values-view": "fixed",
+          "g-equations": "fixed",
+          "g-equation-view": "fixed",
+          "g-controls": "interactive",
+          "g-alternatives": "fixed"
+        },
+        "controls": {
+          "theta": "interactive",
+          "phi": "interactive"
+        },
+        "allowsPreview": true,
+        "allowsPlayback": false,
+        "allowsNavigation": false,
+        "response": {
+          "kind": "explanation",
+          "prompt": "Which angle changes the z component, and why?",
+          "taskFamily": "tf-orientation"
+        }
+      },
+      {
+        "id": "closed",
+        "kind": "closed",
+        "instruction": "The activity is closed.",
+        "visible": {
+          "g-values-view": "fixed",
+          "g-components": "fixed"
+        },
+        "controls": {},
+        "allowsPreview": false,
+        "allowsPlayback": false,
+        "allowsNavigation": false
+      }
+    ],
+    "transitions": [
+      {
+        "id": "t-close",
+        "from": "explore",
+        "to": "closed",
+        "label": "Finish"
+      }
+    ],
+    "initialStage": "explore",
+    "alternatives": [
+      {
+        "id": "alt-values",
+        "kind": "description",
+        "group": "g-alternatives",
+        "label": "Text description",
+        "covers": [
+          "scene"
+        ],
+        "equivalence": "equivalent",
+        "description": "Direction described in words with exact components and angles.",
+        "verifiedBy": "tests/activity/projection.test.ts#scene-description"
+      },
+      {
+        "id": "alt-projection",
+        "kind": "projection-2d",
+        "group": "g-alternatives",
+        "label": "Plane projections",
+        "covers": [
+          "scene",
+          "m-arrow"
+        ],
+        "equivalence": "partial",
+        "description": "Projections onto the x–y and x–z planes.",
+        "verifiedBy": "manual-check:projection-views"
+      }
+    ],
+    "taskFamilies": [
+      {
+        "id": "tf-orientation",
+        "description": "Relate spherical angles to Cartesian components.",
+        "hostOwned": true
+      }
+    ],
+    "content": [
+      {
+        "id": "note-convention",
+        "kind": "assumption",
+        "text": "Angles follow the physics convention: θ from +z, φ from +x toward +y."
+      }
+    ]
+  }
+}

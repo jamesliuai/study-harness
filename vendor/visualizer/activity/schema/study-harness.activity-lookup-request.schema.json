@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.activity-lookup-request-1.0.json",
+  "title": "Study Harness activity lookup request",
+  "type": "object",
+  "properties": {
+    "activityId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    }
+  },
+  "required": [
+    "activityId"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,27 @@
+{
+  "contract": "study-harness.capability-record",
+  "expect": "invalid",
+  "why": "Only installed capability versions have records (no nearest version).",
+  "value": {
+    "contract": "study-harness.capability-record",
+    "schemaVersion": "1.0",
+    "id": "spatial-3d",
+    "version": "1.1",
+    "title": "Optional bounded 3D view (lazily loaded renderer) with a complete 2D projection and table alternative",
+    "limits": {
+      "vertices": 20000,
+      "indices": 120000,
+      "fieldSamples": 1000,
+      "labels": 32,
+      "textureSize": 1024,
+      "drawCallsPerFrame": 128
+    },
+    "geometryKinds": [
+      "points3",
+      "segments3",
+      "polyline3",
+      "surface-grid",
+      "vector-field3"
+    ]
+  }
+}

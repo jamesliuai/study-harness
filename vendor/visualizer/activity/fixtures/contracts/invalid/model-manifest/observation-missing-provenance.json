@@ -1,0 +1,142 @@
+{
+  "contract": "explorable-models.model-manifest",
+  "expect": "invalid",
+  "why": "Observed data always carry their provenance.",
+  "value": {
+    "contract": "explorable-models.model-manifest",
+    "schemaVersion": "1.0",
+    "modelId": "observed-fall",
+    "version": "1.0.0",
+    "title": "Recorded heights beside a constant-gravity prediction",
+    "summary": "Predicted height h(t) = h0 − g·t²/2 beside recorded heights that are never joined or fitted.",
+    "execution": {
+      "kind": "kernel",
+      "kernelId": "observed-fall",
+      "kernelVersion": "1.0.0",
+      "mode": "static"
+    },
+    "capabilities": [],
+    "parameters": {
+      "g": {
+        "label": "Gravitational acceleration",
+        "symbol": "g",
+        "description": "Constant downward acceleration.",
+        "dimension": "acceleration",
+        "unit": "m/s^2",
+        "min": 1,
+        "max": 20,
+        "default": 9.8,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      }
+    },
+    "quantities": {
+      "landing": {
+        "label": "Landing time",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "time",
+        "unit": "s",
+        "meaning": "Predicted time to reach the floor from 20 m."
+      }
+    },
+    "geometry": {
+      "prediction": {
+        "kind": "polyline2",
+        "label": "Predicted height",
+        "description": "Model curve h(t), sampled.",
+        "dimension": "length",
+        "unit": "m",
+        "coordinateFrame": "time horizontal, height vertical",
+        "maxElements": 101
+      },
+      "measured": {
+        "kind": "observations2",
+        "label": "Recorded heights",
+        "description": "Recorded (time, height) pairs.",
+        "dimension": "length",
+        "unit": "m",
+        "coordinateFrame": "time horizontal, height vertical",
+        "maxElements": 4,
+        "observations": {
+          "dataset": "drops",
+          "x": "t",
+          "y": "h"
+        }
+      }
+    },
+    "constraints": [],
+    "interpretation": {
+      "coordinateConvention": "Height upward from the floor.",
+      "assumptions": [
+        "Release from rest at 20 m."
+      ],
+      "limitations": [
+        "The recorded heights are not fitted."
+      ]
+    },
+    "limits": {
+      "maxGeometryElements": 105,
+      "maxOperations": 10000
+    },
+    "sources": [
+      {
+        "id": "drop-log",
+        "kind": "dataset",
+        "citation": "Illustrative drop log (contract fixture; not a measurement)."
+      }
+    ],
+    "referenceSuite": null,
+    "observations": {
+      "drops": {
+        "label": "Recorded heights",
+        "description": "One reading every 0.5 s.",
+        "columns": [
+          {
+            "id": "t",
+            "label": "Time",
+            "dimension": "time",
+            "unit": "s",
+            "meaning": "Time since release."
+          },
+          {
+            "id": "h",
+            "label": "Height",
+            "dimension": "length",
+            "unit": "m",
+            "meaning": "Height above the floor."
+          }
+        ],
+        "rows": [
+          [
+            0,
+            20
+          ],
+          [
+            0.5,
+            18.8
+          ],
+          [
+            1,
+            null
+          ],
+          [
+            1.5,
+            9
+          ]
+        ],
+        "missing": [
+          {
+            "row": 2,
+            "column": "h",
+            "reason": "The ball was hidden in this frame."
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskSupport",
+  "type": "object",
+  "properties": {
+    "explanation": {
+      "type": "string"
+    },
+    "hints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "prerequisite": {
+      "type": "string"
+    },
+    "worked_example": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "explanation",
+    "hints",
+    "worked_example",
+    "prerequisite"
+  ]
+}

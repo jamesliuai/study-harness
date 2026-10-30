@@ -1,0 +1,37 @@
+{
+  "contract": "study-harness.interaction-event",
+  "expect": "invalid",
+  "why": "Failure codes come from the stable vocabulary.",
+  "value": {
+    "contract": "study-harness.interaction-event",
+    "schemaVersion": "1.0",
+    "eventId": "evt-0026",
+    "activityId": "act-quadratic-0001",
+    "sequence": 26,
+    "operationId": "op-26",
+    "actor": {
+      "kind": "learner",
+      "binding": "surface-main"
+    },
+    "type": "operation.failed",
+    "revisions": {
+      "scientific": {
+        "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+        "runId": "run-0002",
+        "version": 5
+      },
+      "presentation": 2,
+      "activity": 3,
+      "hostSession": 4,
+      "policy": 3
+    },
+    "payload": {
+      "operation": "commitParameters",
+      "code": "SECRET_LEAK",
+      "recoverable": true,
+      "path": "$.eta"
+    },
+    "monotonicMs": 7513,
+    "causes": []
+  }
+}

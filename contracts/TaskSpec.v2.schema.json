@@ -1,0 +1,248 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TaskSpec",
+  "type": "object",
+  "properties": {
+    "activity_id": {
+      "type": "string"
+    },
+    "answer_key": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AnswerKey"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "checks": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CheckResult"
+      }
+    },
+    "content_version": {
+      "type": "string"
+    },
+    "frozen_at": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string",
+      "default": ""
+    },
+    "provenance": {
+      "type": "string",
+      "default": ""
+    },
+    "reference_solution": {
+      "type": "string"
+    },
+    "response_kind": {
+      "type": "string",
+      "default": ""
+    },
+    "rubric": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rubric_criteria": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "type": "string"
+      }
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "support": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/TaskSupport"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "transfer_scope": {
+      "type": "string"
+    },
+    "validation_version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "activity_id",
+    "kind",
+    "assumptions",
+    "reference_solution",
+    "rubric",
+    "content_version",
+    "validation_version",
+    "frozen_at",
+    "transfer_scope"
+  ],
+  "$defs": {
+    "AnswerKey": {
+      "type": "object",
+      "properties": {
+        "expression": {
+          "type": "string"
+        },
+        "givens": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Given"
+          }
+        },
+        "kind": {
+          "type": "string"
+        },
+        "tolerance": {
+          "type": "number",
+          "format": "double"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        },
+        "variables": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/DomainVariable"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "givens",
+        "expression",
+        "unit",
+        "tolerance",
+        "variables"
+      ]
+    },
+    "CheckResult": {
+      "type": "object",
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "outcome",
+        "detail"
+      ]
+    },
+    "DomainVariable": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number",
+          "format": "double"
+        },
+        "min": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "min",
+        "max"
+      ]
+    },
+    "Given": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value",
+        "unit"
+      ]
+    },
+    "TaskSupport": {
+      "type": "object",
+      "properties": {
+        "explanation": {
+          "type": "string"
+        },
+        "hints": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "prerequisite": {
+          "type": "string"
+        },
+        "worked_example": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "explanation",
+        "hints",
+        "worked_example",
+        "prerequisite"
+      ]
+    }
+  }
+}

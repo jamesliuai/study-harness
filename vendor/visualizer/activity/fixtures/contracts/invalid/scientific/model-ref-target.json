@@ -1,0 +1,47 @@
+{
+  "contract": "study-harness.scientific-snapshot",
+  "expect": "invalid",
+  "why": "ModelRef modelId must be non-empty.",
+  "value": {
+    "contract": "study-harness.scientific-snapshot",
+    "schemaVersion": "1.0",
+    "model": {
+      "modelId": "",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "scientificRevision": "sha256:c090f3b7bd3b4810c11d03ab8a061181f1d0a3a90c1a36c2ac444a85e1694bb7",
+    "runtime": {
+      "id": "explorable-models-activity",
+      "version": "0.3.0-preview.1"
+    },
+    "runId": "run-0002",
+    "params": {
+      "a": 1,
+      "eta": 1.5,
+      "x0": 8
+    },
+    "position": {
+      "kind": "index",
+      "index": 3,
+      "maxIndex": 1000
+    },
+    "terminal": false,
+    "comparisons": [
+      {
+        "runId": "run-0001",
+        "label": "η = 0.5",
+        "params": {
+          "a": 1,
+          "eta": 0.5,
+          "x0": 8
+        },
+        "position": {
+          "kind": "index",
+          "index": 12,
+          "maxIndex": 1000
+        }
+      }
+    ]
+  }
+}

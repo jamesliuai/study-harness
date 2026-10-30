@@ -1,0 +1,120 @@
+{
+  "format": "explorable-models-document",
+  "version": "2.0",
+  "runtimeVersion": "0.2.0-preview.1",
+  "document": {
+    "schemaVersion": "2.0",
+    "provenance": {
+      "review": "unreviewed",
+      "checks": "author"
+    },
+    "sources": [],
+    "id": "riemann-v2",
+    "title": "A small error is still a value",
+    "description": "The midpoint approximation of x² on [0,1], with the signed error kept visible.",
+    "parameters": {
+      "n": {
+        "label": "Subdivisions",
+        "value": 100,
+        "min": 1,
+        "max": 1000,
+        "step": 1,
+        "unit": "",
+        "integer": true
+      }
+    },
+    "quantities": {
+      "integral": {
+        "expression": "1/3",
+        "label": "Exact integral"
+      },
+      "approximation": {
+        "expression": "(4*n*n-1)/(12*n*n)",
+        "label": "Midpoint sum"
+      },
+      "error": {
+        "expression": "approximation-integral",
+        "label": "Signed error"
+      }
+    },
+    "series": {
+      "curve": {
+        "label": "Integrand x²",
+        "x": "x",
+        "y": "x*x",
+        "domain": [
+          0,
+          1
+        ],
+        "samples": 101,
+        "kind": "model",
+        "variable": "x"
+      }
+    },
+    "views": [
+      {
+        "id": "plot",
+        "type": "plot",
+        "title": "Integrand",
+        "bounds": [
+          0,
+          1,
+          0,
+          1
+        ],
+        "marks": [
+          {
+            "id": "area",
+            "type": "region",
+            "label": "Area under x²",
+            "series": "curve",
+            "style": {
+              "fill": "#d9edf0",
+              "stroke": "#287c8e"
+            }
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "type": "values",
+        "title": "Exact and approximate",
+        "quantities": [
+          "integral",
+          "approximation",
+          "error"
+        ]
+      },
+      {
+        "id": "equation",
+        "type": "equation",
+        "title": "Closed-form midpoint sum",
+        "equation": "Mₙ = (4n² − 1)/(12n²)\nMₙ − ⅓ = {{error}}"
+      }
+    ],
+    "assumptions": [
+      "Uniform midpoint rule for x² over [0,1].",
+      "The sum is evaluated with its exact algebraic closed form."
+    ],
+    "limitations": [
+      "The filled plot shows the integrand, not individual rectangles.",
+      "Subdivisions must be an integer; exact numeric inputs enforce this domain."
+    ]
+  },
+  "identity": {
+    "documentRevision": "sha256:dba156e67d10eaedd4c03982757f5a9292c8018c8970b29bd7aa542a9527867b",
+    "modelRevision": "sha256:93e3d48aa7fa8aa3a3b450219be43af8661a99f46a696a2430eb437895128cfa",
+    "presentationRevision": "sha256:6398433e6d2123c0625eb37e810dfea4db3a2f8675176f08ee7a7ca8058819cd"
+  },
+  "run": {
+    "id": "c4a19564-bc4e-44ba-9f07-48ea939f3722",
+    "version": 0,
+    "params": {
+      "n": 100
+    },
+    "time": 0,
+    "modelRevision": "sha256:93e3d48aa7fa8aa3a3b450219be43af8661a99f46a696a2430eb437895128cfa"
+  },
+  "selection": null,
+  "comparisons": []
+}

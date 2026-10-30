@@ -1,0 +1,22 @@
+{
+  "contract": "study-harness.append-result",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "acknowledged": [
+      {
+        "eventId": "evt-0002",
+        "durableSequence": 2,
+        "hostTimestamp": "2026-10-26T09:01:00Z"
+      }
+    ],
+    "duplicates": [],
+    "cursor": {
+      "activityId": "act-quadratic-0001",
+      "lastSequence": 2,
+      "lastEventId": "evt-0002",
+      "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+    },
+    "unexpectedField": true
+  }
+}

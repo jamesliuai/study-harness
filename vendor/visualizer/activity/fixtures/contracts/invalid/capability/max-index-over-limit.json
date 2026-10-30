@@ -1,0 +1,15 @@
+{
+  "contract": "study-harness.capability-record",
+  "expect": "invalid",
+  "why": "discrete-iteration@1.0 bounds the index at 10,000,000 (limit + 1).",
+  "value": {
+    "contract": "study-harness.capability-record",
+    "schemaVersion": "1.0",
+    "id": "discrete-iteration",
+    "version": "1.0",
+    "title": "Integer-indexed discrete iteration from index 0 with exact navigation and playback by whole indices",
+    "limits": {
+      "maxIndex": 10000001
+    }
+  }
+}

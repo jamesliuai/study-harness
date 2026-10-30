@@ -1,0 +1,15 @@
+{
+  "contract": "study-harness.capability-record",
+  "expect": "valid",
+  "why": "The installed discrete-iteration@1.0 record (additive in 1.0).",
+  "value": {
+    "contract": "study-harness.capability-record",
+    "schemaVersion": "1.0",
+    "id": "discrete-iteration",
+    "version": "1.0",
+    "title": "Integer-indexed discrete iteration from index 0 with exact navigation and playback by whole indices",
+    "limits": {
+      "maxIndex": 10000000
+    }
+  }
+}

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-resolve-dispute"
+description = "Enables the resolve_dispute command without any pre-configured scope."
+commands.allow = ["resolve_dispute"]
+
+[[permission]]
+identifier = "deny-resolve-dispute"
+description = "Denies the resolve_dispute command without any pre-configured scope."
+commands.deny = ["resolve_dispute"]

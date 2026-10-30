@@ -1,0 +1,156 @@
+{
+  "contract": "explorable-models.model-manifest",
+  "expect": "valid",
+  "why": "Static 3D kernel manifest in radians.",
+  "value": {
+    "contract": "explorable-models.model-manifest",
+    "schemaVersion": "1.0",
+    "modelId": "vector-orientation",
+    "version": "1.0.0",
+    "title": "Orientation of a unit vector",
+    "summary": "A unit vector set by polar angle θ and azimuth φ, with its Cartesian components.",
+    "execution": {
+      "kind": "kernel",
+      "kernelId": "vector-orientation",
+      "kernelVersion": "1.0.0",
+      "mode": "static"
+    },
+    "capabilities": [
+      {
+        "id": "spatial-3d",
+        "version": "1.0"
+      }
+    ],
+    "parameters": {
+      "theta": {
+        "label": "Polar angle",
+        "symbol": "\\theta",
+        "description": "Angle measured from the +z axis.",
+        "dimension": "angle",
+        "unit": "rad",
+        "min": 0,
+        "max": 3.141592653589793,
+        "default": 0.7853981633974483,
+        "step": {
+          "ui": 0.01,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "phi": {
+        "label": "Azimuth",
+        "symbol": "\\varphi",
+        "description": "Angle from +x toward +y in the x–y plane.",
+        "dimension": "angle",
+        "unit": "rad",
+        "min": -3.141592653589793,
+        "max": 3.141592653589793,
+        "default": 0.5235987755982988,
+        "step": {
+          "ui": 0.01,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      }
+    },
+    "quantities": {
+      "direction": {
+        "label": "Unit direction",
+        "symbol": "\\hat{v}",
+        "shape": {
+          "kind": "vector",
+          "length": 3
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Unit vector (sin θ cos φ, sin θ sin φ, cos θ).",
+        "coordinateFrame": "world, right-handed, z up"
+      },
+      "origin": {
+        "label": "Origin",
+        "shape": {
+          "kind": "vector",
+          "length": 3
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Tail of the vector at the origin.",
+        "coordinateFrame": "world, right-handed, z up"
+      },
+      "vx": {
+        "label": "x component",
+        "symbol": "v_x",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "sin θ cos φ"
+      },
+      "vy": {
+        "label": "y component",
+        "symbol": "v_y",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "sin θ sin φ"
+      },
+      "vz": {
+        "label": "z component",
+        "symbol": "v_z",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "cos θ"
+      }
+    },
+    "geometry": {
+      "axes": {
+        "kind": "segments3",
+        "label": "Coordinate axes",
+        "description": "Unit segments along +x, +y and +z.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "world, right-handed, z up",
+        "maxElements": 3
+      },
+      "sphere": {
+        "kind": "surface-grid",
+        "label": "Unit sphere grid",
+        "description": "Latitude/longitude grid of the unit sphere.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "world, right-handed, z up",
+        "maxElements": 1089
+      }
+    },
+    "constraints": [],
+    "interpretation": {
+      "coordinateConvention": "Right-handed world frame with +z up.",
+      "angleConvention": "Physics convention: θ from +z, φ from +x toward +y.",
+      "handedness": "right",
+      "assumptions": [
+        "The vector has unit length."
+      ],
+      "limitations": [
+        "Direction only; magnitude is fixed at one."
+      ]
+    },
+    "limits": {
+      "maxGeometryElements": 2000,
+      "maxOperations": 10000
+    },
+    "sources": [
+      {
+        "id": "spherical",
+        "kind": "derivation",
+        "citation": "Spherical to Cartesian coordinates for a unit radius."
+      }
+    ],
+    "referenceSuite": null
+  }
+}

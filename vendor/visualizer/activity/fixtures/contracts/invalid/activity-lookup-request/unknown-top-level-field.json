@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.activity-lookup-request",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "unexpectedField": true
+  }
+}

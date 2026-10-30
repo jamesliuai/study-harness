@@ -1,0 +1,13 @@
+{
+  "contract": "study-harness.display-ack-request",
+  "expect": "invalid",
+  "why": "Digest is lowercase hexadecimal.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposureId": "exp-0001",
+    "receiptId": "rcpt-reveal-1",
+    "projectionDigest": "sha256:gggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg",
+    "frameId": "frame-run-0002-i3",
+    "monotonicMs": 48213.5
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.presentation-snapshot-1.0.json",
+  "title": "Study Harness presentation snapshot",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "study-harness.presentation-snapshot"
+    },
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "views": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "camera": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/Camera2D"
+              },
+              {
+                "$ref": "#/$defs/Camera3D"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "layers": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            "maxItems": 64
+          }
+        },
+        "required": [
+          "camera",
+          "layers"
+        ],
+        "additionalProperties": false
+      },
+      "maxProperties": 16,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+      }
+    },
+    "selection": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 128,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "layout": {
+      "enum": [
+        "auto",
+        "card",
+        "side",
+        "expanded"
+      ]
+    },
+    "displayUnits": {
+      "type": "object",
+      "additionalProperties": {
+        "enum": [
+          "dimensionless",
+          "iteration",
+          "m",
+          "cm",
+          "mm",
+          "s",
+          "ms",
+          "kg",
+          "g",
+          "m/s^2",
+          "N",
+          "rad",
+          "deg"
+        ]
+      },
+      "maxProperties": 64,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+      }
+    },
+    "locale": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 35,
+      "pattern": "^[A-Za-z]{2,3}(-[A-Za-z0-9]{2,8}){0,3}$"
+    },
+    "formatVersion": {
+      "const": "1.0"
+    }
+  },
+  "required": [
+    "contract",
+    "schemaVersion",
+    "revision",
+    "views",
+    "selection",
+    "layout",
+    "displayUnits",
+    "locale",
+    "formatVersion"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "Camera2D": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "2d"
+        },
+        "center": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "maxItems": 2,
+          "minItems": 2
+        },
+        "zoom": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "maximum": 1000000
+        }
+      },
+      "required": [
+        "kind",
+        "center",
+        "zoom"
+      ],
+      "additionalProperties": false
+    },
+    "Camera3D": {
+      "type": "object",
+      "properties": {
+        "kind": {
+          "const": "3d"
+        },
+        "projection": {
+          "enum": [
+            "orthographic",
+            "perspective"
+          ]
+        },
+        "position": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "maxItems": 3,
+          "minItems": 3
+        },
+        "target": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "maxItems": 3,
+          "minItems": 3
+        },
+        "up": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "maxItems": 3,
+          "minItems": 3
+        },
+        "preset": {
+          "anyOf": [
+            {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "kind",
+        "projection",
+        "position",
+        "target",
+        "up",
+        "preset"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

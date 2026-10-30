@@ -1,0 +1,10 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "invalid",
+  "why": "Artifact digest is sha256.",
+  "value": {
+    "ok": true,
+    "hostTimestamp": "2026-10-26T09:41:10.000123-05:00",
+    "artifactDigest": "sha1:abc"
+  }
+}

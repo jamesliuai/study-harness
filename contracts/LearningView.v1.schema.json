@@ -1,0 +1,374 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LearningView",
+  "type": "object",
+  "properties": {
+    "allowed_actions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Assessment"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AttemptConditions"
+      }
+    },
+    "now": {
+      "type": "string"
+    },
+    "reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Review"
+      }
+    },
+    "state": {
+      "$ref": "#/$defs/LearningState"
+    },
+    "summary": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/LearningSummary"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "target_dimensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "transfer_scope": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "state",
+    "assumptions",
+    "target_dimensions",
+    "transfer_scope",
+    "assessments",
+    "conditions",
+    "reviews",
+    "allowed_actions",
+    "now"
+  ],
+  "$defs": {
+    "Assessment": {
+      "type": "object",
+      "properties": {
+        "assessed_at": {
+          "type": "string"
+        },
+        "attempt_id": {
+          "type": "string"
+        },
+        "dispute_state": {
+          "type": "string"
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/RubricFinding"
+          }
+        },
+        "grader_version": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "request_id": {
+          "type": "string"
+        },
+        "rubric_version": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "uncertainty": {
+          "type": "string"
+        },
+        "verdict": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "id",
+        "attempt_id",
+        "rubric_version",
+        "findings",
+        "uncertainty",
+        "dispute_state",
+        "grader_version",
+        "stale",
+        "verdict",
+        "assessed_at",
+        "request_id"
+      ]
+    },
+    "AttemptConditions": {
+      "type": "object",
+      "properties": {
+        "attempt_id": {
+          "type": "string"
+        },
+        "last_relevant_exposure_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "outside_help": {
+          "type": "boolean"
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "simulated": {
+          "type": "boolean"
+        },
+        "submitted_at": {
+          "type": "string"
+        },
+        "task_kind": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "attempt_id",
+        "submitted_at",
+        "simulated",
+        "outside_help",
+        "task_kind"
+      ]
+    },
+    "LearningState": {
+      "type": "object",
+      "properties": {
+        "active_activity_id": {
+          "type": "string"
+        },
+        "diagnosis_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "goal": {
+          "type": "string"
+        },
+        "policy_version": {
+          "type": "string"
+        },
+        "quiet": {
+          "type": "boolean"
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "stage": {
+          "type": "string"
+        },
+        "stopped": {
+          "type": "boolean"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "session_id",
+        "goal",
+        "stage",
+        "active_activity_id",
+        "quiet",
+        "stopped",
+        "diagnosis_count",
+        "policy_version"
+      ]
+    },
+    "LearningSummary": {
+      "type": "object",
+      "properties": {
+        "assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "delayed_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "generated_at": {
+          "type": "string"
+        },
+        "independent_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "simulated": {
+          "type": "boolean"
+        },
+        "stale": {
+          "type": "boolean"
+        },
+        "supported_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "text": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "session_id",
+        "text",
+        "assessment_ids",
+        "stale",
+        "generated_at",
+        "independent_count",
+        "supported_count",
+        "delayed_count",
+        "simulated"
+      ]
+    },
+    "Review": {
+      "type": "object",
+      "properties": {
+        "assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "due_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "interval_days": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "objective_id": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "scheduler_version": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "simulated": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "supporting_attempts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "task_family": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "id",
+        "session_id",
+        "objective_id",
+        "task_family",
+        "due_at",
+        "reason",
+        "scheduler_version",
+        "supporting_attempts",
+        "assessment_ids",
+        "interval_days",
+        "status",
+        "simulated"
+      ]
+    },
+    "RubricFinding": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "result",
+        "excerpt"
+      ]
+    }
+  }
+}

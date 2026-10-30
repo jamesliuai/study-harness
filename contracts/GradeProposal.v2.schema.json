@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GradeProposal",
+  "type": "object",
+  "properties": {
+    "error_kind": {
+      "type": "string",
+      "default": ""
+    },
+    "final_answer": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/FinalAnswer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RubricFinding"
+      }
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "verdict",
+    "findings",
+    "uncertainty"
+  ],
+  "$defs": {
+    "FinalAnswer": {
+      "type": "object",
+      "properties": {
+        "excerpt": {
+          "type": "string"
+        },
+        "expression": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "excerpt",
+        "unit",
+        "expression"
+      ]
+    },
+    "RubricFinding": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "result",
+        "excerpt"
+      ]
+    }
+  }
+}

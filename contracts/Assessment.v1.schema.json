@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assessment",
+  "type": "object",
+  "properties": {
+    "attempt_id": {
+      "type": "string"
+    },
+    "dispute_state": {
+      "type": "string"
+    },
+    "evidence_excerpts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grader_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "rubric_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "uncertainty": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "attempt_id",
+    "rubric_version",
+    "findings",
+    "evidence_excerpts",
+    "uncertainty",
+    "dispute_state",
+    "grader_version",
+    "stale"
+  ]
+}

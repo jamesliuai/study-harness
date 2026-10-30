@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecordingTicket",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "max_seconds": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "max_seconds"
+  ]
+}

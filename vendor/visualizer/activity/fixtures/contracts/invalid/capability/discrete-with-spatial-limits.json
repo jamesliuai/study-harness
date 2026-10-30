@@ -1,0 +1,16 @@
+{
+  "contract": "study-harness.capability-record",
+  "expect": "invalid",
+  "why": "Each capability has its own closed limits.",
+  "value": {
+    "contract": "study-harness.capability-record",
+    "schemaVersion": "1.0",
+    "id": "discrete-iteration",
+    "version": "1.0",
+    "title": "Integer-indexed discrete iteration from index 0 with exact navigation and playback by whole indices",
+    "limits": {
+      "maxIndex": 10000000,
+      "vertices": 10
+    }
+  }
+}

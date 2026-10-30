@@ -1,0 +1,13 @@
+{
+  "contract": "study-harness.display-ack-request",
+  "expect": "valid",
+  "why": "Acknowledgement at the monotonic origin.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposureId": "exp-0002",
+    "receiptId": "rcpt-explore-1",
+    "projectionDigest": "sha256:fe508db71517362a2313dfff9af0176145d03f6f7a6db0535607fbc8794df4a7",
+    "frameId": "frame-pv-5-2",
+    "monotonicMs": 0
+  }
+}

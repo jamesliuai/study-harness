@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PrivacySettings",
+  "type": "object",
+  "properties": {
+    "retain_failed_audio": {
+      "type": "boolean"
+    },
+    "review_minutes": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "retain_failed_audio",
+    "review_minutes"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RubricFinding",
+  "type": "object",
+  "properties": {
+    "dimension": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "dimension",
+    "result",
+    "excerpt"
+  ]
+}

@@ -1,0 +1,1015 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/model-manifest-1.0.json",
+  "title": "Explorable Models model manifest 1.0",
+  "type": "object",
+  "properties": {
+    "contract": {
+      "const": "explorable-models.model-manifest"
+    },
+    "schemaVersion": {
+      "const": "1.0"
+    },
+    "modelId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 128,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "version": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 48,
+      "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "summary": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4000
+    },
+    "execution": {
+      "oneOf": [
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "kernel"
+            },
+            "kernelId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            "kernelVersion": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 48,
+              "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+            },
+            "mode": {
+              "const": "discrete"
+            },
+            "maxIndex": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          },
+          "required": [
+            "kind",
+            "kernelId",
+            "kernelVersion",
+            "mode",
+            "maxIndex"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "kernel"
+            },
+            "kernelId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            "kernelVersion": {
+              "type": "string",
+              "minLength": 5,
+              "maxLength": 48,
+              "pattern": "^[0-9]{1,4}[.][0-9]{1,4}[.][0-9]{1,6}(-[0-9A-Za-z.-]{1,32})?$"
+            },
+            "mode": {
+              "const": "static"
+            }
+          },
+          "required": [
+            "kind",
+            "kernelId",
+            "kernelVersion",
+            "mode"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "document"
+            },
+            "document": {
+              "type": "object"
+            }
+          },
+          "required": [
+            "kind",
+            "document"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 16,
+            "pattern": "^[0-9]{1,4}([.][0-9]{1,4}){0,2}$"
+          }
+        },
+        "required": [
+          "id",
+          "version"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 16
+    },
+    "parameters": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "symbol": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "dimension": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "length",
+              "time",
+              "mass",
+              "acceleration",
+              "force",
+              "angle"
+            ]
+          },
+          "unit": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "m",
+              "cm",
+              "mm",
+              "s",
+              "ms",
+              "kg",
+              "g",
+              "m/s^2",
+              "N",
+              "rad",
+              "deg"
+            ]
+          },
+          "min": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "max": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "default": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "step": {
+            "type": "object",
+            "properties": {
+              "ui": {
+                "type": "number",
+                "exclusiveMinimum": 0,
+                "maximum": 1000000000000000
+              },
+              "admissible": {
+                "oneOf": [
+                  {
+                    "enum": [
+                      "continuous",
+                      "integer"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "multipleOf": {
+                        "type": "number",
+                        "exclusiveMinimum": 0,
+                        "maximum": 1000000000000000
+                      }
+                    },
+                    "required": [
+                      "multipleOf"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "ui",
+              "admissible"
+            ],
+            "additionalProperties": false
+          },
+          "role": {
+            "const": "model-input"
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "dimension",
+          "unit",
+          "min",
+          "max",
+          "default",
+          "step",
+          "role"
+        ],
+        "additionalProperties": false
+      },
+      "maxProperties": 64,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80,
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*([.][A-Za-z_][A-Za-z0-9_]*)*$"
+      }
+    },
+    "quantities": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "symbol": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 64
+          },
+          "shape": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "scalar"
+                  }
+                },
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "vector"
+                  },
+                  "length": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1024
+                  }
+                },
+                "required": [
+                  "kind",
+                  "length"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "matrix"
+                  },
+                  "rows": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 64
+                  },
+                  "columns": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 64
+                  }
+                },
+                "required": [
+                  "kind",
+                  "rows",
+                  "columns"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "const": "category"
+                  },
+                  "values": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 200
+                    },
+                    "maxItems": 64,
+                    "minItems": 1
+                  }
+                },
+                "required": [
+                  "kind",
+                  "values"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "dimension": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "length",
+              "time",
+              "mass",
+              "acceleration",
+              "force",
+              "angle"
+            ]
+          },
+          "unit": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "m",
+              "cm",
+              "mm",
+              "s",
+              "ms",
+              "kg",
+              "g",
+              "m/s^2",
+              "N",
+              "rad",
+              "deg"
+            ]
+          },
+          "meaning": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "coordinateFrame": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "signConvention": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "label",
+          "shape",
+          "dimension",
+          "unit",
+          "meaning"
+        ],
+        "additionalProperties": false
+      },
+      "maxProperties": 128,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80,
+        "pattern": "^[A-Za-z_][A-Za-z0-9_]*([.][A-Za-z_][A-Za-z0-9_]*)*$"
+      }
+    },
+    "geometry": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "enum": [
+              "polyline2",
+              "points2",
+              "segments2",
+              "polygon2",
+              "polyline3",
+              "points3",
+              "segments3",
+              "surface-grid",
+              "vector-field2",
+              "vector-field3",
+              "observations2"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "dimension": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "length",
+              "time",
+              "mass",
+              "acceleration",
+              "force",
+              "angle"
+            ]
+          },
+          "unit": {
+            "enum": [
+              "dimensionless",
+              "iteration",
+              "m",
+              "cm",
+              "mm",
+              "s",
+              "ms",
+              "kg",
+              "g",
+              "m/s^2",
+              "N",
+              "rad",
+              "deg"
+            ]
+          },
+          "coordinateFrame": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "maxElements": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100000
+          },
+          "observations": {
+            "type": "object",
+            "properties": {
+              "dataset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+              },
+              "x": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+              },
+              "y": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+              }
+            },
+            "required": [
+              "dataset",
+              "x",
+              "y"
+            ],
+            "additionalProperties": false
+          },
+          "coordinates": {
+            "type": "object",
+            "properties": {
+              "x": {
+                "enum": [
+                  "dimensionless",
+                  "iteration",
+                  "m",
+                  "cm",
+                  "mm",
+                  "s",
+                  "ms",
+                  "kg",
+                  "g",
+                  "m/s^2",
+                  "N",
+                  "rad",
+                  "deg"
+                ]
+              },
+              "y": {
+                "enum": [
+                  "dimensionless",
+                  "iteration",
+                  "m",
+                  "cm",
+                  "mm",
+                  "s",
+                  "ms",
+                  "kg",
+                  "g",
+                  "m/s^2",
+                  "N",
+                  "rad",
+                  "deg"
+                ]
+              },
+              "z": {
+                "enum": [
+                  "dimensionless",
+                  "iteration",
+                  "m",
+                  "cm",
+                  "mm",
+                  "s",
+                  "ms",
+                  "kg",
+                  "g",
+                  "m/s^2",
+                  "N",
+                  "rad",
+                  "deg"
+                ]
+              }
+            },
+            "required": [
+              "x",
+              "y"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "kind",
+          "label",
+          "description",
+          "dimension",
+          "unit",
+          "coordinateFrame",
+          "maxElements"
+        ],
+        "additionalProperties": false
+      },
+      "maxProperties": 32,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80,
+        "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "expression": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2048
+          },
+          "min": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "max": {
+            "type": "number",
+            "minimum": -1000000000000000,
+            "maximum": 1000000000000000
+          },
+          "minInclusive": {
+            "type": "boolean"
+          },
+          "maxInclusive": {
+            "type": "boolean"
+          },
+          "message": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "recovery": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "expression",
+          "message",
+          "recovery"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 32
+    },
+    "interpretation": {
+      "type": "object",
+      "properties": {
+        "coordinateConvention": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "angleConvention": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4000
+        },
+        "handedness": {
+          "enum": [
+            "right",
+            "left"
+          ]
+        },
+        "assumptions": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "maxItems": 64
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "maxItems": 64
+        }
+      },
+      "required": [
+        "coordinateConvention",
+        "assumptions",
+        "limitations"
+      ],
+      "additionalProperties": false
+    },
+    "limits": {
+      "type": "object",
+      "properties": {
+        "maxIndex": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10000000
+        },
+        "maxGeometryElements": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 100000
+        },
+        "maxOperations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 1000000000
+        }
+      },
+      "required": [
+        "maxGeometryElements",
+        "maxOperations"
+      ],
+      "additionalProperties": false
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "kind": {
+            "enum": [
+              "derivation",
+              "textbook",
+              "specification",
+              "dataset"
+            ]
+          },
+          "citation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          }
+        },
+        "required": [
+          "id",
+          "kind",
+          "citation"
+        ],
+        "additionalProperties": false
+      },
+      "maxItems": 64
+    },
+    "referenceSuite": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "suiteId": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 128,
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            "digest": {
+              "type": "string",
+              "minLength": 71,
+              "maxLength": 71,
+              "pattern": "^sha256:[0-9a-f]{64}$"
+            }
+          },
+          "required": [
+            "suiteId",
+            "digest"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "observations": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 200
+                },
+                "dimension": {
+                  "enum": [
+                    "dimensionless",
+                    "iteration",
+                    "length",
+                    "time",
+                    "mass",
+                    "acceleration",
+                    "force",
+                    "angle"
+                  ]
+                },
+                "unit": {
+                  "enum": [
+                    "dimensionless",
+                    "iteration",
+                    "m",
+                    "cm",
+                    "mm",
+                    "s",
+                    "ms",
+                    "kg",
+                    "g",
+                    "m/s^2",
+                    "N",
+                    "rad",
+                    "deg"
+                  ]
+                },
+                "meaning": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000
+                }
+              },
+              "required": [
+                "id",
+                "label",
+                "dimension",
+                "unit",
+                "meaning"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 16,
+            "minItems": 1
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "minimum": -1000000000000000,
+                "maximum": 1000000000000000
+              },
+              "maxItems": 16,
+              "minItems": 1
+            },
+            "maxItems": 2000,
+            "minItems": 1
+          },
+          "missing": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "row": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 1999
+                },
+                "column": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2000
+                }
+              },
+              "required": [
+                "row",
+                "column",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "maxItems": 20000
+          },
+          "missingReason": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "provenance": {
+            "type": "object",
+            "properties": {
+              "sourceId": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000
+              },
+              "license": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200
+              }
+            },
+            "required": [
+              "sourceId",
+              "description"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "label",
+          "description",
+          "columns",
+          "rows",
+          "provenance"
+        ],
+        "additionalProperties": false
+      },
+      "maxProperties": 8,
+      "propertyNames": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80,
+        "pattern": "^[A-Za-z_][A-Za-z0-9_.-]{0,79}$"
+      }
+    },
+    "evaluation": {
+      "type": "object",
+      "properties": {
+        "determinism": {
+          "enum": [
+            "bitwise",
+            "within-engine"
+          ]
+        },
+        "checkpoint": {
+          "enum": [
+            "none"
+          ]
+        }
+      },
+      "required": [
+        "determinism",
+        "checkpoint"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "contract",
+    "schemaVersion",
+    "modelId",
+    "version",
+    "title",
+    "summary",
+    "execution",
+    "capabilities",
+    "parameters",
+    "quantities",
+    "geometry",
+    "constraints",
+    "interpretation",
+    "limits",
+    "sources",
+    "referenceSuite"
+  ],
+  "additionalProperties": false
+}

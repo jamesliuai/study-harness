@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "experimentId": "motion",
+  "definitionRevision": "sha256:e85235066aa45298ccf1f24babb99f64fb88b3039087be4eb0baba1cddc893e1",
+  "runtimeVersion": "0.1.0",
+  "runId": "run-05fbf782-a7f4-4871-bea0-239bdc44fa90",
+  "runVersion": 0,
+  "parameters": {
+    "a": 2
+  },
+  "timePoint": {
+    "kind": "grid",
+    "time": 0,
+    "tick": 0,
+    "rateHz": 120
+  },
+  "view": {
+    "selectedIds": [],
+    "layers": {},
+    "playbackSpeed": 1
+  },
+  "viewVersion": 0,
+  "comparisonReferences": [],
+  "annotations": "Migration fixture",
+  "createdAt": "2026-10-29T06:57:28.634Z"
+}

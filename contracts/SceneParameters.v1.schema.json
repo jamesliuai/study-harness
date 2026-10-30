@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SceneParameters",
+  "type": "object",
+  "properties": {
+    "curvature": {
+      "type": "number",
+      "format": "double"
+    },
+    "start": {
+      "type": "number",
+      "format": "double"
+    },
+    "step_size": {
+      "type": "number",
+      "format": "double"
+    },
+    "steps": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "curvature",
+    "step_size",
+    "start",
+    "steps"
+  ]
+}

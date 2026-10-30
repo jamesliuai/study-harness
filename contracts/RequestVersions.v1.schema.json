@@ -1,0 +1,70 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RequestVersions",
+  "type": "object",
+  "properties": {
+    "app_version": {
+      "type": "string"
+    },
+    "build_source": {
+      "type": "string",
+      "default": ""
+    },
+    "content_version": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "prompt_sha256": {
+      "type": "string"
+    },
+    "prompt_version": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "recorded_at": {
+      "type": "string"
+    },
+    "reported_model": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "requested_model": {
+      "type": "string"
+    },
+    "scheduler_version": {
+      "type": "string"
+    },
+    "task_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "visualizer_manifest_sha256": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "app_version",
+    "requested_model",
+    "prompt_version",
+    "prompt_sha256",
+    "content_version",
+    "task_version",
+    "scheduler_version",
+    "policy_version",
+    "visualizer_manifest_sha256",
+    "recorded_at",
+    "provenance"
+  ]
+}

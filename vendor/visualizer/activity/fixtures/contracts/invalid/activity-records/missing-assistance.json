@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.activity-records",
+  "expect": "invalid",
+  "why": "assistance is required (empty when none).",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposures": []
+  }
+}

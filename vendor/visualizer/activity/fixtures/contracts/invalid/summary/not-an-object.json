@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.interaction-summary",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

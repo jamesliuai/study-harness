@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UnitView",
+  "type": "object",
+  "properties": {
+    "active_objective_id": {
+      "type": "string"
+    },
+    "available_review_minutes": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "continue_session_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "due_review_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "due_reviews": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Review"
+      }
+    },
+    "notice": {
+      "type": "string"
+    },
+    "objectives": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/UnitObjective"
+      }
+    },
+    "plan": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "title",
+    "notice",
+    "active_objective_id",
+    "plan",
+    "objectives",
+    "due_reviews",
+    "due_review_count",
+    "available_review_minutes"
+  ],
+  "$defs": {
+    "Review": {
+      "type": "object",
+      "properties": {
+        "assessment_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "due_at": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "interval_days": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "objective_id": {
+          "type": "string"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "scheduler_version": {
+          "type": "string"
+        },
+        "schema_version": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "session_id": {
+          "type": "string"
+        },
+        "simulated": {
+          "type": "boolean"
+        },
+        "status": {
+          "type": "string"
+        },
+        "supporting_attempts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "task_family": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "schema_version",
+        "id",
+        "session_id",
+        "objective_id",
+        "task_family",
+        "due_at",
+        "reason",
+        "scheduler_version",
+        "supporting_attempts",
+        "assessment_ids",
+        "interval_days",
+        "status",
+        "simulated"
+      ]
+    },
+    "UnitObjective": {
+      "type": "object",
+      "properties": {
+        "coverage_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "delayed_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "id": {
+          "type": "string"
+        },
+        "independent_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "simulated_independent_count": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "validation_status": {
+          "type": "string"
+        },
+        "visual_template": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "outcome",
+        "prerequisites",
+        "visual_template",
+        "validation_status",
+        "coverage_count",
+        "independent_count",
+        "simulated_independent_count",
+        "delayed_count"
+      ]
+    }
+  }
+}

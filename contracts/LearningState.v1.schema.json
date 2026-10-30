@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LearningState",
+  "type": "object",
+  "properties": {
+    "active_activity_id": {
+      "type": "string"
+    },
+    "diagnosis_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "goal": {
+      "type": "string"
+    },
+    "policy_version": {
+      "type": "string"
+    },
+    "quiet": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "stage": {
+      "type": "string"
+    },
+    "stopped": {
+      "type": "boolean"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "goal",
+    "stage",
+    "active_activity_id",
+    "quiet",
+    "stopped",
+    "diagnosis_count",
+    "policy_version"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "valid",
+  "why": "Cursor before any event.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "lastSequence": 0,
+    "lastEventId": null,
+    "checkpointDigest": null
+  }
+}

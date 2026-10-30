@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-discard-transcript"
+description = "Enables the discard_transcript command without any pre-configured scope."
+commands.allow = ["discard_transcript"]
+
+[[permission]]
+identifier = "deny-discard-transcript"
+description = "Denies the discard_transcript command without any pre-configured scope."
+commands.deny = ["discard_transcript"]

@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "invalid",
+  "why": "An acknowledgement is ok: true; failures are errors, not acks.",
+  "value": {
+    "ok": false,
+    "hostTimestamp": "2026-10-26T09:01:00Z"
+  }
+}

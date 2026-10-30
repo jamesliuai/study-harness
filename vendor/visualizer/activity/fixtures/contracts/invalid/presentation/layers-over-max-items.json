@@ -1,0 +1,101 @@
+{
+  "contract": "study-harness.presentation-snapshot",
+  "expect": "invalid",
+  "why": "At most 64 layers per view.",
+  "value": {
+    "contract": "study-harness.presentation-snapshot",
+    "schemaVersion": "1.0",
+    "revision": 2,
+    "views": {
+      "plot": {
+        "camera": {
+          "kind": "2d",
+          "center": [
+            0,
+            25
+          ],
+          "zoom": 1
+        },
+        "layers": [
+          "layer-0",
+          "layer-1",
+          "layer-2",
+          "layer-3",
+          "layer-4",
+          "layer-5",
+          "layer-6",
+          "layer-7",
+          "layer-8",
+          "layer-9",
+          "layer-10",
+          "layer-11",
+          "layer-12",
+          "layer-13",
+          "layer-14",
+          "layer-15",
+          "layer-16",
+          "layer-17",
+          "layer-18",
+          "layer-19",
+          "layer-20",
+          "layer-21",
+          "layer-22",
+          "layer-23",
+          "layer-24",
+          "layer-25",
+          "layer-26",
+          "layer-27",
+          "layer-28",
+          "layer-29",
+          "layer-30",
+          "layer-31",
+          "layer-32",
+          "layer-33",
+          "layer-34",
+          "layer-35",
+          "layer-36",
+          "layer-37",
+          "layer-38",
+          "layer-39",
+          "layer-40",
+          "layer-41",
+          "layer-42",
+          "layer-43",
+          "layer-44",
+          "layer-45",
+          "layer-46",
+          "layer-47",
+          "layer-48",
+          "layer-49",
+          "layer-50",
+          "layer-51",
+          "layer-52",
+          "layer-53",
+          "layer-54",
+          "layer-55",
+          "layer-56",
+          "layer-57",
+          "layer-58",
+          "layer-59",
+          "layer-60",
+          "layer-61",
+          "layer-62",
+          "layer-63",
+          "layer-64"
+        ]
+      },
+      "values": {
+        "camera": null,
+        "layers": []
+      }
+    },
+    "selection": "m-point",
+    "layout": "card",
+    "displayUnits": {
+      "eta": "dimensionless",
+      "x0": "dimensionless"
+    },
+    "locale": "en-GB",
+    "formatVersion": "1.0"
+  }
+}

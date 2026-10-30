@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GoalSummary",
+  "type": "object",
+  "properties": {
+    "capabilities": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "checked": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "session_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "created_at",
+    "session_ids",
+    "capabilities",
+    "checked"
+  ]
+}

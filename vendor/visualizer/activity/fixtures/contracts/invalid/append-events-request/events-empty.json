@@ -1,0 +1,9 @@
+{
+  "contract": "study-harness.append-events-request",
+  "expect": "invalid",
+  "why": "A batch has at least one event.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "events": []
+  }
+}

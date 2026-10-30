@@ -1,0 +1,10 @@
+{
+  "contract": "study-harness.host-ack",
+  "expect": "invalid",
+  "why": "Unknown fields are rejected at the top level.",
+  "value": {
+    "ok": true,
+    "hostTimestamp": "2026-10-26T09:01:00Z",
+    "unexpectedField": true
+  }
+}

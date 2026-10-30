@@ -1,0 +1,148 @@
+{
+  "version": "1.0",
+  "notes": "Digest lock: a 1.0 schema may never change. Publish changes under a new schema version with its own lock and keep a reader for 1.0.",
+  "schemas": {
+    "study-harness.activity-template": "sha256:6a14c3102491de12af1341685b8313f062c06494709d0de61f37472b45f4c4c3",
+    "study-harness.activity-instance": "sha256:67280e077128cd14f0fd1ecba9891501d46d46ea087ea35961ddef4f3926dbf2",
+    "study-harness.host-policy": "sha256:f47aead0f99430ab6382a2ce6c18951040aa89948a119c6247af7bd941364ca0",
+    "study-harness.scientific-snapshot": "sha256:c3119b97d43fa8ee4cb2716f5c3023227d07cb3c1036f9a4dee2aa5635c327c6",
+    "study-harness.presentation-snapshot": "sha256:9bec79be1779b93ed6b61f7ea2b108e79b5ab17760d914b9578565eb93f316c1",
+    "study-harness.interaction-event": "sha256:be7c7db5d8550b76ae0b2b7679faddb2e7fee9bdcdf42ba78feb7b27eb621290",
+    "study-harness.exposure-record": "sha256:4cb8f4a5269eb51a6be3988b9dbf01bf250df09a43b854ce75ae00b27fdf55b1",
+    "study-harness.interaction-summary": "sha256:18a59a4e850d43a706f5a8b421c46c3f84bc0d512a28722a6c047a7cb643d4b8",
+    "study-harness.activity-artifact": "sha256:91a861e69ec0c33037bae87f466acb44a76975df5a46b6ee0126fd8d7d7f090f",
+    "study-harness.review-record": "sha256:98bd418c523e8975493ce1410789d4322e47538e250880301d2cf2834df60fe9",
+    "study-harness.exposure-receipt": "sha256:8fb4ff9c2667eece99cb26f3efd3409a3264f0a67596e68f1543db0d223bf120",
+    "study-harness.stage-receipt": "sha256:1a60d314b537bbc126dc27ddd1035b7780c5ff1d29907b31b1fa76c1cb746fde",
+    "study-harness.assistance-receipt": "sha256:168c6ba089a2a6e56bb6326eb544e50f8be8b21766d3d02275a326d060a37b7f",
+    "study-harness.capability-record": "sha256:1d52b017e55e96bad4f122b3a25848c009f3bc1b53e35c863f16d2745f68c9a3",
+    "study-harness.activity-request": "sha256:8e9574e24d9029865782f734a7c35c0d2ec63ada0a35725ce1001953b5f6d132",
+    "study-harness.stage-transition-request": "sha256:035fd49ad0ef6b88511e4e9a469ef32e62eaf7b17823c272f5ca1abc62c540a6",
+    "study-harness.exposure-intent-request": "sha256:7b68bc719b73537aaa81f1a2286dea20016be5cedaac91fdb3393bf249f66290",
+    "study-harness.display-ack-request": "sha256:625694d826d01f4aebbd6648a178cb420d5f64343bd5627b98be432954daa135",
+    "study-harness.assistance-request": "sha256:e3daac69f04c7c9f4a79300e2aa7e9a7419d13b754de31976f60aeffcd965c67",
+    "study-harness.append-events-request": "sha256:bda2f178108e5c7207ed0b496e352944a56085a174c9dbf0dcc431890bf3eaca",
+    "study-harness.append-result": "sha256:d6b5dc9d511977ec68714b5d225e92db6e51a9cc6cf547d35eb3ba6bc5b781d3",
+    "study-harness.journal-cursor": "sha256:c27c6db745c772b01df1f9a81d6a9db343a0689a1d8b5ca08a28345dc7cf7cc5",
+    "study-harness.register-activity-request": "sha256:6a8851c74b67226f3d4f9bf3ff3bd3a3aa51800eeba409daf4d2dd26eb81557c",
+    "study-harness.save-artifact-request": "sha256:52aa2f9e87b127025513bf705326bf0d6523d7f45298e8e222eca53cc75b49af",
+    "study-harness.activity-lookup-request": "sha256:d3f2ea2dc848982235e01b4ee3a616f7c32c0800c2ad310dd2698939224cc830",
+    "study-harness.host-ack": "sha256:3b009ec42b5f3c4f2543d5ba1048c4ff5fa37b3d7f288af9451902bfb00c61e3",
+    "study-harness.activity-records": "sha256:3dedff74e57cf7d0fa8df6495dc552a82845dedcb31f692efb89ce85856a33e6",
+    "explorable-models.model-manifest": "sha256:e1d13c7fa43752c9632aea232ccbbff872394ae450bac7f1bbda3d85d3b5c61d"
+  },
+  "baseline": {
+    "explorable-models.document-2.0": "sha256:a91b65f8311c29bdbd6c23d9d2b317a456f4c10b006102cf1ba09baece294611"
+  },
+  "preReleaseAmendments": [
+    {
+      "date": "2026-10-26",
+      "schemas": [
+        "study-harness.activity-template",
+        "study-harness.activity-artifact",
+        "study-harness.save-artifact-request"
+      ],
+      "change": "Deliberate pre-release update of the 1.0 lock for additive optional fields only: MarkSpec.extent (\"bounded\" | \"line\") in activity templates and ActivityArtifact.assistance (assistance receipt references) in artifacts and save-artifact requests. Every record valid before the update stays valid; no field became required.",
+      "previous": {
+        "study-harness.activity-template": "sha256:688d0c35dc107cb2e6419de0e296c72d019063b883f63b8f75e59047e8339642",
+        "study-harness.activity-artifact": "sha256:85c68b789aff6129a8690789d58a29bd8b6fc9b3d767c8a80a011df48d30838a",
+        "study-harness.save-artifact-request": "sha256:a3b3c21a39e4e89005f8357092caf317740948c7272c9fbaeedf20730a93bbe6"
+      }
+    },
+    {
+      "date": "2026-10-26",
+      "schemas": [
+        "explorable-models.model-manifest",
+        "study-harness.activity-artifact",
+        "study-harness.activity-template",
+        "study-harness.append-events-request",
+        "study-harness.exposure-record",
+        "study-harness.interaction-event",
+        "study-harness.interaction-summary",
+        "study-harness.save-artifact-request"
+      ],
+      "added": [
+        "study-harness.activity-records",
+        "study-harness.capability-record"
+      ],
+      "change": "Second deliberate pre-release update of the 1.0 lock, applied once for the whole audit-fix phase (gaps G01-G80). Additive optional fields: interaction-event operation.failed.lost (journal loss record), parameters.committed/preview.observed visibleParameters, a dedicated playback.ended payload with optional reason; exposure-record displayed.endedMonotonicMs/endedBy; activity-artifact journal.pendingEvents, journal.lost and top-level lineage (also in the integrity fields); interaction-summary mode and reviewNotice; activity-template ControlSpec.section; model-manifest evaluation, observations datasets, geometry kind observations2 and its observations binding. append-events-request and save-artifact-request change only through the embedded event and artifact schemas. One tightening, required by report section 5.1 (bounded schemas with unknown-field rejection, gap G17): the seven event types that accepted the open payload.generic (activity.prepared, activity.opened, activity.closed, activity.suspended, activity.resumed, help.requested, content.revoked) now require closed payloads whose fields are the ones the adapter in this tree emits for them; payload.generic is removed, so a hand-written event of those types with other payload fields is now rejected. New 1.0 schemas: study-harness.activity-records (HostPort.getActivityRecords reply) and study-harness.capability-record (spatial-3d and discrete-iteration capability limits). No 1.0 contract has been published outside this repository; after the 1.0 release a change is a new schema version. Re-consolidated on 2026-10-27 for the adversarial-review fixes in the same unreleased phase: study-harness.activity-records gains the optional host activity state (activity {stage, activityRevision, closed, lineage, stageReceiptId}) that restore adopts, and explorable-models.model-manifest gains optional geometry coordinates units ({x, y, z?}). Both are additive optional fields; 'previous' still lists the digests before this amendment.",
+      "previous": {
+        "explorable-models.model-manifest": "sha256:26698c72ce0d7e231d128eeb8e614df40ab97757429302ef2506f8720aae0a44",
+        "study-harness.activity-artifact": "sha256:68ac3909c8cfc0d1e1be95d4c88863f0aca19ba86d5155962c502c18a40ddb4a",
+        "study-harness.activity-template": "sha256:43172a30f38eb4e89cb94080d3dbe2e50e2f83209da712eebedd20a3c0a91751",
+        "study-harness.append-events-request": "sha256:10aa45eb1aa510d9d5049af5536aa8f4a9a1057c4522ab6b1b37a22dcdc278b1",
+        "study-harness.exposure-record": "sha256:13bc022a71d5f5675b6141221e0e31ae95f5d7910acde118a1dd48a6f54ffc6f",
+        "study-harness.interaction-event": "sha256:f1034c0ebf3e8a4d3de7623a074d6e7cdec30669725fd0a6d2b5a1c70a822b1e",
+        "study-harness.interaction-summary": "sha256:bfc8019a5a3a81995b39e67933cffef6c7c6a67d441a25709b1bfd1bfd2f8062",
+        "study-harness.save-artifact-request": "sha256:6746735f992a9807f4574dce0621a8b79247bdea0aca565ba8eb3748929d2e3b"
+      }
+    },
+    {
+      "date": "2026-10-28",
+      "schemas": [
+        "study-harness.activity-template",
+        "study-harness.activity-instance",
+        "study-harness.host-policy",
+        "study-harness.scientific-snapshot",
+        "study-harness.presentation-snapshot",
+        "study-harness.interaction-event",
+        "study-harness.exposure-record",
+        "study-harness.interaction-summary",
+        "study-harness.activity-artifact",
+        "study-harness.review-record",
+        "study-harness.exposure-receipt",
+        "study-harness.stage-receipt",
+        "study-harness.assistance-receipt",
+        "study-harness.capability-record",
+        "study-harness.activity-request",
+        "study-harness.stage-transition-request",
+        "study-harness.exposure-intent-request",
+        "study-harness.display-ack-request",
+        "study-harness.assistance-request",
+        "study-harness.append-events-request",
+        "study-harness.append-result",
+        "study-harness.journal-cursor",
+        "study-harness.register-activity-request",
+        "study-harness.save-artifact-request",
+        "study-harness.activity-lookup-request",
+        "study-harness.host-ack",
+        "study-harness.activity-records",
+        "explorable-models.model-manifest"
+      ],
+      "change": "Deliberate, owner-authorized breaking namespace rename before publication. Package, command, model-manifest contract and schema identifiers now use Explorable Models throughout. Previous namespace identifiers and command aliases are not accepted. Mathematical validation, bounds and scientific result semantics are unchanged. The preceding commit retains the original schema bytes and digests; this amendment establishes the renamed unreleased identity.",
+      "previous": {
+        "study-harness.activity-template": "sha256:a0762eebc8562d3f9b9b1546df69351d6303dcee69143598db190cd53f23400b",
+        "study-harness.activity-instance": "sha256:4755b82352bb889afde095f3c33c0b13595ff80c2c4fdfb64664a2b681bde7ea",
+        "study-harness.host-policy": "sha256:61ec2c117b001aff7e964d6b622b82842848a5a368b196076f996cb3a703a6f5",
+        "study-harness.scientific-snapshot": "sha256:e343fe8f75dee1f49da4dc0163b0bc376177c4f90ac661343e7d714c751b34e8",
+        "study-harness.presentation-snapshot": "sha256:df4c2840d65085e89d60382f4d11697eaa7ec5f9a308431fb7a1a20c8bd95ee4",
+        "study-harness.interaction-event": "sha256:ee45c2fc1913de2870bdc6bc72ecdcbe9b779ef0cfd3ddfa5065e53cd86616cc",
+        "study-harness.exposure-record": "sha256:e8ebfc7e556cebd872e582f3c4be925d92dcef0826068b1a53739f23047f360b",
+        "study-harness.interaction-summary": "sha256:f0c18b0545950e98de680ac40e2a668ecbae84264d2cb3dfeb5d68769628db6d",
+        "study-harness.activity-artifact": "sha256:a4fa7e3f5f28a2beea400fa2395e9f98f39fda6201c58947d13d747d6c06d58f",
+        "study-harness.review-record": "sha256:b31634b3af2bc86ce4e7af8463288892dac21ce064e2bb5daf2a001ed4fa978b",
+        "study-harness.exposure-receipt": "sha256:750d59db652edec3c3f3a1d0d1f44cfc4c6bdcd1e0f9f9cdc58b8006ab851a65",
+        "study-harness.stage-receipt": "sha256:b132d02a128ad4ff198ffdf827e6328509631531d779b605c9302df7a1ddecc4",
+        "study-harness.assistance-receipt": "sha256:90f63ee379ff7b2f7c273795ccabef9a822ff041ea867af35ee94b57f0ef977d",
+        "study-harness.capability-record": "sha256:5ec8c9f282f82f01cd5314ad3cb3376a9dd1312f83212950b862840552fbd7a3",
+        "study-harness.activity-request": "sha256:0999b1a5074b4ee2df9b863946ab37f345829a7e0d4e378c4b15c365bc9c70ea",
+        "study-harness.stage-transition-request": "sha256:df258863087d659bcf8ccd32ebfa5fe0d576e1aaad365d17a721ec0ea79866bd",
+        "study-harness.exposure-intent-request": "sha256:8251ae1a3a127ddb5179840221d13c4b096219d569cc26f69bd4c8cabaf68bed",
+        "study-harness.display-ack-request": "sha256:84e6625f166c0446f8414b6a520debbbdfd96b87d8f9a10287856bdf8cc7b5ea",
+        "study-harness.assistance-request": "sha256:2771b9a513875630d5b93758655f2ba52071b9db6ba6459ab584175bdccfdda9",
+        "study-harness.append-events-request": "sha256:61706670bf6b4f5798650317a50e569d731a90732e3b63f219287607cb3cf804",
+        "study-harness.append-result": "sha256:7c28984dd62ed360024ea36637b8d48dbb4bf5dac43fec5ec5054c9bea8c5b5d",
+        "study-harness.journal-cursor": "sha256:4989c36cbff8698b74e24f44ecbb2b4ff9cd450b05e68cd6f67cb4f39bd636e2",
+        "study-harness.register-activity-request": "sha256:94a2681302b0bef1d01af5ee8a17be8a5605cbb5c4c713e8db973d7733d94595",
+        "study-harness.save-artifact-request": "sha256:d743149b59fcd3bb18f11b945d7195735d6abf44e84efd0f3913bd59d257127d",
+        "study-harness.activity-lookup-request": "sha256:6adf07be3579d2a05d59f2fc94806f17cd08357d3431a7682b8d6c183952f122",
+        "study-harness.host-ack": "sha256:156f8d6860e3536406e7d9c340e44af1a72da0672a8b6309023ae19422728e6d",
+        "study-harness.activity-records": "sha256:e2a34591939bfc1f3fbb6db51b9ce37b1c8df21f4ff495fd05b84166545330da",
+        "explorable-models.model-manifest": "sha256:f73d5f4b687c7ae5c61a8c2c9a416710128efd37f82b5ffc96644340f9ba5c32"
+      },
+      "previousBaseline": {
+        "explorable-models.document-2.0": "sha256:8dcc8364fa9fe369b1937a6697409e35e217971edb368f72f44ea0ee24b81523"
+      }
+    }
+  ]
+}

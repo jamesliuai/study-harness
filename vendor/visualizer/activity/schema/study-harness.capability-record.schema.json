@@ -1,0 +1,149 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://explorable-models.invalid/schema/study-harness.capability-record-1.0.json",
+  "title": "Study Harness installed capability record",
+  "oneOf": [
+    {
+      "$ref": "#/$defs/Spatial3dCapabilityRecord"
+    },
+    {
+      "$ref": "#/$defs/DiscreteIterationCapabilityRecord"
+    }
+  ],
+  "$defs": {
+    "DiscreteIterationCapabilityRecord": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "const": "study-harness.capability-record"
+        },
+        "schemaVersion": {
+          "const": "1.0"
+        },
+        "id": {
+          "const": "discrete-iteration"
+        },
+        "version": {
+          "const": "1.0"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "maxIndex": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 10000000
+            }
+          },
+          "required": [
+            "maxIndex"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "required": [
+        "contract",
+        "schemaVersion",
+        "id",
+        "version",
+        "title",
+        "limits"
+      ],
+      "additionalProperties": false
+    },
+    "Spatial3dCapabilityRecord": {
+      "type": "object",
+      "properties": {
+        "contract": {
+          "const": "study-harness.capability-record"
+        },
+        "schemaVersion": {
+          "const": "1.0"
+        },
+        "id": {
+          "const": "spatial-3d"
+        },
+        "version": {
+          "const": "1.0"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 200
+        },
+        "limits": {
+          "type": "object",
+          "properties": {
+            "vertices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20000
+            },
+            "indices": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 120000
+            },
+            "fieldSamples": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 1000
+            },
+            "labels": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 32
+            },
+            "textureSize": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 1024
+            },
+            "drawCallsPerFrame": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 128
+            }
+          },
+          "required": [
+            "vertices",
+            "indices",
+            "fieldSamples",
+            "labels",
+            "textureSize",
+            "drawCallsPerFrame"
+          ],
+          "additionalProperties": false
+        },
+        "geometryKinds": {
+          "type": "array",
+          "items": {
+            "enum": [
+              "points3",
+              "segments3",
+              "polyline3",
+              "surface-grid",
+              "vector-field3"
+            ]
+          },
+          "maxItems": 5
+        }
+      },
+      "required": [
+        "contract",
+        "schemaVersion",
+        "id",
+        "version",
+        "title",
+        "limits",
+        "geometryKinds"
+      ],
+      "additionalProperties": false
+    }
+  }
+}

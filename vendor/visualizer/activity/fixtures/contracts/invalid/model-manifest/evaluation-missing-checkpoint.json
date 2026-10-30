@@ -1,0 +1,212 @@
+{
+  "contract": "explorable-models.model-manifest",
+  "expect": "invalid",
+  "why": "A declared evaluation behaviour names both determinism and checkpoint.",
+  "value": {
+    "contract": "explorable-models.model-manifest",
+    "schemaVersion": "1.0",
+    "modelId": "quadratic-descent",
+    "version": "1.0.0",
+    "title": "Gradient descent on a quadratic loss",
+    "summary": "Fixed-step gradient descent on f(x) = a·x²/2. Each step multiplies the position by r = 1 − η·a.",
+    "execution": {
+      "kind": "kernel",
+      "kernelId": "quadratic-gradient-descent",
+      "kernelVersion": "1.0.0",
+      "mode": "discrete",
+      "maxIndex": 1000
+    },
+    "capabilities": [
+      {
+        "id": "discrete-iteration",
+        "version": "1.0"
+      }
+    ],
+    "parameters": {
+      "a": {
+        "label": "Curvature",
+        "symbol": "a",
+        "description": "Curvature of the quadratic loss.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0.1,
+        "max": 10,
+        "default": 1,
+        "step": {
+          "ui": 0.1,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "eta": {
+        "label": "Learning rate",
+        "symbol": "\\eta",
+        "description": "Step size multiplying the gradient.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": 0,
+        "max": 2,
+        "default": 0.5,
+        "step": {
+          "ui": 0.05,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      },
+      "x0": {
+        "label": "Starting point",
+        "symbol": "x_0",
+        "description": "Position before the first step.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "min": -10,
+        "max": 10,
+        "default": 8,
+        "step": {
+          "ui": 0.5,
+          "admissible": "continuous"
+        },
+        "role": "model-input"
+      }
+    },
+    "quantities": {
+      "x": {
+        "label": "Current position",
+        "symbol": "x_n",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Iterate x at the current index n."
+      },
+      "loss": {
+        "label": "Current loss",
+        "symbol": "f(x_n)",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Loss a·x²/2 at the current iterate."
+      },
+      "multiplier": {
+        "label": "Step multiplier",
+        "symbol": "r",
+        "shape": {
+          "kind": "scalar"
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "r = 1 − η·a; every step multiplies x by r."
+      },
+      "point": {
+        "label": "Current point",
+        "shape": {
+          "kind": "vector",
+          "length": 2
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "The point (x_n, f(x_n)) on the loss curve.",
+        "coordinateFrame": "plot"
+      },
+      "start": {
+        "label": "Starting point on the curve",
+        "shape": {
+          "kind": "vector",
+          "length": 2
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "The point (x_0, f(x_0)).",
+        "coordinateFrame": "plot"
+      },
+      "regime": {
+        "label": "Regime",
+        "shape": {
+          "kind": "category",
+          "values": [
+            "zero-start",
+            "stationary",
+            "monotone-convergence",
+            "one-step",
+            "alternating-convergence",
+            "oscillation",
+            "divergence"
+          ]
+        },
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "meaning": "Convergence regime classified from x0 and η·a."
+      }
+    },
+    "geometry": {
+      "landscape": {
+        "kind": "polyline2",
+        "label": "Loss curve",
+        "description": "f(x) = a·x²/2 sampled on [−10, 10].",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 201
+      },
+      "iterates": {
+        "kind": "points2",
+        "label": "Iterates",
+        "description": "Points (x_k, f(x_k)) for k = 0…n.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 1001
+      },
+      "steps": {
+        "kind": "segments2",
+        "label": "Steps",
+        "description": "Segments joining consecutive iterates.",
+        "dimension": "dimensionless",
+        "unit": "dimensionless",
+        "coordinateFrame": "plot",
+        "maxElements": 1000
+      }
+    },
+    "constraints": [
+      {
+        "id": "step-product",
+        "expression": "eta*a",
+        "max": 4,
+        "maxInclusive": true,
+        "message": "The step product η·a must be at most 4.",
+        "recovery": "Lower the learning rate or the curvature."
+      }
+    ],
+    "interpretation": {
+      "coordinateConvention": "x increases to the right; loss is plotted upward.",
+      "assumptions": [
+        "Exact gradient, fixed step size, no noise."
+      ],
+      "limitations": [
+        "One-dimensional quadratic only; not a model of stochastic training."
+      ]
+    },
+    "limits": {
+      "maxIndex": 1000,
+      "maxGeometryElements": 3000,
+      "maxOperations": 1000000
+    },
+    "sources": [
+      {
+        "id": "derivation",
+        "kind": "derivation",
+        "citation": "x[n+1] = x[n] − η·a·x[n] = (1 − η·a)·x[n]."
+      }
+    ],
+    "referenceSuite": {
+      "suiteId": "quadratic-descent-reference",
+      "digest": "sha256:79067c23031b90d45d9a682d42238e1ae2c564984a4360e181f51edd23642dae"
+    },
+    "evaluation": {
+      "determinism": "bitwise"
+    }
+  }
+}

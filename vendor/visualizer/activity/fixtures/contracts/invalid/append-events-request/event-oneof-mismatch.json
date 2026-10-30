@@ -1,0 +1,262 @@
+{
+  "contract": "study-harness.append-events-request",
+  "expect": "invalid",
+  "why": "An event payload must match its type.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "events": [
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0018",
+        "activityId": "act-quadratic-0001",
+        "sequence": 18,
+        "operationId": "op-18",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "preview.started",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {
+          "previewId": "pv-3",
+          "baseRunId": "run-0001",
+          "parameter": "eta",
+          "gesture": "pointer"
+        },
+        "monotonicMs": 5509,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0019",
+        "activityId": "act-quadratic-0001",
+        "sequence": 19,
+        "operationId": "op-19",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "preview.started",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {
+          "previewId": "pv-2",
+          "reason": "escape"
+        },
+        "monotonicMs": 5759.5,
+        "causes": []
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0020",
+        "activityId": "act-quadratic-0001",
+        "sequence": 20,
+        "operationId": "op-20",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "preview.observed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {
+          "previewId": "pv-3",
+          "outcome": "committed",
+          "samplingPolicy": "first-last-evenly-spaced",
+          "rendered": [
+            {
+              "params": {
+                "a": 1,
+                "eta": 0.6,
+                "x0": 8
+              },
+              "frameId": "frame-pv-3-1"
+            },
+            {
+              "params": {
+                "a": 1,
+                "eta": 1.5,
+                "x0": 8
+              },
+              "frameId": "frame-pv-3-9",
+              "visibleQuantities": {
+                "x": {
+                  "status": "valid",
+                  "value": 8
+                }
+              }
+            }
+          ],
+          "omitted": 7
+        },
+        "monotonicMs": 6010,
+        "causes": [],
+        "frame": {
+          "frameId": "frame-pv-3-9",
+          "runId": "run-0001",
+          "kind": "tentative",
+          "position": {
+            "kind": "index",
+            "index": 0,
+            "maxIndex": 1000
+          }
+        }
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0021",
+        "activityId": "act-quadratic-0001",
+        "sequence": 21,
+        "operationId": "op-21",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "parameters.committed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {
+          "runId": "run-0002",
+          "previousRunId": "run-0001",
+          "params": {
+            "a": 1,
+            "eta": 1.5,
+            "x0": 8
+          },
+          "cause": "commit",
+          "previewId": "pv-3",
+          "gesture": "pointer",
+          "visibleQuantities": {
+            "x": {
+              "status": "valid",
+              "value": -4
+            },
+            "loss": {
+              "status": "valid",
+              "value": 8
+            }
+          }
+        },
+        "monotonicMs": 6260.5,
+        "causes": [
+          "evt-0020"
+        ],
+        "frame": {
+          "frameId": "frame-run-0002-i3",
+          "runId": "run-0002",
+          "kind": "committed",
+          "position": {
+            "kind": "index",
+            "index": 0,
+            "maxIndex": 1000
+          }
+        }
+      },
+      {
+        "contract": "study-harness.interaction-event",
+        "schemaVersion": "1.0",
+        "eventId": "evt-0022",
+        "activityId": "act-quadratic-0001",
+        "sequence": 22,
+        "operationId": "op-22",
+        "actor": {
+          "kind": "learner",
+          "binding": "surface-main"
+        },
+        "type": "position.changed",
+        "revisions": {
+          "scientific": {
+            "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+            "runId": "run-0002",
+            "version": 5
+          },
+          "presentation": 2,
+          "activity": 3,
+          "hostSession": 4,
+          "policy": 3
+        },
+        "payload": {
+          "runId": "run-0002",
+          "from": {
+            "kind": "index",
+            "index": 2,
+            "maxIndex": 1000
+          },
+          "to": {
+            "kind": "index",
+            "index": 3,
+            "maxIndex": 1000
+          },
+          "cause": "step",
+          "visibleQuantities": {
+            "x": {
+              "status": "valid",
+              "value": -4
+            },
+            "loss": {
+              "status": "valid",
+              "value": 8
+            },
+            "regime": {
+              "status": "valid",
+              "value": "alternating-convergence"
+            }
+          }
+        },
+        "monotonicMs": 6511,
+        "causes": [],
+        "frame": {
+          "frameId": "frame-run-0002-i3",
+          "runId": "run-0002",
+          "kind": "committed",
+          "position": {
+            "kind": "index",
+            "index": 3,
+            "maxIndex": 1000
+          }
+        }
+      }
+    ]
+  }
+}

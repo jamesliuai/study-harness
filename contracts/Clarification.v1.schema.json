@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Clarification",
+  "type": "object",
+  "properties": {
+    "blocking": {
+      "type": "boolean"
+    },
+    "options": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "question": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "question",
+    "options",
+    "blocking"
+  ]
+}

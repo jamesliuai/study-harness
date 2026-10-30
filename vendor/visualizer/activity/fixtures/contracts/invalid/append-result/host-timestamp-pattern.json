@@ -1,0 +1,21 @@
+{
+  "contract": "study-harness.append-result",
+  "expect": "invalid",
+  "why": "Host timestamps are RFC 3339.",
+  "value": {
+    "acknowledged": [
+      {
+        "eventId": "evt-0002",
+        "durableSequence": 2,
+        "hostTimestamp": "yesterday"
+      }
+    ],
+    "duplicates": [],
+    "cursor": {
+      "activityId": "act-quadratic-0001",
+      "lastSequence": 2,
+      "lastEventId": "evt-0002",
+      "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+    }
+  }
+}

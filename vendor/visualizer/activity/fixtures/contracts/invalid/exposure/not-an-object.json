@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.exposure-record",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-end-recording"
+description = "Enables the end_recording command without any pre-configured scope."
+commands.allow = ["end_recording"]
+
+[[permission]]
+identifier = "deny-end-recording"
+description = "Denies the end_recording command without any pre-configured scope."
+commands.deny = ["end_recording"]

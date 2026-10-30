@@ -1,0 +1,559 @@
+{
+  "contract": "study-harness.activity-template",
+  "expect": "invalid",
+  "why": "ModelRef digest must be lowercase hexadecimal ($ref target violation).",
+  "value": {
+    "contract": "study-harness.activity-template",
+    "schemaVersion": "1.0",
+    "templateId": "quadratic-descent-regimes",
+    "version": "1.0.0",
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+    },
+    "title": "How the learning rate shapes gradient descent",
+    "purpose": "Predict, then observe, how the step product η·a determines whether fixed-step descent converges, oscillates or diverges.",
+    "dimension": "2d",
+    "locale": "en-GB",
+    "requires": [
+      {
+        "id": "discrete-iteration",
+        "version": "1.0"
+      }
+    ],
+    "groups": [
+      {
+        "id": "g-plot",
+        "kind": "view",
+        "label": "Loss plot",
+        "description": "The loss curve and the descent path.",
+        "solutionBearing": false,
+        "members": [
+          "plot"
+        ]
+      },
+      {
+        "id": "g-landscape",
+        "kind": "mark",
+        "label": "Loss curve",
+        "description": "The quadratic loss and the draggable start.",
+        "solutionBearing": false,
+        "members": [
+          "m-curve",
+          "m-start"
+        ]
+      },
+      {
+        "id": "g-trajectory",
+        "kind": "mark",
+        "label": "Descent path",
+        "description": "Iterates, steps and the current point.",
+        "solutionBearing": true,
+        "members": [
+          "m-iterates",
+          "m-steps",
+          "m-point",
+          "m-label"
+        ]
+      },
+      {
+        "id": "g-position",
+        "kind": "quantity",
+        "label": "Position and loss",
+        "description": "Current iterate and its loss.",
+        "solutionBearing": true,
+        "members": [
+          "x",
+          "loss",
+          "point"
+        ]
+      },
+      {
+        "id": "g-multiplier",
+        "kind": "quantity",
+        "label": "Step multiplier",
+        "description": "r = 1 − η·a.",
+        "solutionBearing": false,
+        "members": [
+          "multiplier",
+          "start"
+        ]
+      },
+      {
+        "id": "g-values",
+        "kind": "view",
+        "label": "Values",
+        "description": "Numeric readout.",
+        "solutionBearing": false,
+        "members": [
+          "values"
+        ]
+      },
+      {
+        "id": "g-equation-view",
+        "kind": "view",
+        "label": "Update rule view",
+        "description": "The update rule with current numbers.",
+        "solutionBearing": false,
+        "members": [
+          "equation"
+        ]
+      },
+      {
+        "id": "g-rule",
+        "kind": "equation",
+        "label": "Update rule",
+        "description": "x_{n+1} = r·x_n with values.",
+        "solutionBearing": true,
+        "members": [
+          "eq-update"
+        ]
+      },
+      {
+        "id": "g-table",
+        "kind": "view",
+        "label": "Iterate table",
+        "description": "Iterates as rows.",
+        "solutionBearing": true,
+        "members": [
+          "table"
+        ]
+      },
+      {
+        "id": "g-controls",
+        "kind": "control",
+        "label": "Parameters",
+        "description": "Learning rate, start and curvature.",
+        "solutionBearing": false,
+        "members": [
+          "eta",
+          "x0",
+          "a"
+        ]
+      },
+      {
+        "id": "g-alternatives",
+        "kind": "alternative",
+        "label": "Accessible equivalents",
+        "description": "Text, table and keyboard equivalents.",
+        "solutionBearing": false,
+        "members": [
+          "alt-description",
+          "alt-table",
+          "alt-keyboard"
+        ]
+      },
+      {
+        "id": "g-notes",
+        "kind": "annotation",
+        "label": "Notes",
+        "description": "Derivation and assumptions.",
+        "solutionBearing": false,
+        "members": [
+          "note-derivation",
+          "note-assumption"
+        ]
+      }
+    ],
+    "views": [
+      {
+        "id": "plot",
+        "kind": "plot2d",
+        "group": "g-plot",
+        "title": "Loss and iterates",
+        "description": "Plot of the loss a·x²/2 against x, with the descent iterates drawn on the curve.",
+        "bounds": [
+          -10,
+          10,
+          -5,
+          55
+        ],
+        "equalAspect": false,
+        "axes": {
+          "x": {
+            "label": "Position x",
+            "unit": "dimensionless",
+            "quantity": "x"
+          },
+          "y": {
+            "label": "Loss f(x)",
+            "unit": "dimensionless",
+            "quantity": "loss"
+          }
+        },
+        "marks": [
+          {
+            "id": "m-curve",
+            "kind": "curve",
+            "group": "g-landscape",
+            "label": "Loss curve",
+            "bindings": {
+              "geometry": "landscape"
+            },
+            "style": {
+              "role": "primary",
+              "dash": "solid",
+              "marker": "none",
+              "weight": "regular"
+            }
+          },
+          {
+            "id": "m-start",
+            "kind": "point",
+            "group": "g-landscape",
+            "label": "Starting point",
+            "bindings": {
+              "at": "start"
+            },
+            "style": {
+              "role": "reference",
+              "dash": "solid",
+              "marker": "circle",
+              "weight": "regular"
+            },
+            "drag": {
+              "x": "x0"
+            }
+          },
+          {
+            "id": "m-iterates",
+            "kind": "points",
+            "group": "g-trajectory",
+            "label": "Iterates",
+            "bindings": {
+              "geometry": "iterates"
+            },
+            "style": {
+              "role": "accent",
+              "dash": "solid",
+              "marker": "circle",
+              "weight": "regular"
+            }
+          },
+          {
+            "id": "m-steps",
+            "kind": "segments",
+            "group": "g-trajectory",
+            "label": "Steps",
+            "bindings": {
+              "geometry": "steps"
+            },
+            "style": {
+              "role": "muted",
+              "dash": "dashed",
+              "marker": "none",
+              "weight": "thin"
+            }
+          },
+          {
+            "id": "m-point",
+            "kind": "point",
+            "group": "g-trajectory",
+            "label": "Current iterate",
+            "bindings": {
+              "at": "point"
+            },
+            "style": {
+              "role": "accent",
+              "dash": "solid",
+              "marker": "circle",
+              "weight": "bold"
+            }
+          },
+          {
+            "id": "m-label",
+            "kind": "label",
+            "group": "g-trajectory",
+            "label": "Current iterate label",
+            "bindings": {
+              "at": "point"
+            },
+            "style": {
+              "role": "accent",
+              "dash": "solid",
+              "marker": "none",
+              "weight": "regular"
+            },
+            "text": "x_n",
+            "placement": {
+              "anchor": "ne",
+              "offset": [
+                6,
+                -6
+              ],
+              "leader": false,
+              "maxWidthEm": 8
+            }
+          }
+        ]
+      },
+      {
+        "id": "values",
+        "kind": "values",
+        "group": "g-values",
+        "title": "Current values",
+        "description": "Position, loss and step multiplier at the current index.",
+        "equalAspect": false,
+        "marks": [],
+        "quantities": [
+          "x",
+          "loss",
+          "multiplier"
+        ]
+      },
+      {
+        "id": "equation",
+        "kind": "equation",
+        "group": "g-equation-view",
+        "title": "Update rule",
+        "description": "The update rule with the current numbers substituted.",
+        "equalAspect": false,
+        "marks": [],
+        "equations": [
+          "eq-update"
+        ]
+      },
+      {
+        "id": "table",
+        "kind": "table",
+        "group": "g-table",
+        "title": "Iterates",
+        "description": "One row per iterate: index, position and loss.",
+        "equalAspect": false,
+        "marks": [],
+        "rowsFrom": "iterates"
+      }
+    ],
+    "controls": [
+      {
+        "parameter": "eta",
+        "group": "g-controls",
+        "label": "Learning rate η",
+        "displayUnits": [
+          "dimensionless"
+        ],
+        "slider": true,
+        "exact": true,
+        "step": 0.05,
+        "description": "Step size multiplying the gradient."
+      },
+      {
+        "parameter": "x0",
+        "group": "g-controls",
+        "label": "Starting point x₀",
+        "displayUnits": [
+          "dimensionless"
+        ],
+        "slider": true,
+        "exact": true,
+        "step": 0.5,
+        "description": "Position before the first step."
+      },
+      {
+        "parameter": "a",
+        "group": "g-controls",
+        "label": "Curvature a",
+        "displayUnits": [
+          "dimensionless"
+        ],
+        "slider": true,
+        "exact": true,
+        "step": 0.1,
+        "description": "Curvature of the loss."
+      }
+    ],
+    "scenarios": [
+      {
+        "id": "s-monotone",
+        "label": "Small steps",
+        "description": "η·a = 0.5: steady approach to the minimum.",
+        "parameters": {
+          "eta": 0.5,
+          "a": 1,
+          "x0": 8
+        },
+        "group": "g-controls"
+      },
+      {
+        "id": "s-diverge",
+        "label": "Large steps",
+        "description": "η·a = 3: every step overshoots further.",
+        "parameters": {
+          "eta": 2,
+          "a": 1.5,
+          "x0": 8
+        },
+        "group": "g-controls"
+      }
+    ],
+    "equations": [
+      {
+        "id": "eq-update",
+        "group": "g-rule",
+        "label": "Update rule",
+        "tex": "x_{n+1} = (1 - \\eta a)\\,x_n = {{q:multiplier}} \\times {{q:x}}",
+        "plain": "x next = (1 − η·a)·x = {{q:multiplier}} × {{q:x}}"
+      }
+    ],
+    "stages": [
+      {
+        "id": "predict",
+        "kind": "predict",
+        "instruction": "Choose a learning rate and predict whether the iterates will settle at the minimum.",
+        "visible": {
+          "g-plot": "fixed",
+          "g-landscape": "fixed",
+          "g-controls": "interactive",
+          "g-alternatives": "fixed",
+          "g-notes": "fixed"
+        },
+        "controls": {
+          "eta": "interactive",
+          "x0": "fixed",
+          "a": "fixed"
+        },
+        "allowsPreview": false,
+        "allowsPlayback": false,
+        "allowsNavigation": false,
+        "response": {
+          "kind": "prediction",
+          "prompt": "Will the iterates converge, oscillate or diverge for your learning rate?",
+          "taskFamily": "tf-regime"
+        }
+      },
+      {
+        "id": "explore",
+        "kind": "explore",
+        "instruction": "Step through the iterates and try other learning rates.",
+        "visible": {
+          "g-plot": "interactive",
+          "g-landscape": "interactive",
+          "g-trajectory": "interactive",
+          "g-position": "fixed",
+          "g-multiplier": "fixed",
+          "g-values": "fixed",
+          "g-equation-view": "fixed",
+          "g-rule": "fixed",
+          "g-table": "fixed",
+          "g-controls": "interactive",
+          "g-alternatives": "fixed",
+          "g-notes": "fixed"
+        },
+        "controls": {
+          "eta": "interactive",
+          "x0": "interactive",
+          "a": "interactive"
+        },
+        "allowsPreview": true,
+        "allowsPlayback": true,
+        "allowsNavigation": true
+      },
+      {
+        "id": "explain",
+        "kind": "explain",
+        "instruction": "Explain how η·a decides the behaviour you observed.",
+        "visible": {
+          "g-plot": "fixed",
+          "g-landscape": "fixed",
+          "g-trajectory": "fixed",
+          "g-position": "fixed",
+          "g-multiplier": "fixed",
+          "g-values": "fixed",
+          "g-equation-view": "fixed",
+          "g-rule": "fixed",
+          "g-table": "fixed",
+          "g-alternatives": "fixed",
+          "g-notes": "fixed"
+        },
+        "controls": {},
+        "allowsPreview": false,
+        "allowsPlayback": true,
+        "allowsNavigation": true,
+        "response": {
+          "kind": "explanation",
+          "prompt": "In your own words, why does the product η·a matter?",
+          "taskFamily": "tf-explain"
+        }
+      }
+    ],
+    "transitions": [
+      {
+        "id": "t-reveal",
+        "from": "predict",
+        "to": "explore",
+        "label": "Show the iterates"
+      },
+      {
+        "id": "t-explain",
+        "from": "explore",
+        "to": "explain",
+        "label": "Explain what you saw"
+      }
+    ],
+    "initialStage": "predict",
+    "alternatives": [
+      {
+        "id": "alt-description",
+        "kind": "description",
+        "group": "g-alternatives",
+        "label": "Plot description",
+        "covers": [
+          "plot"
+        ],
+        "equivalence": "equivalent",
+        "description": "A generated text description of the curve, the iterates and the current point, from visible values only.",
+        "verifiedBy": "tests/activity/projection.test.ts#plot-description"
+      },
+      {
+        "id": "alt-table",
+        "kind": "table",
+        "group": "g-alternatives",
+        "label": "Iterate table",
+        "covers": [
+          "plot",
+          "m-iterates"
+        ],
+        "equivalence": "equivalent",
+        "description": "The iterates as a table of index, position and loss.",
+        "verifiedBy": "tests/activity/projection.test.ts#iterate-table"
+      },
+      {
+        "id": "alt-keyboard",
+        "kind": "keyboard",
+        "group": "g-alternatives",
+        "label": "Exact start entry",
+        "covers": [
+          "m-start"
+        ],
+        "equivalence": "equivalent",
+        "description": "Type the starting point instead of dragging it.",
+        "verifiedBy": "manual-check:keyboard-start-entry"
+      }
+    ],
+    "taskFamilies": [
+      {
+        "id": "tf-regime",
+        "description": "Classify the regime of fixed-step descent from η and a.",
+        "hostOwned": true
+      },
+      {
+        "id": "tf-explain",
+        "description": "Explain the role of the step product in fixed-step descent.",
+        "hostOwned": true
+      }
+    ],
+    "content": [
+      {
+        "id": "note-derivation",
+        "kind": "derivation",
+        "text": "Each step subtracts η times the gradient a·x, so x is multiplied by 1 − η·a."
+      },
+      {
+        "id": "note-assumption",
+        "kind": "assumption",
+        "text": "The gradient is exact and the step size is fixed."
+      }
+    ]
+  }
+}

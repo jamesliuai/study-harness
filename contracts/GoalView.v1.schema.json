@@ -1,0 +1,220 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GoalView",
+  "type": "object",
+  "properties": {
+    "background": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CapabilityProgress"
+      }
+    },
+    "clarification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Clarification"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "goal_text": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "minutes": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "next_objective_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "notes": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "source_note": {
+      "type": "string"
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/GoalSource"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "title",
+    "goal_text",
+    "summary",
+    "level",
+    "background",
+    "revision",
+    "origin",
+    "provenance",
+    "capabilities",
+    "sources",
+    "source_note",
+    "notes",
+    "reason",
+    "minutes"
+  ],
+  "$defs": {
+    "CapabilityProgress": {
+      "type": "object",
+      "properties": {
+        "assessment": {
+          "type": "string"
+        },
+        "detail": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "minutes": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "objective_id": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "session_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string"
+        },
+        "visual": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "why": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "objective_id",
+        "outcome",
+        "why",
+        "status",
+        "minutes",
+        "assessment",
+        "origin",
+        "prerequisites",
+        "label",
+        "detail"
+      ]
+    },
+    "Clarification": {
+      "type": "object",
+      "properties": {
+        "blocking": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "options",
+        "blocking"
+      ]
+    },
+    "GoalSource": {
+      "type": "object",
+      "properties": {
+        "excerpt": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "warnings": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "kind",
+        "warnings",
+        "excerpt"
+      ]
+    }
+  }
+}

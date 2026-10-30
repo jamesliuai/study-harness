@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.activity-lookup-request",
+  "expect": "invalid",
+  "why": "ID classes are ASCII: an Arabic-Indic digit is not [0-9].",
+  "value": {
+    "activityId": "act-٣"
+  }
+}

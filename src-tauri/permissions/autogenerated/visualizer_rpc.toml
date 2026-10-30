@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-visualizer-rpc"
+description = "Enables the visualizer_rpc command without any pre-configured scope."
+commands.allow = ["visualizer_rpc"]
+
+[[permission]]
+identifier = "deny-visualizer-rpc"
+description = "Denies the visualizer_rpc command without any pre-configured scope."
+commands.deny = ["visualizer_rpc"]

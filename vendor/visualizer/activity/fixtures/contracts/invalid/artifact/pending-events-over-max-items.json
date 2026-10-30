@@ -1,0 +1,611 @@
+{
+  "contract": "study-harness.activity-artifact",
+  "expect": "invalid",
+  "why": "At most 256 pending event IDs.",
+  "value": {
+    "contract": "study-harness.activity-artifact",
+    "schemaVersion": "1.0",
+    "artifactId": "artifact-0001",
+    "kind": "backup",
+    "schemas": [
+      {
+        "contract": "study-harness.activity-artifact",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.activity-instance",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.scientific-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.presentation-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "version": "1.0"
+      }
+    ],
+    "runtime": {
+      "id": "explorable-models-activity",
+      "version": "0.3.0-preview.1"
+    },
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "policyRef": {
+      "policyId": "policy-unit-4",
+      "revision": 3
+    },
+    "instance": {
+      "contract": "study-harness.activity-instance",
+      "schemaVersion": "1.0",
+      "activityId": "act-quadratic-0001",
+      "objectiveIds": [
+        "obj-descent-regimes"
+      ],
+      "hostSessionId": "session-7f3a",
+      "hostSessionRevision": 4,
+      "template": {
+        "templateId": "quadratic-descent-regimes",
+        "version": "1.0.0",
+        "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+      },
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "initialParameters": {
+        "a": 1,
+        "eta": 0.5,
+        "x0": 8
+      },
+      "mode": "approved",
+      "stage": {
+        "id": "explore",
+        "enteredAtSequence": 15
+      },
+      "activityRevision": 4,
+      "policy": {
+        "policyId": "policy-unit-4",
+        "revision": 3
+      },
+      "context": {
+        "kind": "instructional"
+      },
+      "responses": [],
+      "allowedActions": [
+        "operate.parameters",
+        "operate.presentation",
+        "request-reveal",
+        "save"
+      ],
+      "persistence": "saved",
+      "closed": false
+    },
+    "scientific": {
+      "contract": "study-harness.scientific-snapshot",
+      "schemaVersion": "1.0",
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "scientificRevision": "sha256:c090f3b7bd3b4810c11d03ab8a061181f1d0a3a90c1a36c2ac444a85e1694bb7",
+      "runtime": {
+        "id": "explorable-models-activity",
+        "version": "0.3.0-preview.1"
+      },
+      "runId": "run-0002",
+      "params": {
+        "a": 1,
+        "eta": 1.5,
+        "x0": 8
+      },
+      "position": {
+        "kind": "index",
+        "index": 3,
+        "maxIndex": 1000
+      },
+      "terminal": false,
+      "comparisons": [
+        {
+          "runId": "run-0001",
+          "label": "η = 0.5",
+          "params": {
+            "a": 1,
+            "eta": 0.5,
+            "x0": 8
+          },
+          "position": {
+            "kind": "index",
+            "index": 12,
+            "maxIndex": 1000
+          }
+        }
+      ]
+    },
+    "presentation": {
+      "contract": "study-harness.presentation-snapshot",
+      "schemaVersion": "1.0",
+      "revision": 2,
+      "views": {
+        "plot": {
+          "camera": {
+            "kind": "2d",
+            "center": [
+              0,
+              25
+            ],
+            "zoom": 1
+          },
+          "layers": [
+            "g-landscape",
+            "g-trajectory"
+          ]
+        },
+        "values": {
+          "camera": null,
+          "layers": []
+        }
+      },
+      "selection": "m-point",
+      "layout": "card",
+      "displayUnits": {
+        "eta": "dimensionless",
+        "x0": "dimensionless"
+      },
+      "locale": "en-GB",
+      "formatVersion": "1.0"
+    },
+    "exposures": [
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0001",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-reveal-1",
+        "scope": "reveal",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 3,
+        "intendedStage": "explore",
+        "displayStatus": "displayed",
+        "displayed": {
+          "projectionDigest": "sha256:a38cdae9dec3cb8e88113886679526c9916a6773fa28cb1b924d3c00ce480384",
+          "frameId": "frame-run-0002-i3",
+          "monotonicMs": 48213.5
+        }
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0002",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-explore-1",
+        "scope": "exploration",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          },
+          {
+            "groupId": "g-rule",
+            "contentDigest": "sha256:27532a61ed6e35d5d5c118aa803537a78a77bb64e9283746773fae733fbb1bcd"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 4,
+        "intendedStage": "explore",
+        "parameterDomain": {
+          "eta": [
+            0,
+            2
+          ],
+          "x0": [
+            -10,
+            10
+          ]
+        },
+        "displayStatus": "uncertain",
+        "uncertainty": {
+          "code": "INTERRUPTED_BEFORE_ACK",
+          "reason": "The surface closed before the display acknowledgement was recorded; treated as potentially exposed."
+        }
+      }
+    ],
+    "journal": {
+      "cursor": {
+        "activityId": "act-quadratic-0001",
+        "lastSequence": 40,
+        "lastEventId": "evt-0040",
+        "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+      },
+      "pendingEventIds": [
+        "evt-0",
+        "evt-1",
+        "evt-2",
+        "evt-3",
+        "evt-4",
+        "evt-5",
+        "evt-6",
+        "evt-7",
+        "evt-8",
+        "evt-9",
+        "evt-10",
+        "evt-11",
+        "evt-12",
+        "evt-13",
+        "evt-14",
+        "evt-15",
+        "evt-16",
+        "evt-17",
+        "evt-18",
+        "evt-19",
+        "evt-20",
+        "evt-21",
+        "evt-22",
+        "evt-23",
+        "evt-24",
+        "evt-25",
+        "evt-26",
+        "evt-27",
+        "evt-28",
+        "evt-29",
+        "evt-30",
+        "evt-31",
+        "evt-32",
+        "evt-33",
+        "evt-34",
+        "evt-35",
+        "evt-36",
+        "evt-37",
+        "evt-38",
+        "evt-39",
+        "evt-40",
+        "evt-41",
+        "evt-42",
+        "evt-43",
+        "evt-44",
+        "evt-45",
+        "evt-46",
+        "evt-47",
+        "evt-48",
+        "evt-49",
+        "evt-50",
+        "evt-51",
+        "evt-52",
+        "evt-53",
+        "evt-54",
+        "evt-55",
+        "evt-56",
+        "evt-57",
+        "evt-58",
+        "evt-59",
+        "evt-60",
+        "evt-61",
+        "evt-62",
+        "evt-63",
+        "evt-64",
+        "evt-65",
+        "evt-66",
+        "evt-67",
+        "evt-68",
+        "evt-69",
+        "evt-70",
+        "evt-71",
+        "evt-72",
+        "evt-73",
+        "evt-74",
+        "evt-75",
+        "evt-76",
+        "evt-77",
+        "evt-78",
+        "evt-79",
+        "evt-80",
+        "evt-81",
+        "evt-82",
+        "evt-83",
+        "evt-84",
+        "evt-85",
+        "evt-86",
+        "evt-87",
+        "evt-88",
+        "evt-89",
+        "evt-90",
+        "evt-91",
+        "evt-92",
+        "evt-93",
+        "evt-94",
+        "evt-95",
+        "evt-96",
+        "evt-97",
+        "evt-98",
+        "evt-99",
+        "evt-100",
+        "evt-101",
+        "evt-102",
+        "evt-103",
+        "evt-104",
+        "evt-105",
+        "evt-106",
+        "evt-107",
+        "evt-108",
+        "evt-109",
+        "evt-110",
+        "evt-111",
+        "evt-112",
+        "evt-113",
+        "evt-114",
+        "evt-115",
+        "evt-116",
+        "evt-117",
+        "evt-118",
+        "evt-119",
+        "evt-120",
+        "evt-121",
+        "evt-122",
+        "evt-123",
+        "evt-124",
+        "evt-125",
+        "evt-126",
+        "evt-127",
+        "evt-128",
+        "evt-129",
+        "evt-130",
+        "evt-131",
+        "evt-132",
+        "evt-133",
+        "evt-134",
+        "evt-135",
+        "evt-136",
+        "evt-137",
+        "evt-138",
+        "evt-139",
+        "evt-140",
+        "evt-141",
+        "evt-142",
+        "evt-143",
+        "evt-144",
+        "evt-145",
+        "evt-146",
+        "evt-147",
+        "evt-148",
+        "evt-149",
+        "evt-150",
+        "evt-151",
+        "evt-152",
+        "evt-153",
+        "evt-154",
+        "evt-155",
+        "evt-156",
+        "evt-157",
+        "evt-158",
+        "evt-159",
+        "evt-160",
+        "evt-161",
+        "evt-162",
+        "evt-163",
+        "evt-164",
+        "evt-165",
+        "evt-166",
+        "evt-167",
+        "evt-168",
+        "evt-169",
+        "evt-170",
+        "evt-171",
+        "evt-172",
+        "evt-173",
+        "evt-174",
+        "evt-175",
+        "evt-176",
+        "evt-177",
+        "evt-178",
+        "evt-179",
+        "evt-180",
+        "evt-181",
+        "evt-182",
+        "evt-183",
+        "evt-184",
+        "evt-185",
+        "evt-186",
+        "evt-187",
+        "evt-188",
+        "evt-189",
+        "evt-190",
+        "evt-191",
+        "evt-192",
+        "evt-193",
+        "evt-194",
+        "evt-195",
+        "evt-196",
+        "evt-197",
+        "evt-198",
+        "evt-199",
+        "evt-200",
+        "evt-201",
+        "evt-202",
+        "evt-203",
+        "evt-204",
+        "evt-205",
+        "evt-206",
+        "evt-207",
+        "evt-208",
+        "evt-209",
+        "evt-210",
+        "evt-211",
+        "evt-212",
+        "evt-213",
+        "evt-214",
+        "evt-215",
+        "evt-216",
+        "evt-217",
+        "evt-218",
+        "evt-219",
+        "evt-220",
+        "evt-221",
+        "evt-222",
+        "evt-223",
+        "evt-224",
+        "evt-225",
+        "evt-226",
+        "evt-227",
+        "evt-228",
+        "evt-229",
+        "evt-230",
+        "evt-231",
+        "evt-232",
+        "evt-233",
+        "evt-234",
+        "evt-235",
+        "evt-236",
+        "evt-237",
+        "evt-238",
+        "evt-239",
+        "evt-240",
+        "evt-241",
+        "evt-242",
+        "evt-243",
+        "evt-244",
+        "evt-245",
+        "evt-246",
+        "evt-247",
+        "evt-248",
+        "evt-249",
+        "evt-250",
+        "evt-251",
+        "evt-252",
+        "evt-253",
+        "evt-254",
+        "evt-255",
+        "evt-256"
+      ]
+    },
+    "pending": {
+      "kind": "none"
+    },
+    "contentRefs": [
+      "note-derivation",
+      "note-assumption"
+    ],
+    "reviewRefs": [
+      "review-model-quadratic-1"
+    ],
+    "integrity": {
+      "algorithm": "sha256",
+      "entries": [
+        {
+          "path": "contract",
+          "digest": "sha256:48b1d8e57e55b06e4907d4e7425bfc16ca3cebe22d5471afdb8756182be24514"
+        },
+        {
+          "path": "schemaVersion",
+          "digest": "sha256:a51162aeeb057ca4e3df627977231de20b581f0d0d418ca3a111bc0e408ac6cc"
+        },
+        {
+          "path": "artifactId",
+          "digest": "sha256:d27b89225b5f7478199e489bb5f84359761592affcfa41a085a2168a7e731c67"
+        },
+        {
+          "path": "kind",
+          "digest": "sha256:b5c415fee876dbf4c9569128432e19d7092838a194811c4cf35fec9fca146fed"
+        },
+        {
+          "path": "schemas",
+          "digest": "sha256:00df2657121eaebaa0c060889060ca22338fedc1e4961041b1ed1ea00b803cff"
+        },
+        {
+          "path": "runtime",
+          "digest": "sha256:7cb32578c719f3193ef09b2cbc0e8c12f900f102815ca5856dbb5265c9ef5cd1"
+        },
+        {
+          "path": "template",
+          "digest": "sha256:40aaea4b4865558e0803dae24b7fa8cc6c8b707a480f48f4c7227ea9bb33a509"
+        },
+        {
+          "path": "model",
+          "digest": "sha256:3cd54752dd370c3abcd910de35fe6ce36ff8b8fe6b5df6d7fdb879e5fb1d234f"
+        },
+        {
+          "path": "policyRef",
+          "digest": "sha256:a97c346f02d17709e04a7e1245b1dc238a029d4d1b5de5677922cc64ed024b11"
+        },
+        {
+          "path": "instance",
+          "digest": "sha256:863ca07d779371df1670ce64b0645d7d390a9da509c6103cb1174fd05b8b5a85"
+        },
+        {
+          "path": "scientific",
+          "digest": "sha256:13588cc18c3ec52e2ed01bd928875cc7668462ee70f07bc0c445daa3f36d26b1"
+        },
+        {
+          "path": "presentation",
+          "digest": "sha256:eb0d71cdd7a8b07dd396668de2ead0283f2d2a1f79ac944175cb3a876177b4df"
+        },
+        {
+          "path": "exposures",
+          "digest": "sha256:e2b75c9297ac0fcbc460db7e7a58983d6af375de53025395a0ea086bdc0deb40"
+        },
+        {
+          "path": "journal",
+          "digest": "sha256:f8fd62c08656c8a00105a12fdcb566980e2fc94ec285525aaed1ec95c78130de"
+        },
+        {
+          "path": "pending",
+          "digest": "sha256:2ff9cdff091aef6faf5f29ea2e9d90021c8046bb62ad5a5591d615403ad52203"
+        },
+        {
+          "path": "contentRefs",
+          "digest": "sha256:e319825f0351a7fb1bdeadea391398716ca7b4a3a1c6bc3b4a6d713f453b742e"
+        },
+        {
+          "path": "reviewRefs",
+          "digest": "sha256:7b6d7250754c16d2a3ca7054391638a57fdde73f434a0b4bfe798207058ad2f5"
+        }
+      ],
+      "digest": "sha256:d48548275146901efe1c73b39c67d0617497ac5da2135a10ec9af8b874f17f64"
+    }
+  }
+}

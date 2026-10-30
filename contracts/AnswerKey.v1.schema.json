@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AnswerKey",
+  "type": "object",
+  "properties": {
+    "expression": {
+      "type": "string"
+    },
+    "givens": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Given"
+      }
+    },
+    "kind": {
+      "type": "string"
+    },
+    "tolerance": {
+      "type": "number",
+      "format": "double"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "format": "double"
+    },
+    "variables": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/DomainVariable"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "givens",
+    "expression",
+    "unit",
+    "tolerance",
+    "variables"
+  ],
+  "$defs": {
+    "DomainVariable": {
+      "type": "object",
+      "properties": {
+        "max": {
+          "type": "number",
+          "format": "double"
+        },
+        "min": {
+          "type": "number",
+          "format": "double"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "min",
+        "max"
+      ]
+    },
+    "Given": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value",
+        "unit"
+      ]
+    }
+  }
+}

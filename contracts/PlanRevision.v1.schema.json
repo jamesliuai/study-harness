@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PlanRevision",
+  "type": "object",
+  "properties": {
+    "background": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/PlanCapability"
+      }
+    },
+    "clarification": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Clarification"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "goal_id": {
+      "type": "string"
+    },
+    "goal_text": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "origin": {
+      "type": "string"
+    },
+    "provenance": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "revision": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "source_note": {
+      "type": "string"
+    },
+    "source_passage_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "summary": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "goal_id",
+    "revision",
+    "title",
+    "goal_text",
+    "summary",
+    "level",
+    "background",
+    "capabilities",
+    "reason",
+    "origin",
+    "provenance",
+    "source_passage_ids",
+    "source_note",
+    "notes",
+    "created_at"
+  ],
+  "$defs": {
+    "Clarification": {
+      "type": "object",
+      "properties": {
+        "blocking": {
+          "type": "boolean"
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "question": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "options",
+        "blocking"
+      ]
+    },
+    "PlanCapability": {
+      "type": "object",
+      "properties": {
+        "assessment": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "minutes": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        },
+        "note": {
+          "type": "string"
+        },
+        "objective_id": {
+          "type": "string"
+        },
+        "origin": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "prerequisites": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "type": "string"
+        },
+        "visual": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/PlanVisual"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "why": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "objective_id",
+        "key",
+        "outcome",
+        "why",
+        "status",
+        "minutes",
+        "assessment",
+        "origin",
+        "prerequisites",
+        "note"
+      ]
+    },
+    "PlanVisual": {
+      "type": "object",
+      "properties": {
+        "parameters": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/VisualParameter"
+          }
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "template_id": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "template_id",
+        "parameters",
+        "purpose"
+      ]
+    },
+    "VisualParameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ]
+    }
+  }
+}

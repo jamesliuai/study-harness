@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourcePassage",
+  "type": "object",
+  "properties": {
+    "anchor": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "sha256": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "text": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "source_id",
+    "title",
+    "anchor",
+    "text",
+    "sha256"
+  ]
+}

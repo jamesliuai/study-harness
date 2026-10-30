@@ -1,0 +1,10 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "activityId is required.",
+  "value": {
+    "lastSequence": 0,
+    "lastEventId": null,
+    "checkpointDigest": null
+  }
+}

@@ -1,0 +1,373 @@
+{
+  "generatedBy": "scripts/study-harness/generate-contracts.mjs",
+  "draft": "https://json-schema.org/draft/2020-12/schema",
+  "notes": "Schemas are authoritative for shape and bounds; semantic cross-references are checked by @explorable-models/activity validate*Semantics. dataLimits (bytes counted as in core jsonDataErrors, nesting depth, node count, and rejection of __proto__/prototype/constructor keys) are applied before schema traversal by both validators.",
+  "contracts": [
+    {
+      "name": "study-harness.activity-template",
+      "short": "template",
+      "version": "1.0",
+      "file": "study-harness.activity-template.schema.json",
+      "sha256": "d4064a6b49924bb7c9213738bcca1185d36a46e4f92c97bcdfd598eb0f2519b7",
+      "digest": "sha256:6a14c3102491de12af1341685b8313f062c06494709d0de61f37472b45f4c4c3",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.activity-instance",
+      "short": "instance",
+      "version": "1.0",
+      "file": "study-harness.activity-instance.schema.json",
+      "sha256": "c7bd01f46041d29eafa1df16b90fbd06dd8a8a94632439e7a25b2f167dc8b440",
+      "digest": "sha256:67280e077128cd14f0fd1ecba9891501d46d46ea087ea35961ddef4f3926dbf2",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.host-policy",
+      "short": "policy",
+      "version": "1.0",
+      "file": "study-harness.host-policy.schema.json",
+      "sha256": "e3a6291450f5da565ce632cdb3a8d424bd8e98eefda30776c53a2ca6525f52cc",
+      "digest": "sha256:f47aead0f99430ab6382a2ce6c18951040aa89948a119c6247af7bd941364ca0",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.scientific-snapshot",
+      "short": "scientific",
+      "version": "1.0",
+      "file": "study-harness.scientific-snapshot.schema.json",
+      "sha256": "a7940852792b3979b2d6bfc717afa3e58790cc38ed9d7ac106dde9c3dfb37040",
+      "digest": "sha256:c3119b97d43fa8ee4cb2716f5c3023227d07cb3c1036f9a4dee2aa5635c327c6",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.presentation-snapshot",
+      "short": "presentation",
+      "version": "1.0",
+      "file": "study-harness.presentation-snapshot.schema.json",
+      "sha256": "f9e659ba24ae5096b16e83c9ab75135733ad545b87cb176a816500b065780132",
+      "digest": "sha256:9bec79be1779b93ed6b61f7ea2b108e79b5ab17760d914b9578565eb93f316c1",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.interaction-event",
+      "short": "event",
+      "version": "1.0",
+      "file": "study-harness.interaction-event.schema.json",
+      "sha256": "c812d24e2475e276f4a5a704604d3a5fcc46cb05ed8dcbe3d90cd424605ba13f",
+      "digest": "sha256:be7c7db5d8550b76ae0b2b7679faddb2e7fee9bdcdf42ba78feb7b27eb621290",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000,
+        "maxPayloadBytes": 8192
+      }
+    },
+    {
+      "name": "study-harness.exposure-record",
+      "short": "exposure",
+      "version": "1.0",
+      "file": "study-harness.exposure-record.schema.json",
+      "sha256": "64516f0bb379eb8daf8414b00180d29e2963774c2e21b1eea8e3382b33f57ac0",
+      "digest": "sha256:4cb8f4a5269eb51a6be3988b9dbf01bf250df09a43b854ce75ae00b27fdf55b1",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.interaction-summary",
+      "short": "summary",
+      "version": "1.0",
+      "file": "study-harness.interaction-summary.schema.json",
+      "sha256": "2fef2a731d6abd908158f90edccd5cad972daa8921c50fd293ba458a96847eb4",
+      "digest": "sha256:18a59a4e850d43a706f5a8b421c46c3f84bc0d512a28722a6c047a7cb643d4b8",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.activity-artifact",
+      "short": "artifact",
+      "version": "1.0",
+      "file": "study-harness.activity-artifact.schema.json",
+      "sha256": "e0d90a2e9690e7abb72677f78c23cbdee85b55ef8865f0eebe2c7f83f4c65b91",
+      "digest": "sha256:91a861e69ec0c33037bae87f466acb44a76975df5a46b6ee0126fd8d7d7f090f",
+      "dataLimits": {
+        "maxBytes": 4194304,
+        "maxDepth": 32,
+        "maxNodes": 400000
+      }
+    },
+    {
+      "name": "study-harness.review-record",
+      "short": "review",
+      "version": "1.0",
+      "file": "study-harness.review-record.schema.json",
+      "sha256": "a68de47188d9be444dce4c1fafbb0f0249a5515023ca172c5860b6be23cc3992",
+      "digest": "sha256:98bd418c523e8975493ce1410789d4322e47538e250880301d2cf2834df60fe9",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.exposure-receipt",
+      "short": "exposure-receipt",
+      "version": "1.0",
+      "file": "study-harness.exposure-receipt.schema.json",
+      "sha256": "2e3a7d532921302082d76f9bdf1298d84737faf6ac9a25c19205325c6c2c0c3b",
+      "digest": "sha256:8fb4ff9c2667eece99cb26f3efd3409a3264f0a67596e68f1543db0d223bf120",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.stage-receipt",
+      "short": "stage-receipt",
+      "version": "1.0",
+      "file": "study-harness.stage-receipt.schema.json",
+      "sha256": "6af63215298b43a3dcc943ff902041034f3995d22e24beea44864e2716aedec3",
+      "digest": "sha256:1a60d314b537bbc126dc27ddd1035b7780c5ff1d29907b31b1fa76c1cb746fde",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.assistance-receipt",
+      "short": "assistance-receipt",
+      "version": "1.0",
+      "file": "study-harness.assistance-receipt.schema.json",
+      "sha256": "1e520afecf3bf92bfd6af213d0ce1c415e3a11dbec16a8ddc7582eb4a4ee8077",
+      "digest": "sha256:168c6ba089a2a6e56bb6326eb544e50f8be8b21766d3d02275a326d060a37b7f",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.capability-record",
+      "short": "capability",
+      "version": "1.0",
+      "file": "study-harness.capability-record.schema.json",
+      "sha256": "a72a92744219c23c2f3eb9fe58ce0067eccd59bbc5d63ece5c0e5350acd7025b",
+      "digest": "sha256:1d52b017e55e96bad4f122b3a25848c009f3bc1b53e35c863f16d2745f68c9a3",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.activity-request",
+      "short": "activity-request",
+      "version": "1.0",
+      "file": "study-harness.activity-request.schema.json",
+      "sha256": "15ce65e7fbadf7c9c969eff65d0b09a71798909c6a3406ef04f556622bd50d54",
+      "digest": "sha256:8e9574e24d9029865782f734a7c35c0d2ec63ada0a35725ce1001953b5f6d132",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.stage-transition-request",
+      "short": "stage-transition-request",
+      "version": "1.0",
+      "file": "study-harness.stage-transition-request.schema.json",
+      "sha256": "4114429d5cd884ecee12b8c8a242ef504c84aaffddae60344264586fce74a376",
+      "digest": "sha256:035fd49ad0ef6b88511e4e9a469ef32e62eaf7b17823c272f5ca1abc62c540a6",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.exposure-intent-request",
+      "short": "exposure-intent-request",
+      "version": "1.0",
+      "file": "study-harness.exposure-intent-request.schema.json",
+      "sha256": "c146c4266c7b3f706003e316c59086084fc65a5c5fddfbadd557544791249d50",
+      "digest": "sha256:7b68bc719b73537aaa81f1a2286dea20016be5cedaac91fdb3393bf249f66290",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.display-ack-request",
+      "short": "display-ack-request",
+      "version": "1.0",
+      "file": "study-harness.display-ack-request.schema.json",
+      "sha256": "206692a03126d5de1a9a964c7873a69c19e087ed165a6d26055345272145ffaf",
+      "digest": "sha256:625694d826d01f4aebbd6648a178cb420d5f64343bd5627b98be432954daa135",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.assistance-request",
+      "short": "assistance-request",
+      "version": "1.0",
+      "file": "study-harness.assistance-request.schema.json",
+      "sha256": "8904ccd02f1de64ef1597161d42a8cbcc0b298b365360d16d41f9e9b9b017876",
+      "digest": "sha256:e3daac69f04c7c9f4a79300e2aa7e9a7419d13b754de31976f60aeffcd965c67",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.append-events-request",
+      "short": "append-events-request",
+      "version": "1.0",
+      "file": "study-harness.append-events-request.schema.json",
+      "sha256": "65c5930fd39d3a70927241e19e8ec11a79356afed1126257826109bb7f8d4a7b",
+      "digest": "sha256:bda2f178108e5c7207ed0b496e352944a56085a174c9dbf0dcc431890bf3eaca",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000,
+        "maxPayloadBytes": 8192
+      }
+    },
+    {
+      "name": "study-harness.append-result",
+      "short": "append-result",
+      "version": "1.0",
+      "file": "study-harness.append-result.schema.json",
+      "sha256": "aaba74613f717960a64cb9bf9f33eea00bbde4e1eda8a1c5a0ce71cb7263539d",
+      "digest": "sha256:d6b5dc9d511977ec68714b5d225e92db6e51a9cc6cf547d35eb3ba6bc5b781d3",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.journal-cursor",
+      "short": "journal-cursor",
+      "version": "1.0",
+      "file": "study-harness.journal-cursor.schema.json",
+      "sha256": "571e64532fb27e783cb7caa3d7f331492bf6585abfaef05cef222ebb756f0158",
+      "digest": "sha256:c27c6db745c772b01df1f9a81d6a9db343a0689a1d8b5ca08a28345dc7cf7cc5",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.register-activity-request",
+      "short": "register-activity-request",
+      "version": "1.0",
+      "file": "study-harness.register-activity-request.schema.json",
+      "sha256": "5db835ac4a4e4b26cd9fab67ebaf34d7550fe4b7edc95ebeab07f995fe15c1d0",
+      "digest": "sha256:6a8851c74b67226f3d4f9bf3ff3bd3a3aa51800eeba409daf4d2dd26eb81557c",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.save-artifact-request",
+      "short": "save-artifact-request",
+      "version": "1.0",
+      "file": "study-harness.save-artifact-request.schema.json",
+      "sha256": "61540c74db8b08a31c5097b931d8645753b8a68de603cb11123214de4d286dcc",
+      "digest": "sha256:52aa2f9e87b127025513bf705326bf0d6523d7f45298e8e222eca53cc75b49af",
+      "dataLimits": {
+        "maxBytes": 4194304,
+        "maxDepth": 32,
+        "maxNodes": 400000
+      }
+    },
+    {
+      "name": "study-harness.activity-lookup-request",
+      "short": "activity-lookup-request",
+      "version": "1.0",
+      "file": "study-harness.activity-lookup-request.schema.json",
+      "sha256": "b1f42b5f40febcc2e232cda0b513735e238e739a81eab49c1c93c4a7c6b04f22",
+      "digest": "sha256:d3f2ea2dc848982235e01b4ee3a616f7c32c0800c2ad310dd2698939224cc830",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.host-ack",
+      "short": "host-ack",
+      "version": "1.0",
+      "file": "study-harness.host-ack.schema.json",
+      "sha256": "69e28cc41293cde16e73c2d9c82a224774e6e29718669047909b8a29a432230d",
+      "digest": "sha256:3b009ec42b5f3c4f2543d5ba1048c4ff5fa37b3d7f288af9451902bfb00c61e3",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "study-harness.activity-records",
+      "short": "activity-records",
+      "version": "1.0",
+      "file": "study-harness.activity-records.schema.json",
+      "sha256": "043b0af3e3a3f03c4b5f92e3d0e5ebbfbca8bcb9bfaee2f364b64b3676ebd6d2",
+      "digest": "sha256:3dedff74e57cf7d0fa8df6495dc552a82845dedcb31f692efb89ce85856a33e6",
+      "dataLimits": {
+        "maxBytes": 524288,
+        "maxDepth": 32,
+        "maxNodes": 100000
+      }
+    },
+    {
+      "name": "explorable-models.model-manifest",
+      "short": "model-manifest",
+      "version": "1.0",
+      "file": "explorable-models.model-manifest.schema.json",
+      "sha256": "0c376e707572143894a00130658735a39ec20523bf100f2a185d78e303e5d00e",
+      "digest": "sha256:e1d13c7fa43752c9632aea232ccbbff872394ae450bac7f1bbda3d85d3b5c61d",
+      "dataLimits": {
+        "maxBytes": 1048576,
+        "maxDepth": 40,
+        "maxNodes": 120000
+      }
+    }
+  ]
+}

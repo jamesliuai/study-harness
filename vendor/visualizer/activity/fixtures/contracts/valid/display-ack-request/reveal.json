@@ -1,0 +1,13 @@
+{
+  "contract": "study-harness.display-ack-request",
+  "expect": "valid",
+  "why": "Display acknowledgement.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposureId": "exp-0001",
+    "receiptId": "rcpt-reveal-1",
+    "projectionDigest": "sha256:a38cdae9dec3cb8e88113886679526c9916a6773fa28cb1b924d3c00ce480384",
+    "frameId": "frame-run-0002-i3",
+    "monotonicMs": 48213.5
+  }
+}

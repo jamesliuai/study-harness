@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-begin-capability"
+description = "Enables the begin_capability command without any pre-configured scope."
+commands.allow = ["begin_capability"]
+
+[[permission]]
+identifier = "deny-begin-capability"
+description = "Denies the begin_capability command without any pre-configured scope."
+commands.deny = ["begin_capability"]

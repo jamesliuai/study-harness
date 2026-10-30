@@ -1,0 +1,282 @@
+{
+  "contract": "study-harness.activity-artifact",
+  "expect": "invalid",
+  "why": "integrity is required.",
+  "value": {
+    "contract": "study-harness.activity-artifact",
+    "schemaVersion": "1.0",
+    "artifactId": "artifact-0001",
+    "kind": "backup",
+    "schemas": [
+      {
+        "contract": "study-harness.activity-artifact",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.activity-instance",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.scientific-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.presentation-snapshot",
+        "version": "1.0"
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "version": "1.0"
+      }
+    ],
+    "runtime": {
+      "id": "explorable-models-activity",
+      "version": "0.3.0-preview.1"
+    },
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "model": {
+      "modelId": "quadratic-descent",
+      "version": "1.0.0",
+      "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+    },
+    "policyRef": {
+      "policyId": "policy-unit-4",
+      "revision": 3
+    },
+    "instance": {
+      "contract": "study-harness.activity-instance",
+      "schemaVersion": "1.0",
+      "activityId": "act-quadratic-0001",
+      "objectiveIds": [
+        "obj-descent-regimes"
+      ],
+      "hostSessionId": "session-7f3a",
+      "hostSessionRevision": 4,
+      "template": {
+        "templateId": "quadratic-descent-regimes",
+        "version": "1.0.0",
+        "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+      },
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "initialParameters": {
+        "a": 1,
+        "eta": 0.5,
+        "x0": 8
+      },
+      "mode": "approved",
+      "stage": {
+        "id": "explore",
+        "enteredAtSequence": 15
+      },
+      "activityRevision": 4,
+      "policy": {
+        "policyId": "policy-unit-4",
+        "revision": 3
+      },
+      "context": {
+        "kind": "instructional"
+      },
+      "responses": [],
+      "allowedActions": [
+        "operate.parameters",
+        "operate.presentation",
+        "request-reveal",
+        "save"
+      ],
+      "persistence": "saved",
+      "closed": false
+    },
+    "scientific": {
+      "contract": "study-harness.scientific-snapshot",
+      "schemaVersion": "1.0",
+      "model": {
+        "modelId": "quadratic-descent",
+        "version": "1.0.0",
+        "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+      },
+      "scientificRevision": "sha256:c090f3b7bd3b4810c11d03ab8a061181f1d0a3a90c1a36c2ac444a85e1694bb7",
+      "runtime": {
+        "id": "explorable-models-activity",
+        "version": "0.3.0-preview.1"
+      },
+      "runId": "run-0002",
+      "params": {
+        "a": 1,
+        "eta": 1.5,
+        "x0": 8
+      },
+      "position": {
+        "kind": "index",
+        "index": 3,
+        "maxIndex": 1000
+      },
+      "terminal": false,
+      "comparisons": [
+        {
+          "runId": "run-0001",
+          "label": "η = 0.5",
+          "params": {
+            "a": 1,
+            "eta": 0.5,
+            "x0": 8
+          },
+          "position": {
+            "kind": "index",
+            "index": 12,
+            "maxIndex": 1000
+          }
+        }
+      ]
+    },
+    "presentation": {
+      "contract": "study-harness.presentation-snapshot",
+      "schemaVersion": "1.0",
+      "revision": 2,
+      "views": {
+        "plot": {
+          "camera": {
+            "kind": "2d",
+            "center": [
+              0,
+              25
+            ],
+            "zoom": 1
+          },
+          "layers": [
+            "g-landscape",
+            "g-trajectory"
+          ]
+        },
+        "values": {
+          "camera": null,
+          "layers": []
+        }
+      },
+      "selection": "m-point",
+      "layout": "card",
+      "displayUnits": {
+        "eta": "dimensionless",
+        "x0": "dimensionless"
+      },
+      "locale": "en-GB",
+      "formatVersion": "1.0"
+    },
+    "exposures": [
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0001",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-reveal-1",
+        "scope": "reveal",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 3,
+        "intendedStage": "explore",
+        "displayStatus": "displayed",
+        "displayed": {
+          "projectionDigest": "sha256:a38cdae9dec3cb8e88113886679526c9916a6773fa28cb1b924d3c00ce480384",
+          "frameId": "frame-run-0002-i3",
+          "monotonicMs": 48213.5
+        }
+      },
+      {
+        "contract": "study-harness.exposure-record",
+        "schemaVersion": "1.0",
+        "exposureId": "exp-0002",
+        "activityId": "act-quadratic-0001",
+        "receiptId": "rcpt-explore-1",
+        "scope": "exploration",
+        "groups": [
+          {
+            "groupId": "g-trajectory",
+            "contentDigest": "sha256:becc99271e962d4808ed1fe8949d143f75cd960dac64b590d7307f30bc6c75a0"
+          },
+          {
+            "groupId": "g-position",
+            "contentDigest": "sha256:75a956941d3d3f400c356eed1ce88741744c119d1050a3f3163edd37f41477ce"
+          },
+          {
+            "groupId": "g-rule",
+            "contentDigest": "sha256:27532a61ed6e35d5d5c118aa803537a78a77bb64e9283746773fae733fbb1bcd"
+          }
+        ],
+        "template": {
+          "templateId": "quadratic-descent-regimes",
+          "version": "1.0.0",
+          "digest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+        },
+        "model": {
+          "modelId": "quadratic-descent",
+          "version": "1.0.0",
+          "digest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17"
+        },
+        "activityRevision": 4,
+        "intendedStage": "explore",
+        "parameterDomain": {
+          "eta": [
+            0,
+            2
+          ],
+          "x0": [
+            -10,
+            10
+          ]
+        },
+        "displayStatus": "uncertain",
+        "uncertainty": {
+          "code": "INTERRUPTED_BEFORE_ACK",
+          "reason": "The surface closed before the display acknowledgement was recorded; treated as potentially exposed."
+        }
+      }
+    ],
+    "journal": {
+      "cursor": {
+        "activityId": "act-quadratic-0001",
+        "lastSequence": 40,
+        "lastEventId": "evt-0040",
+        "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+      },
+      "pendingEventIds": [
+        "evt-0041",
+        "evt-0042"
+      ]
+    },
+    "pending": {
+      "kind": "none"
+    },
+    "contentRefs": [
+      "note-derivation",
+      "note-assumption"
+    ],
+    "reviewRefs": [
+      "review-model-quadratic-1"
+    ]
+  }
+}

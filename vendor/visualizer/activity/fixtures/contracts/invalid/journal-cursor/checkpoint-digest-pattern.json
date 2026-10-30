@@ -1,0 +1,11 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "Digest is lowercase hexadecimal.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "lastSequence": 40,
+    "lastEventId": "evt-0040",
+    "checkpointDigest": "sha256:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+  }
+}

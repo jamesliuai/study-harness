@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SourceCitation",
+  "type": "object",
+  "properties": {
+    "anchor": {
+      "type": "string"
+    },
+    "assistance_id": {
+      "type": "string"
+    },
+    "chunk_id": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "source_id": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "request_id",
+    "assistance_id",
+    "source_id",
+    "chunk_id",
+    "title",
+    "anchor",
+    "excerpt",
+    "kind"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Review",
+  "type": "object",
+  "properties": {
+    "due_at": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "scheduler_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "supporting_attempts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "task_family": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "objective_id",
+    "task_family",
+    "due_at",
+    "reason",
+    "scheduler_version",
+    "supporting_attempts"
+  ]
+}

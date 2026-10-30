@@ -1,0 +1,11 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "lastEventId is an ID or null.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "lastSequence": 40,
+    "lastEventId": 5,
+    "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+  }
+}

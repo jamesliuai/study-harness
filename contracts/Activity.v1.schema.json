@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Activity",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "math": {
+      "type": "string"
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "prompt": {
+      "type": "string"
+    },
+    "rubric_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "task_family": {
+      "type": "string"
+    },
+    "validation_status": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "session_id",
+    "objective_id",
+    "version",
+    "prompt",
+    "math",
+    "task_family",
+    "rubric_version",
+    "validation_status"
+  ]
+}

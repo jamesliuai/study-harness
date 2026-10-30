@@ -1,0 +1,60 @@
+[package]
+name = "study-harness"
+version = "0.1.0"
+license = "MIT"
+edition = "2024"
+default-run = "study-harness"
+
+[lib]
+name = "study_harness"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "=2.12.5", features = [] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+rusqlite = { version = "=0.41.0", features = ["bundled", "backup"] }
+reqwest = { version = "=0.13.5", default-features = false, features = ["json", "multipart", "rustls"] }
+tokio = { version = "1", features = ["sync", "time", "macros"] }
+tokio-util = "0.7"
+async-trait = "0.1"
+uuid = { version = "1", features = ["v4"] }
+chrono = { version = "0.4", features = ["serde"] }
+schemars = "=1.2.3"
+ts-rs = { version = "=12.0.1", features = ["serde-compat"] }
+keyring-core = "=1.0.1"
+zeroize = "1"
+hound = "3.5"
+sha2 = "0.10"
+study-harness-contracts = { path = "../vendor/visualizer/activity/rust" }
+ring = "=0.17.14"
+base64 = "=0.22.1"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+apple-native-keyring-store = { version = "=1.0.2", features = ["keychain"] }
+rfd = { version = "=0.17.2", default-features = false }
+
+[dev-dependencies]
+tempfile = "3"
+
+[features]
+dev-tools = []
+offline-provider = []
+
+[[bin]]
+name = "export-contracts"
+path = "src/bin/export-contracts.rs"
+required-features = ["dev-tools"]
+
+[[bin]]
+name = "export-offline-view"
+path = "src/bin/export-offline-view.rs"
+required-features = ["dev-tools", "offline-provider"]
+
+[[bin]]
+name = "offline-harness"
+path = "src/bin/offline-harness.rs"
+required-features = ["dev-tools", "offline-provider"]

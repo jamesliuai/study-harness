@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SceneSpec",
+  "type": "object",
+  "properties": {
+    "accessibility": {
+      "type": "string"
+    },
+    "activity_id": {
+      "type": "string"
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "capability_version": {
+      "type": "string"
+    },
+    "follow_up": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "model_version": {
+      "type": "string"
+    },
+    "objective_id": {
+      "type": "string"
+    },
+    "parameters": {
+      "$ref": "#/$defs/SceneParameters"
+    },
+    "prediction": {
+      "type": "string"
+    },
+    "revealed": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "validation": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "capability_version",
+    "model_id",
+    "model_version",
+    "objective_id",
+    "activity_id",
+    "parameters",
+    "prediction",
+    "follow_up",
+    "assumptions",
+    "validation",
+    "accessibility",
+    "revealed"
+  ],
+  "$defs": {
+    "SceneParameters": {
+      "type": "object",
+      "properties": {
+        "curvature": {
+          "type": "number",
+          "format": "double"
+        },
+        "start": {
+          "type": "number",
+          "format": "double"
+        },
+        "step_size": {
+          "type": "number",
+          "format": "double"
+        },
+        "steps": {
+          "type": "integer",
+          "format": "uint32",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "curvature",
+        "step_size",
+        "start",
+        "steps"
+      ]
+    }
+  }
+}

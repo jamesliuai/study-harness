@@ -1,0 +1,52 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "VisualPlan",
+  "type": "object",
+  "properties": {
+    "matches_task": {
+      "type": "boolean"
+    },
+    "parameters": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/VisualParameter"
+      }
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "relation": {
+      "type": "string"
+    },
+    "template_id": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "template_id",
+    "parameters",
+    "relation",
+    "purpose",
+    "matches_task"
+  ],
+  "$defs": {
+    "VisualParameter": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "value": {
+          "type": "number",
+          "format": "double"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "value"
+      ]
+    }
+  }
+}

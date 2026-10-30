@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Assessment",
+  "type": "object",
+  "properties": {
+    "assessed_at": {
+      "type": "string"
+    },
+    "attempt_id": {
+      "type": "string"
+    },
+    "checks": {
+      "type": "array",
+      "default": [],
+      "items": {
+        "$ref": "#/$defs/CheckResult"
+      }
+    },
+    "dispute_state": {
+      "type": "string"
+    },
+    "error_kind": {
+      "type": "string",
+      "default": ""
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/RubricFinding"
+      }
+    },
+    "grader_version": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string",
+      "default": ""
+    },
+    "request_id": {
+      "type": "string"
+    },
+    "rubric_version": {
+      "type": "string"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "uncertainty": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "id",
+    "attempt_id",
+    "rubric_version",
+    "findings",
+    "uncertainty",
+    "dispute_state",
+    "grader_version",
+    "stale",
+    "verdict",
+    "assessed_at",
+    "request_id"
+  ],
+  "$defs": {
+    "CheckResult": {
+      "type": "object",
+      "properties": {
+        "detail": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label",
+        "outcome",
+        "detail"
+      ]
+    },
+    "RubricFinding": {
+      "type": "object",
+      "properties": {
+        "dimension": {
+          "type": "string"
+        },
+        "excerpt": {
+          "type": "string"
+        },
+        "result": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "result",
+        "excerpt"
+      ]
+    }
+  }
+}

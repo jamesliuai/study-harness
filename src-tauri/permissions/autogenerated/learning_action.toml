@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-learning-action"
+description = "Enables the learning_action command without any pre-configured scope."
+commands.allow = ["learning_action"]
+
+[[permission]]
+identifier = "deny-learning-action"
+description = "Denies the learning_action command without any pre-configured scope."
+commands.deny = ["learning_action"]

@@ -1,0 +1,28 @@
+{
+  "contract": "study-harness.append-result",
+  "expect": "valid",
+  "why": "Acknowledgements and one duplicate.",
+  "value": {
+    "acknowledged": [
+      {
+        "eventId": "evt-0020",
+        "durableSequence": 20,
+        "hostTimestamp": "2026-10-26T09:20:01.5Z"
+      },
+      {
+        "eventId": "evt-0021",
+        "durableSequence": 21,
+        "hostTimestamp": "2026-10-26T09:20:01.5Z"
+      }
+    ],
+    "duplicates": [
+      "evt-0019"
+    ],
+    "cursor": {
+      "activityId": "act-quadratic-0001",
+      "lastSequence": 21,
+      "lastEventId": "evt-0021",
+      "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+    }
+  }
+}

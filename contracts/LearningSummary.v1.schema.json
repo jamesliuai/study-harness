@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "LearningSummary",
+  "type": "object",
+  "properties": {
+    "assessment_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "delayed_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "independent_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "session_id": {
+      "type": "string"
+    },
+    "simulated": {
+      "type": "boolean"
+    },
+    "stale": {
+      "type": "boolean"
+    },
+    "supported_count": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "text": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "session_id",
+    "text",
+    "assessment_ids",
+    "stale",
+    "generated_at",
+    "independent_count",
+    "supported_count",
+    "delayed_count",
+    "simulated"
+  ]
+}

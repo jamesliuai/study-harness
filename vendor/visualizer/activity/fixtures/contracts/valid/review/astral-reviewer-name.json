@@ -1,0 +1,25 @@
+{
+  "contract": "study-harness.review-record",
+  "expect": "valid",
+  "why": "Reviewer name of exactly 200 astral code points.",
+  "value": {
+    "contract": "study-harness.review-record",
+    "schemaVersion": "1.0",
+    "reviewId": "review-template-quadratic-1",
+    "subject": {
+      "kind": "template",
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "contentDigest": "sha256:1d8a9648653b9c6e605d84041b01e4dc5801f34609cd00b97dc9569a328e382f"
+    },
+    "reviewer": {
+      "name": "😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀😀",
+      "role": "Reviewer"
+    },
+    "date": "2026-10-21",
+    "scope": "Learner-facing text, stage visibility and accessible equivalents.",
+    "limitations": [],
+    "referenceSuiteDigest": "sha256:2a1435d09d669046cc54ee73369124a557f33b2941d6e4da91b67c912190fb19",
+    "outcome": "approved"
+  }
+}

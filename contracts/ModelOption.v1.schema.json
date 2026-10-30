@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ModelOption",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "input_usd_per_million": {
+      "type": "number",
+      "format": "double"
+    },
+    "label": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "output_usd_per_million": {
+      "type": "number",
+      "format": "double"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "id",
+    "label",
+    "note",
+    "input_usd_per_million",
+    "output_usd_per_million"
+  ]
+}

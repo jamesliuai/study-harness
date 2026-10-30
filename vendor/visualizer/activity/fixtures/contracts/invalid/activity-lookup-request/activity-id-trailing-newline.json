@@ -1,0 +1,8 @@
+{
+  "contract": "study-harness.activity-lookup-request",
+  "expect": "invalid",
+  "why": "Patterns anchor at the end of input: a trailing newline does not match `$` (JavaScript and Rust agree; Python would not).",
+  "value": {
+    "activityId": "act-quadratic-0001\n"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.stage-receipt",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AttemptConditions",
+  "type": "object",
+  "properties": {
+    "attempt_id": {
+      "type": "string"
+    },
+    "last_relevant_exposure_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "outside_help": {
+      "type": "boolean"
+    },
+    "schema_version": {
+      "type": "integer",
+      "format": "uint32",
+      "minimum": 0
+    },
+    "simulated": {
+      "type": "boolean"
+    },
+    "submitted_at": {
+      "type": "string"
+    },
+    "task_kind": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "attempt_id",
+    "submitted_at",
+    "simulated",
+    "outside_help",
+    "task_kind"
+  ]
+}

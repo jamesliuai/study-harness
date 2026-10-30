@@ -1,0 +1,36 @@
+{
+  "contract": "study-harness.interaction-event",
+  "expect": "invalid",
+  "why": "A __proto__ key is rejected.",
+  "value": {
+    "contract": "study-harness.interaction-event",
+    "schemaVersion": "1.0",
+    "eventId": "evt-0029",
+    "activityId": "act-quadratic-0001",
+    "sequence": 29,
+    "operationId": "op-29",
+    "actor": {
+      "kind": "learner",
+      "binding": "surface-main"
+    },
+    "type": "help.requested",
+    "revisions": {
+      "scientific": {
+        "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+        "runId": "run-0002",
+        "version": 5
+      },
+      "presentation": 2,
+      "activity": 3,
+      "hostSession": 4,
+      "policy": 3
+    },
+    "payload": {
+      "__proto__": {
+        "polluted": true
+      }
+    },
+    "monotonicMs": 8264.5,
+    "causes": []
+  }
+}

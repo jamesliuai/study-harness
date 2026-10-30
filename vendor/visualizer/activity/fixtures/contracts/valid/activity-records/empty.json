@@ -1,0 +1,10 @@
+{
+  "contract": "study-harness.activity-records",
+  "expect": "valid",
+  "why": "A host that holds no exposure or assistance records yet.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "exposures": [],
+    "assistance": []
+  }
+}

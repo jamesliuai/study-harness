@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Limits",
+  "type": "object",
+  "properties": {
+    "monthly_microusd": {
+      "type": "integer",
+      "format": "int32"
+    },
+    "session_microusd": {
+      "type": "integer",
+      "format": "int32"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "session_microusd",
+    "monthly_microusd"
+  ]
+}

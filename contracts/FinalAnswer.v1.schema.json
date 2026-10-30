@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FinalAnswer",
+  "type": "object",
+  "properties": {
+    "excerpt": {
+      "type": "string"
+    },
+    "expression": {
+      "type": "string"
+    },
+    "unit": {
+      "type": "string"
+    },
+    "value": {
+      "type": [
+        "number",
+        "null"
+      ],
+      "format": "double"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "excerpt",
+    "unit",
+    "expression"
+  ]
+}

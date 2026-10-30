@@ -1,0 +1,64 @@
+{
+  "contract": "study-harness.interaction-event",
+  "expect": "invalid",
+  "why": "A parameters.committed payload names its run.",
+  "value": {
+    "contract": "study-harness.interaction-event",
+    "schemaVersion": "1.0",
+    "eventId": "evt-0021",
+    "activityId": "act-quadratic-0001",
+    "sequence": 21,
+    "operationId": "op-21",
+    "actor": {
+      "kind": "learner",
+      "binding": "surface-main"
+    },
+    "type": "parameters.committed",
+    "revisions": {
+      "scientific": {
+        "modelDigest": "sha256:866918b63f15ce66a11c6bc514d1b5b2090709e8621807e86aa895616f126e17",
+        "runId": "run-0002",
+        "version": 5
+      },
+      "presentation": 2,
+      "activity": 3,
+      "hostSession": 4,
+      "policy": 3
+    },
+    "payload": {
+      "previousRunId": "run-0001",
+      "params": {
+        "a": 1,
+        "eta": 1.5,
+        "x0": 8
+      },
+      "cause": "commit",
+      "previewId": "pv-3",
+      "gesture": "pointer",
+      "visibleQuantities": {
+        "x": {
+          "status": "valid",
+          "value": -4
+        },
+        "loss": {
+          "status": "valid",
+          "value": 8
+        }
+      }
+    },
+    "monotonicMs": 6260.5,
+    "causes": [
+      "evt-0020"
+    ],
+    "frame": {
+      "frameId": "frame-run-0002-i3",
+      "runId": "run-0002",
+      "kind": "committed",
+      "position": {
+        "kind": "index",
+        "index": 0,
+        "maxIndex": 1000
+      }
+    }
+  }
+}

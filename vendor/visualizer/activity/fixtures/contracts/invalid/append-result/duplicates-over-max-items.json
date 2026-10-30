@@ -1,0 +1,55 @@
+{
+  "contract": "study-harness.append-result",
+  "expect": "invalid",
+  "why": "At most 32 duplicates.",
+  "value": {
+    "acknowledged": [
+      {
+        "eventId": "evt-0002",
+        "durableSequence": 2,
+        "hostTimestamp": "2026-10-26T09:01:00Z"
+      }
+    ],
+    "duplicates": [
+      "evt-0",
+      "evt-1",
+      "evt-2",
+      "evt-3",
+      "evt-4",
+      "evt-5",
+      "evt-6",
+      "evt-7",
+      "evt-8",
+      "evt-9",
+      "evt-10",
+      "evt-11",
+      "evt-12",
+      "evt-13",
+      "evt-14",
+      "evt-15",
+      "evt-16",
+      "evt-17",
+      "evt-18",
+      "evt-19",
+      "evt-20",
+      "evt-21",
+      "evt-22",
+      "evt-23",
+      "evt-24",
+      "evt-25",
+      "evt-26",
+      "evt-27",
+      "evt-28",
+      "evt-29",
+      "evt-30",
+      "evt-31",
+      "evt-32"
+    ],
+    "cursor": {
+      "activityId": "act-quadratic-0001",
+      "lastSequence": 2,
+      "lastEventId": "evt-0002",
+      "checkpointDigest": "sha256:0a51f3d216f4bfa1bc617fb73903c84f3ecd7468405e3c35e628b04dbeadb860"
+    }
+  }
+}

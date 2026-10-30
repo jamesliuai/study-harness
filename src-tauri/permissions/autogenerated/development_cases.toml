@@ -1,0 +1,11 @@
+# Automatically generated - DO NOT EDIT!
+
+[[permission]]
+identifier = "allow-development-cases"
+description = "Enables the development_cases command without any pre-configured scope."
+commands.allow = ["development_cases"]
+
+[[permission]]
+identifier = "deny-development-cases"
+description = "Denies the development_cases command without any pre-configured scope."
+commands.deny = ["development_cases"]

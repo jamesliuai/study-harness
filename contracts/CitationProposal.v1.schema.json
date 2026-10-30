@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CitationProposal",
+  "type": "object",
+  "properties": {
+    "chunk_id": {
+      "type": "string"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "kind": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "chunk_id",
+    "excerpt",
+    "kind"
+  ]
+}

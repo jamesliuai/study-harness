@@ -1,0 +1,6 @@
+{
+  "contract": "study-harness.journal-cursor",
+  "expect": "invalid",
+  "why": "The record must be a JSON object.",
+  "value": []
+}

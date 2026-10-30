@@ -1,0 +1,24 @@
+{
+  "contract": "study-harness.activity-request",
+  "expect": "invalid",
+  "why": "A template request names ID and version only.",
+  "value": {
+    "activityId": "act-quadratic-0001",
+    "objectiveIds": [
+      "obj-descent-regimes"
+    ],
+    "hostSessionId": "session-7f3a",
+    "hostSessionRevision": 4,
+    "template": {
+      "templateId": "quadratic-descent-regimes",
+      "version": "1.0.0",
+      "digest": "sha256:2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    "parameters": {
+      "eta": 0.5,
+      "x0": 8,
+      "a": 1
+    },
+    "mode": "approved"
+  }
+}
