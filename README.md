@@ -12,9 +12,11 @@ A local-first macOS workspace for learning STEM through your own reasoning. Star
 
 1. **Set your goal.** Describe what you want to understand or be able to do. Attach text, Markdown, or a text-based PDF, or paste your notes.
 2. **Shape the plan.** Review a small set of concrete capabilities. Change the plan in plain language, choose where to start, or ask for a check on something you already know.
-3. **Work through the idea.** Explain your reasoning in writing or with an editable voice transcript. Ask questions, request a hint or worked example, and explore a relevant model when one is available.
+3. **Work through the idea.** Each lesson reads as one document that moves through **Try → Learn → Practice → Check**. Explain your reasoning in writing or with an editable voice transcript, ask questions, request a hint or worked example, and explore a relevant model when one is available. Support fades as you show what you can do: a fully correct reconstruction skips the remaining worked steps.
 4. **Try it independently.** Fresh checks put earlier teaching and visuals away. The learning record distinguishes work done with help from work shown on your own.
 5. **Return to it.** A wrap-up records what you explained, practised, and demonstrated. Spaced reviews bring back fresh problems for later checks.
+
+The workspace follows macOS light or dark appearance (or your choice in **Settings → Study & display**) and is keyboard-first: <kbd>⌘</kbd><kbd>↩</kbd> sends, <kbd>⌘</kbd><kbd>N</kbd> starts a new goal, <kbd>⌘</kbd><kbd>B</kbd> or <kbd>⌘</kbd><kbd>\</kbd> toggles the sidebar, <kbd>⌘</kbd><kbd>,</kbd> opens Settings, and <kbd>Esc</kbd> closes a side panel.
 
 Tasks and their reference answers are fixed before you see them. For supported numeric and symbolic tasks, the Rust core runs checks alongside the tutor’s assessment; a conflicting result holds the verdict for review. Corrections preserve the original work, and you can challenge feedback or report a flawed task.
 

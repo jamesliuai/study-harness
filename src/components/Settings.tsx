@@ -10,6 +10,12 @@ import { DataControls } from './DataControls';
 import { LocalGuide } from './LocalGuide';
 import { Icon, type IconName } from './Icon';
 import { EFFORTS } from './ModelControls';
+import { readTheme, saveTheme, type ThemePreference } from '../theme';
+const APPEARANCE: { id: ThemePreference; label: string; icon: IconName }[] = [
+  { id: 'system', label: 'Match macOS', icon: 'monitor' },
+  { id: 'light', label: 'Light', icon: 'sun' },
+  { id: 'dark', label: 'Dark', icon: 'moon' },
+];
 const ERROR_KIND: Record<string, string> = {
   authentication: 'The key was rejected',
   model_access: 'This key’s project cannot use a required model',
@@ -21,9 +27,9 @@ const ERROR_KIND: Record<string, string> = {
   no_key: 'No key available',
 };
 const TABS: { id: string; label: string; icon: IconName }[] = [
-  { id: 'tutor', label: 'Tutor', icon: 'sparkle' },
+  { id: 'tutor', label: 'Tutor', icon: 'chip' },
   { id: 'spending', label: 'Spending', icon: 'gauge' },
-  { id: 'study', label: 'Study', icon: 'book' },
+  { id: 'study', label: 'Study & display', icon: 'book' },
   { id: 'data', label: 'Your data', icon: 'database' },
   { id: 'advanced', label: 'Advanced', icon: 'wrench' },
 ];
@@ -67,6 +73,7 @@ export function Settings({
     [monthLimit, setMonthLimit] = useState(workspace.budget.limits.monthly_microusd / 1e6),
     [notice, setNotice] = useState('');
   const [diagnostics, setDiagnostics] = useState<Diagnostics | null>(null);
+  const [theme, setTheme] = useState(readTheme);
   const provider = workspace.provider;
   const privacy = workspace.privacy;
   const models = workspace.models ?? [];
@@ -462,6 +469,33 @@ export function Settings({
             </>
           ) : tab === 'study' ? (
             <>
+              <section>
+                <h3>Appearance</h3>
+                <div
+                  className="segmented appearance-options"
+                  role="radiogroup"
+                  aria-label="Appearance"
+                >
+                  {APPEARANCE.map((a) => (
+                    <button
+                      key={a.id}
+                      type="button"
+                      role="radio"
+                      aria-checked={theme === a.id}
+                      onClick={() => {
+                        setTheme(a.id);
+                        saveTheme(a.id);
+                      }}
+                    >
+                      <Icon name={a.icon} />
+                      {a.label}
+                    </button>
+                  ))}
+                </div>
+                <p className="small muted">
+                  Kept on this Mac only. An open interactive visual switches the next time it loads.
+                </p>
+              </section>
               <section>
                 <h3>Text size</h3>
                 <div className="segmented" role="radiogroup" aria-label="Text size">

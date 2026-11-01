@@ -37,7 +37,7 @@ export function ModelControls({
     <div className="model-controls" role="group" aria-label="Tutor model and effort">
       <Menu
         className="pill-menu"
-        icon="sparkle"
+        icon="chip"
         label={current.label}
         title={`Tutor model: ${current.id}`}
         disabled={disabled}

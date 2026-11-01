@@ -8,7 +8,9 @@ The planner proposes 2–4 concrete capabilities, their order, assumed backgroun
 
 ## Work through a capability
 
-Each capability has a separate session. A representative opening question leads into explanation, a related worked example, gradually reduced support, and a fresh independent check. Relevant capabilities can include a prediction and an interactive model. Questions are always discussion rather than graded attempts.
+Each capability has a separate session that reads as one document. A lesson moves through four phases — **Try**, **Learn**, **Practice**, **Check** — and ends with a wrap-up; the header shows where you are. A representative opening question leads into an explanation connected to your answer, a related worked example, gradually reduced support, and a fresh independent check. Relevant capabilities can include a prediction and an interactive model. Questions are always discussion rather than graded attempts.
+
+Support fades with evidence rather than following a fixed sequence. When an answer on the explanation or worked-example step meets every rubric part, the remaining worked steps (a related example and a completion problem) are skipped for guided practice; otherwise the full route continues. The skip is offered as the next step, never taken silently, and it creates no evidence for the steps it skips. A suggested next step appears only after you have attempted the current task, so the task itself stays the obvious next move.
 
 The task writer produces the statement, assumptions, rubric, reference solution, answer key and hidden support together. Rust validates the proposal and runs supported checks before freezing it. Checks cover stated numerical values, reference arithmetic, dimensions, sampled expression domains, repeated statements, and numerical answer leakage. These checks do not establish that every scientific assumption or reference solution is correct.
 

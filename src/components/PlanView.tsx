@@ -61,22 +61,24 @@ export function PlanView({
     <section className={compact ? 'plan plan-compact' : 'plan'} aria-label="Study plan">
       <header className="plan-head">
         <p className="eyebrow">{generated ? 'Your plan' : 'Sample unit'}</p>
-        {compact ? <h2>{goal.title}</h2> : <h1 className="plan-title">{goal.title}</h1>}
+        {compact ? <h2>{goal.title}</h2> : <h1 className="display plan-title">{goal.title}</h1>}
         <p className="plan-meta">
-          <span>
+          <span className="tag">
             <Icon name="list" />
             {planned.length} capabilit{planned.length === 1 ? 'y' : 'ies'}
           </span>
-          <span>
+          <span className="tag">
             <Icon name="clock" />
             about {goal.minutes} min
           </span>
-          <span>
-            <Icon name={generated ? 'info' : 'checkCircle'} />
-            {generated ? 'Generated, not reviewed by a person' : 'Authored and checked'}
-          </span>
+          {generated ? null : (
+            <span className="tag" title="Hand-written tasks with analytic checks">
+              <Icon name="checkCircle" />
+              Authored and checked
+            </span>
+          )}
           {goal.revision > 1 ? (
-            <span>
+            <span className="tag">
               <Icon name="review" />
               revision {goal.revision}
             </span>
@@ -99,10 +101,10 @@ export function PlanView({
           </div>
         ) : null}
         {goal.summary && !compact ? (
-          <RichText text={goal.summary} className="plan-summary" />
+          <RichText text={goal.summary} className="plan-summary prose" />
         ) : null}
         {goal.level || goal.background.length ? (
-          <p className="plan-assumes small">
+          <p className="plan-assumes">
             {goal.level ? (
               <>
                 Pitched at <strong>{goal.level}</strong>.{' '}
@@ -115,12 +117,16 @@ export function PlanView({
       </header>
       {goal.clarification ? (
         <div className="clarify" role={blocking ? 'alert' : undefined}>
-          <p className="eyebrow">{blocking ? 'One question before planning' : 'Optional'}</p>
+          <p className="eyebrow">
+            <Icon name="question" />
+            {blocking ? 'One question before planning' : 'Optional question'}
+          </p>
           <p className="clarify-question">{goal.clarification.question}</p>
           <div className="actions">
             {goal.clarification.options.map((o) => (
               <button
                 key={o}
+                className="compact"
                 disabled={busy || !canRevise}
                 onClick={() =>
                   onRevise(`Answer to your question “${goal.clarification!.question}”: ${o}`)
@@ -145,29 +151,37 @@ export function PlanView({
               data-current={current || undefined}
               data-next={isNext || undefined}
             >
-              <span className="capability-number" aria-hidden="true">
+              <span className="capability-node" aria-hidden="true">
                 {tone(c) === 'ok' ? <Icon name="check" /> : i + 1}
               </span>
               <div className="capability-body">
                 <p className="capability-outcome">{c.outcome}</p>
                 {c.why && !compact ? <p className="capability-why">{c.why}</p> : null}
                 <p className="capability-meta">
-                  <span className="capability-label" data-label={c.label}>
+                  <span className="status-pill" data-tone={tone(c)}>
                     {current ? 'This session · ' : ''}
                     {c.label}
                   </span>
-                  {c.detail ? <span> · {c.detail}</span> : null}
+                  {c.detail ? <span>{c.detail}</span> : null}
                   {!compact ? (
-                    <span>
-                      {' '}
-                      · ~{c.minutes} min · shown by {ASSESSMENT[c.assessment] ?? c.assessment}
-                      {c.visual ? ' · has a visual' : ''}
-                    </span>
+                    <>
+                      <span>~{c.minutes} min</span>
+                      <span>shown by {ASSESSMENT[c.assessment] ?? c.assessment}</span>
+                      {c.visual ? (
+                        <span>
+                          <Icon name="chart" /> visual
+                        </span>
+                      ) : null}
+                    </>
                   ) : null}
                 </p>
                 <div className="capability-actions">
                   {c.session_id && !current ? (
-                    <button className="ghost" disabled={busy} onClick={() => onOpen(c.session_id!)}>
+                    <button
+                      className="ghost compact"
+                      disabled={busy}
+                      onClick={() => onOpen(c.session_id!)}
+                    >
                       Open
                       <Icon name="arrow" />
                     </button>
@@ -175,7 +189,7 @@ export function PlanView({
                   {!c.session_id && !inactive ? (
                     <>
                       <button
-                        className={isNext ? 'primary' : 'ghost'}
+                        className={isNext ? 'primary compact' : 'ghost compact'}
                         disabled={busy || blocking}
                         onClick={() => onBegin(c.objective_id, 'learn')}
                       >
@@ -227,7 +241,7 @@ export function PlanView({
           }}
         >
           <label htmlFor={compact ? 'plan-change-compact' : 'plan-change'}>Change the plan</label>
-          <div className="search-row">
+          <div className="input-row">
             <input
               id={compact ? 'plan-change-compact' : 'plan-change'}
               value={change}
@@ -236,50 +250,52 @@ export function PlanView({
               placeholder="e.g. “I’m in high school”, “skip the proof”, “add units and dimensions”"
               onChange={(e) => setChange(e.target.value)}
             />
-            <button disabled={busy || !change.trim()}>Revise</button>
+            <button className="compact" disabled={busy || !change.trim()}>
+              Revise
+            </button>
           </div>
-          <p className="small muted">
+          <p className="hint-text">
             Capabilities you keep keep their records. Work already done is never dropped silently.
           </p>
         </form>
       ) : null}
       {goal.sources.length ? (
-        <details className="plan-sources disclosure">
+        <details className="disclosure">
           <summary>
             Built from your material ({goal.sources.length} source
             {goal.sources.length === 1 ? '' : 's'})
           </summary>
           {goal.source_note && goal.source_note !== 'none' ? (
-            <p className="small">{goal.source_note}</p>
+            <p className="hint-text">{goal.source_note}</p>
           ) : null}
-          <ul>
+          <ul className="plan-sources">
             {goal.sources.map((s) => (
               <li key={s.id}>
                 <strong>{s.title}</strong>
                 {s.warnings.map((w) => (
-                  <p key={w} className="notice notice-warn small">
+                  <p key={w} className="notice" data-tone="warn">
                     {w}
                   </p>
                 ))}
-                <p className="source-text small">{s.excerpt}</p>
+                <p className="source-text">{s.excerpt}</p>
               </li>
             ))}
           </ul>
         </details>
       ) : null}
       {goal.notes && !compact ? (
-        <p className="plan-notes small">
+        <p className="plan-notes">
           <strong>Notes:</strong> {goal.notes}
         </p>
       ) : null}
       {!compact ? (
-        <details className="plan-provenance disclosure">
+        <details className="disclosure">
           <summary>Where this plan came from</summary>
-          <p className="small">{goal.provenance}</p>
-          <p className="small">
+          <p className="hint-text">{goal.provenance}</p>
+          <p className="hint-text">
             Revision {goal.revision}: {goal.reason}
           </p>
-          <p className="small muted">Goal, in your words: “{goal.goal_text}”</p>
+          <p className="hint-text">Goal, in your words: “{goal.goal_text}”</p>
         </details>
       ) : null}
     </section>

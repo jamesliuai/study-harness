@@ -27,7 +27,7 @@ const EXAMPLES = [
   },
   { subject: 'Calculus', text: 'Why does the chain rule work, not just how to use it?' },
 ];
-const SHOWN = 4;
+const SHOWN = 3;
 // The core measures a goal in bytes (UTF-8), not characters.
 const MAX_GOAL_BYTES = 4000;
 
@@ -149,22 +149,22 @@ export function Home({
     (_, i) => EXAMPLES[(offset + i) % EXAMPLES.length],
   );
   return (
-    <div className="activity-inner home">
+    <div className="home">
       <form
-        className="goal-start"
+        className="home-hero"
         onSubmit={(e) => {
           e.preventDefault();
           submit();
         }}
       >
-        <label htmlFor="goal" className="home-title">
-          What would you like to understand or be able to do?
+        <label htmlFor="goal" className="display home-title">
+          What would you like to understand?
         </label>
         <p className="home-lead">
-          A topic, a question, a problem you are stuck on, or your own notes. You get a short plan
+          A topic, a question, a problem you’re stuck on, or your own notes. You’ll get a short plan
           to look over and change before anything starts.
         </p>
-        <div className="composer-pill goal-pill" data-disabled={disabled || undefined}>
+        <div className="composer-box goal-box" data-disabled={disabled || undefined}>
           <textarea
             id="goal"
             ref={box}
@@ -209,14 +209,14 @@ export function Home({
                     </button>
                   </div>
                   {a.document.warnings.map((warning) => (
-                    <p key={warning} className="notice notice-warn small">
+                    <p key={warning} className="notice" data-tone="warn">
                       {warning}
                     </p>
                   ))}
                   <details>
                     <summary>What was read from it</summary>
                     <p className="source-text">{a.excerpt || 'No text could be extracted.'}</p>
-                    <p className="small muted">
+                    <p className="hint-text">
                       If equations, tables or pages came out wrong, paste a corrected version as
                       notes instead — the plan only sees this extracted text.
                     </p>
@@ -238,6 +238,7 @@ export function Home({
               <div className="actions">
                 <button
                   type="button"
+                  className="compact"
                   disabled={disabled || !paste.trim()}
                   onClick={() => void importPaste()}
                 >
@@ -250,7 +251,7 @@ export function Home({
             </div>
           ) : null}
           <div className="composer-bar">
-            <label className="ghost file-button" data-disabled={disabled || undefined}>
+            <label className="ghost compact file-button" data-disabled={disabled || undefined}>
               <Icon name="clip" />
               <span>Attach</span>
               <input
@@ -267,7 +268,7 @@ export function Home({
             {!pasting ? (
               <button
                 type="button"
-                className="ghost"
+                className="ghost compact"
                 disabled={disabled}
                 onClick={() => setPasting(true)}
               >
@@ -301,7 +302,7 @@ export function Home({
                 }
               </Menu>
             ) : null}
-            <span className="composer-spacer" />
+            <span className="spacer" />
             {tools}
             <button
               type="submit"
@@ -314,19 +315,19 @@ export function Home({
             </button>
           </div>
         </div>
-        <div className="composer-tray">
+        <div className="composer-foot">
           {tooLong ? (
             <span className="tray-warn" role="status">
               {(goalBytes - MAX_GOAL_BYTES).toLocaleString()} bytes too long for a goal — attach the
               rest as notes
             </span>
           ) : working ? (
-            <span className="tray-muted" role="status">
+            <span role="status">
               <span className="spinner" aria-hidden="true" />
               Reading the material…
             </span>
           ) : canPlan ? (
-            <span className="tray-muted">
+            <span>
               {w.offline
                 ? 'Offline development · plans and tasks are simulated fixtures'
                 : 'Your goal and a few attached passages go to OpenAI to draft the plan · everything is stored on this Mac'}
@@ -337,126 +338,132 @@ export function Home({
               Add your OpenAI key to plan new topics
             </button>
           )}
-          <span className="composer-spacer" />
+          <span className="spacer" />
           {canPlan ? (
-            <span className="tray-muted kbd-hint">
+            <span className="kbd-hint" aria-hidden="true">
               <kbd>⌘</kbd>
               <kbd>↩</kbd> plan
             </span>
           ) : (
-            <span className="tray-muted">The sample unit below works without a key</span>
+            <span>The sample unit below works without a key</span>
           )}
         </div>
         {error ? (
-          <p className="error small" role="alert">
+          <p className="notice" data-tone="danger" role="alert">
             <Icon name="alert" />
             <span>{error}</span>
           </p>
         ) : null}
-      </form>
-      {!goal.trim() ? (
-        <section className="examples" aria-label="Example goals">
-          <div className="section-head">
-            <h2>Ideas to start from</h2>
-            <button
-              type="button"
-              className="text-button"
-              onClick={() => setOffset((o) => (o + SHOWN) % EXAMPLES.length)}
-            >
-              <Icon name="shuffle" />
-              More ideas
-            </button>
-          </div>
-          <div className="example-grid">
+        {!goal.trim() ? (
+          <div className="ideas" aria-label="Example goals">
             {examples.map((example) => (
               <button
                 key={example.text}
                 type="button"
-                className="example"
+                className="idea"
                 disabled={disabled}
+                title={example.text}
                 onClick={() => {
                   setGoal(example.text);
                   onDraft(example.text);
                   box.current?.focus();
                 }}
               >
-                <span className="example-subject">{example.subject}</span>
-                <span className="example-text">{example.text}</span>
+                <span className="idea-subject">{example.subject}</span>
+                <span className="idea-text">{example.text}</span>
+              </button>
+            ))}
+            <button
+              type="button"
+              className="icon-button"
+              aria-label="Show other ideas"
+              title="Other ideas"
+              onClick={() => setOffset((o) => (o + SHOWN) % EXAMPLES.length)}
+            >
+              <Icon name="shuffle" />
+            </button>
+          </div>
+        ) : null}
+      </form>
+      {due || recent.length ? (
+        <section className="home-section" aria-labelledby="home-continue">
+          <h2 id="home-continue" className="section-title">
+            Pick up where you left off
+          </h2>
+          <div className="home-cards">
+            {due ? (
+              <button
+                className="home-card"
+                data-kind="review"
+                disabled={disabled}
+                onClick={onReview}
+              >
+                <span className="home-card-icon">
+                  <Icon name="review" />
+                </span>
+                <span className="home-card-body">
+                  <span className="home-card-title">Review for a few minutes</span>
+                  <span className="home-card-meta">
+                    {due} later check{due === 1 ? '' : 's'} ready · a fresh problem each time
+                  </span>
+                </span>
+                <Icon name="arrow" />
+              </button>
+            ) : null}
+            {recent.map((g) => (
+              <button
+                key={g.id}
+                className="home-card"
+                disabled={disabled || !g.session_ids.length}
+                onClick={() => onOpen(g.session_ids[g.session_ids.length - 1])}
+              >
+                <span className="home-card-icon">
+                  <Icon name="list" />
+                </span>
+                <span className="home-card-body">
+                  <span className="home-card-title">{g.title}</span>
+                  <span className="home-card-meta">
+                    {g.checked
+                      ? `${g.checked} of ${g.capabilities} shown on your own`
+                      : `${g.capabilities} capabilit${g.capabilities === 1 ? 'y' : 'ies'} · nothing checked yet`}{' '}
+                    · started{' '}
+                    {new Date(g.created_at).toLocaleDateString([], {
+                      month: 'short',
+                      day: 'numeric',
+                    })}
+                  </span>
+                  {g.capabilities ? (
+                    <span className="bar" aria-hidden="true">
+                      <span style={{ width: `${(100 * g.checked) / g.capabilities}%` }} />
+                    </span>
+                  ) : null}
+                </span>
+                <Icon name="arrow" />
               </button>
             ))}
           </div>
         </section>
       ) : null}
-      {due || recent.length ? (
-        <section className="home-section" aria-label="Pick up where you left off">
-          <div className="section-head">
-            <h2>Pick up where you left off</h2>
-          </div>
-          {due ? (
-            <button className="home-row" data-kind="review" disabled={disabled} onClick={onReview}>
-              <span className="home-row-icon">
-                <Icon name="review" />
-              </span>
-              <span className="home-row-text">
-                Review for a few minutes
-                <small>
-                  {due} later check{due === 1 ? '' : 's'} ready · a new problem each time; overdue
-                  means ready, not failed
-                </small>
-              </span>
-              <Icon name="arrow" />
-            </button>
-          ) : null}
-          {recent.map((g) => (
-            <button
-              key={g.id}
-              className="home-row"
-              disabled={disabled || !g.session_ids.length}
-              onClick={() => onOpen(g.session_ids[g.session_ids.length - 1])}
-            >
-              <span className="home-row-icon">
-                <Icon name="list" />
-              </span>
-              <span className="home-row-text">
-                {g.title}
-                <small>
-                  {g.capabilities} capabilit{g.capabilities === 1 ? 'y' : 'ies'} ·{' '}
-                  {g.checked ? `${g.checked} shown on your own` : 'nothing checked yet'} · started{' '}
-                  {new Date(g.created_at).toLocaleDateString([], {
-                    month: 'short',
-                    day: 'numeric',
-                  })}
-                </small>
-              </span>
-              {g.capabilities ? (
-                <span className="row-meter" aria-hidden="true">
-                  <span style={{ width: `${(100 * g.checked) / g.capabilities}%` }} />
-                </span>
-              ) : null}
-              <Icon name="arrow" />
-            </button>
-          ))}
-        </section>
-      ) : null}
       <details className="home-section sample-unit">
         <summary>
-          <span className="home-row-icon">
+          <span className="home-card-icon">
             <Icon name="book" />
           </span>
-          <span className="home-row-text">
-            Try the sample unit
-            <small>
+          <span className="home-card-body">
+            <span className="home-card-title">Try the sample unit</span>
+            <span className="home-card-meta">
               Gradient descent and convergence · {w.unit.objectives.length} capabilities · works
               without a key
-            </small>
+            </span>
           </span>
+          <Icon name="chevronDown" />
         </summary>
-        <p className="small muted">{w.unit.notice}</p>
+        <p className="hint-text">{w.unit.notice}</p>
         <ol className="sample-list">
           {w.unit.objectives.map((o) => (
             <li key={o.id}>
               <span className="objective-outcome">{o.outcome}</span>
-              <button className="ghost" disabled={disabled} onClick={() => onSample(o.id)}>
+              <button className="ghost compact" disabled={disabled} onClick={() => onSample(o.id)}>
                 Start
                 <Icon name="arrow" />
               </button>

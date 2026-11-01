@@ -55,7 +55,7 @@ try {
 
 The signs alternate, but the distance to the minimum halves at every step. Convergence depends on $|1-2\eta|<1$, so $0<\eta<1$. Crossing the minimum is not the same as diverging.`,
   );
-  await page.getByRole('button', { name: 'Save only', exact: true }).click();
+  await page.getByRole('button', { name: 'Save without feedback', exact: true }).click();
   await expect(reveal).toBeEnabled();
   await reveal.click();
   await page.getByRole('button', { name: 'Add the curvature control', exact: true }).click();
@@ -68,7 +68,7 @@ The signs alternate, but the distance to the minimum halves at every step. Conve
   await expect(stepSize).toHaveValue('0.75');
   await page.getByRole('button', { name: 'Help', exact: true }).click();
   await page.getByRole('menuitem', { name: 'Explain the idea', exact: true }).click();
-  await expect(page.locator('.turn-tutor')).toContainText('The multiplier is');
+  await expect(page.locator('.turn.tutor')).toContainText('The multiplier is');
   await expect(page.getByRole('button', { name: 'Help', exact: true })).toBeEnabled();
   await page.getByRole('textbox', { name: 'Go to n =', exact: true }).fill('8');
   await page.getByRole('button', { name: 'Go', exact: true }).click();
@@ -90,12 +90,12 @@ The signs alternate, but the distance to the minimum halves at every step. Conve
 
   // Verify that the photographed state survives reload and the independent check removes teaching/visuals.
   await page.reload();
-  await expect(page.locator('.turn-learner')).toContainText('The signs alternate');
+  await expect(page.locator('.turn.learner')).toContainText('The signs alternate');
   await expect(page.getByRole('status').filter({ hasText: 'n = 8 of 1000' })).toBeVisible();
   await page.getByLabel('Your answer', { exact: true }).fill('');
   await page.getByRole('button', { name: 'Skip to a fresh check', exact: true }).click();
   await expect(page.locator('.visual-panel')).toHaveCount(0);
-  await expect(page.locator('.turn-tutor')).toHaveCount(0);
+  await expect(page.locator('.turn.tutor')).toHaveCount(0);
   await page.setViewportSize({ width: 390, height: 844 });
   assert.equal(
     await page.evaluate(

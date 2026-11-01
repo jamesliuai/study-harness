@@ -15,6 +15,7 @@ export function Menu({
   align = 'start',
   className,
   panelClassName,
+  chevron = true,
   children,
 }: {
   /** Visible trigger content. */
@@ -27,6 +28,8 @@ export function Menu({
   align?: 'start' | 'end';
   className?: string;
   panelClassName?: string;
+  /** Show the disclosure chevron after the label (off for icon-only triggers). */
+  chevron?: boolean;
   children: (close: () => void) => ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -108,7 +111,7 @@ export function Menu({
       >
         {icon ? <Icon name={icon} /> : null}
         {label}
-        <Icon name="chevronDown" />
+        {chevron ? <Icon name="chevronDown" /> : null}
       </button>
       {open ? (
         <div

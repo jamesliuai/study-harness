@@ -169,7 +169,7 @@ export function offlineCorePlugin() {
           return;
         }
         const origin = req.headers.origin;
-        if (origin && !/^http:\/\/127\.0\.0\.1:1420$/.test(origin)) {
+        if (origin && !/^http:\/\/(?:127\.0\.0\.1|localhost):1420$/.test(origin)) {
           res.statusCode = 403;
           res.end();
           return;

@@ -1,17 +1,25 @@
 import { lazy, Suspense, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
-import type { PrivacySettings, Workspace } from './generated/contracts';
+import type { PrivacySettings, StepOption, Workspace } from './generated/contracts';
 import { command, money } from './api';
-import { MathText, RichText } from './components/MathText';
-import { Icon, LogoMark, type IconName } from './components/Icon';
+import { isCheck, phasesFor, STAGE_ICON } from './lesson';
+import { Icon, LogoMark } from './components/Icon';
 import type { VisualHandle } from './components/RealVisualPanel';
 import { Composer, type Intent } from './components/Composer';
 import { Settings } from './components/Settings';
 import { LearningRecord } from './components/LearningRecord';
-import { Timeline } from './components/Timeline';
+import { Conversation } from './components/Conversation';
 import { Home } from './components/Home';
 import { PlanView } from './components/PlanView';
 import { Menu, MenuItem } from './components/Menu';
 import { ModelControls } from './components/ModelControls';
+import { RichText } from './components/MathText';
+import { Sidebar, isPlaceholder } from './components/Sidebar';
+import { SessionHeader, type PanelKind } from './components/SessionHeader';
+import { PastTask, TaskCard } from './components/TaskCard';
+import { DraftConfirm, NextStep } from './components/NextStep';
+import { WrapUp } from './components/WrapUp';
+import { DevControls } from './components/DevControls';
+import { FailedReply, RequestPill, Thinking } from './components/Thinking';
 const RealVisualPanel = lazy(() =>
   import('./components/RealVisualPanel').then((m) => ({ default: m.RealVisualPanel })),
 );
@@ -31,41 +39,22 @@ const STEP_ACTION: Record<string, string> = {
   prerequisite: 'prerequisite',
   another: 'another',
 };
-const STEP_ICON: Record<string, IconName> = {
-  teach: 'book',
-  continue: 'arrow',
-  fresh_check: 'target',
-  review: 'review',
-  prerequisite: 'stairs',
-  another: 'shuffle',
-};
 // Steps that open a new task; for a generated capability the task is written and checked first.
 const TRANSITIONS = ['teach', 'next', 'fresh_check', 'review', 'another'];
-const CHECK_LABEL: Record<string, string> = {
-  passed: 'passed',
-  failed: 'failed',
-  inconclusive: 'not conclusive',
-  not_applicable: 'not applicable',
-};
-const STAGE_ICON: Record<string, IconName> = {
-  diagnosis: 'pencil',
-  exploration: 'chart',
-  instruction: 'book',
-  worked_example: 'stairs',
-  practice: 'pencil',
-  independent: 'target',
-  review: 'review',
-  summary: 'checkCircle',
-  exploratory: 'question',
-};
 // Only a setup problem is worth a word; a working connection stays quiet.
 const PROVIDER_ISSUE: Record<string, string> = {
   not_configured: 'Add your OpenAI key for tutor replies',
   attention: 'OpenAI needs attention',
 };
-// An unstarted session made by “New goal”: it is the home screen, not a session worth listing.
-const isPlaceholder = (s: { title: string; revision: number }) =>
-  s.title === 'New session' && s.revision === 0;
+// A per-device layout preference; it never leaves this Mac.
+const SIDEBAR_KEY = 'study-harness:sidebar';
+const readCollapsed = () => {
+  try {
+    return localStorage.getItem(SIDEBAR_KEY) === 'collapsed';
+  } catch {
+    return false;
+  }
+};
 
 export default function App() {
   const [workspace, setWorkspace] = useState<Workspace | null>(null);
@@ -82,19 +71,22 @@ export default function App() {
       { id: string; category: string; scenario: string }[]
     >([]),
     [diagnosticId, setDiagnosticId] = useState('');
-  const [panel, setPanel] = useState<{
-    kind: 'visual' | 'sources' | 'plan';
-    activityId: string;
-  } | null>(null);
+  // The side panel for the current task; null shows its default (a planned visual), 'none' keeps it closed.
+  const [panel, setPanel] = useState<{ kind: PanelKind | 'none'; activityId: string } | null>(null);
   // A plan or task being written: what to show while waiting, and a deliberate retry if it fails.
   const [generating, setGenerating] = useState('');
   const [genRetry, setGenRetry] = useState<{ label: string; run: () => Promise<void> } | null>(
     null,
   );
-  const [report, setReport] = useState<string | null>(null);
   const [sourceTarget, setSourceTarget] = useState<
     { id: string; anchor: string; activityId: string } | undefined
   >();
+  const [collapsed, setCollapsed] = useState(readCollapsed);
+  // A next step waiting for the learner to confirm that their unsent draft may be discarded.
+  const [pendingStep, setPendingStep] = useState<StepOption | null>(null);
+  const [farFromEnd, setFarFromEnd] = useState(false);
+  // Whether the current task card is on screen; when it is not, the composer says which task it answers.
+  const [taskInView, setTaskInView] = useState(true);
   const active = useRef<string | null>(null);
   // The newest workspace, so a deliberate retry uses the current session revision rather than a stale one.
   const latest = useRef<Workspace | null>(null);
@@ -103,7 +95,10 @@ export default function App() {
   const intentMemo = useRef<Record<string, Intent>>({});
   const startupReported = useRef(false);
   const scroller = useRef<HTMLElement>(null);
-  const stack = useRef<HTMLDivElement>(null);
+  const stick = useRef(true);
+  const seen = useRef({ scope: '', stage: '', count: 0 });
+  const draftText = useRef('');
+  const openPanel = useRef(false);
   useEffect(() => {
     if (workspace && !startupReported.current) {
       startupReported.current = true;
@@ -115,6 +110,23 @@ export default function App() {
   useEffect(() => {
     document.documentElement.style.fontSize = `${(16 * (workspace?.privacy.text_scale_percent ?? 100)) / 100}px`;
   }, [workspace?.privacy.text_scale_percent]);
+  useEffect(() => {
+    try {
+      localStorage.setItem(SIDEBAR_KEY, collapsed ? 'collapsed' : 'open');
+    } catch {
+      // The preference simply resets next time.
+    }
+  }, [collapsed]);
+  // A narrow window gives the lesson the room; the sidebar returns with ⌘\ or its button.
+  useEffect(() => {
+    const narrow = matchMedia('(max-width: 760px)');
+    const fit = () => {
+      if (narrow.matches) setCollapsed(true);
+    };
+    fit();
+    narrow.addEventListener('change', fit);
+    return () => narrow.removeEventListener('change', fit);
+  }, []);
   useEffect(() => {
     let mounted = true;
     if (workspace?.offline)
@@ -142,37 +154,16 @@ export default function App() {
   useEffect(() => {
     void refresh().catch((e) => setError(String(e)));
   }, [refresh]);
-  // A retry, a half-written report or another task's panel never carries over to a different task.
+  // A retry, a pending step or another task's panel never carries over to a different task.
   const scope = workspace ? `${workspace.active_session_id}:${workspace.activity.id}` : '';
   useEffect(() => {
     setRetry(null);
     setGenRetry(null);
-    setReport(null);
+    setPendingStep(null);
     setPanel((p) => (p && `${active.current}:${p.activityId}` === scope ? p : null));
+    const w = latest.current;
+    draftText.current = w?.sessions.find((s) => s.id === w.active_session_id)?.draft ?? '';
   }, [scope]);
-  // Keep the newest turn in view when the conversation grows or the task changes.
-  const entries = workspace?.timeline.length ?? 0;
-  const inFlow = !!workspace?.learning;
-  useLayoutEffect(() => {
-    const el = scroller.current;
-    if (el) el.scrollTop = inFlow ? el.scrollHeight : 0;
-  }, [entries, workspace?.activity.id, inFlow]);
-  // When the pinned task and composer grow (a transcript to confirm, a retry notice), keep the newest turn in
-  // view — unless the learner had scrolled up to read.
-  useEffect(() => {
-    const el = scroller.current;
-    const pinned = stack.current;
-    if (!el || !pinned || typeof ResizeObserver === 'undefined') return;
-    let last = pinned.offsetHeight;
-    const observer = new ResizeObserver(() => {
-      const grew = pinned.offsetHeight - last;
-      last = pinned.offsetHeight;
-      if (grew > 0 && el.scrollHeight - el.scrollTop - el.clientHeight <= grew + 32)
-        el.scrollTop = el.scrollHeight;
-    });
-    observer.observe(pinned);
-    return () => observer.disconnect();
-  }, [inFlow, workspace?.activity.id]);
   const flushDraft = async () => {
     if (draftTimer.current) clearTimeout(draftTimer.current);
     const d = pendingDraft.current;
@@ -227,6 +218,7 @@ export default function App() {
   };
   const saveDraft = (text: string) => {
     if (!workspace) return;
+    draftText.current = text;
     setDraftState('Saving draft…');
     pendingDraft.current = { sessionId: workspace.active_session_id, text };
     if (draftTimer.current) clearTimeout(draftTimer.current);
@@ -237,67 +229,80 @@ export default function App() {
     void command('update_privacy', { privacy })
       .then(refresh)
       .catch((e) => setError(String(e)));
-  if (!workspace)
-    return (
-      <main className="startup">
-        <LogoMark />
-        <h1>Study Harness</h1>
-        <p role={error ? 'alert' : 'status'}>{error || 'Opening your local workspace…'}</p>
-        {error ? (
-          <button onClick={() => void refresh().catch((e) => setError(String(e)))}>
-            Try again
-          </button>
-        ) : null}
-      </main>
-    );
+
+  // Derived state (also used by the hooks below, so computed before the early return).
   const w = workspace;
-  const session = w.sessions.find((s) => s.id === w.active_session_id)!;
-  const learning = w.learning;
+  const session = w?.sessions.find((s) => s.id === w.active_session_id);
+  const learning = w?.learning ?? null;
   const flow = learning?.state;
   const stage = flow?.stage;
-  const goal = w.goal;
-  const home = !flow && !goal;
-  const paused = !!flow && (flow.quiet || flow.stopped);
-  const check = stage === 'independent' || stage === 'review';
+  const goal = w?.goal ?? null;
+  const home = !!w && !flow && !goal;
+  const inFlow = !!flow;
   const working = busy || composerBusy || tutorBusy || !!generating;
-  const currentAnswers = w.attempts.filter(
-    (a) =>
-      a.activity_id === w.activity.id &&
-      learning?.conditions.find((c) => c.attempt_id === a.id)?.intent !== 'question',
-  );
-  const hasAnswer = currentAnswers.length > 0;
-  const canGenerate = w.offline || w.credential.configured;
-  // The live tutor needs a saved key; offline development returns labeled simulated responses.
-  const tutorReady =
-    canGenerate && !paused && (!flow || (learning?.allowed_actions.length ?? 0) > 0);
-  const intents: Intent[] = !flow
-    ? ['answer']
-    : stage === 'exploratory' || stage === 'summary'
-      ? ['question']
-      : stage === 'diagnosis' && flow.diagnosis_count >= 3
-        ? ['question']
-        : stage === 'instruction' || stage === 'worked_example'
-          ? ['question', 'answer']
-          : ['answer', 'question'];
-  const showComposer = (!flow && !!w.pending_transcript) || (!!flow && !flow.stopped);
-  const sourcesOpen = panel?.kind === 'sources' && panel.activityId === w.activity.id;
-  const planOpen = panel?.kind === 'plan' && !!goal && !!flow && !check;
-  // A visual appears only when this task planned one; there is no default visual for unrelated topics.
-  const visualAvailable =
-    !!flow && ['diagnosis', 'exploration'].includes(flow.stage) && !paused && !!learning?.visual;
-  const visualOpen = !sourcesOpen && !planOpen && visualAvailable;
-  const scheduled = learning?.reviews.find((r) => r.status === 'scheduled');
-  const due = scheduled && new Date(scheduled.due_at) <= new Date(learning!.now);
-  const recommended = learning?.steps.find((s) => s.recommended);
-  // Support options (a prerequisite review) live in the help menu unless they are the recommendation.
-  const others = learning?.steps.filter((s) => !s.recommended && s.kind !== 'support') ?? [];
-  const prerequisite = learning?.steps.find((s) => s.id === 'prerequisite' && !s.recommended);
-  const nextCapability = goal?.capabilities.find((c) => c.objective_id === goal.next_objective_id);
-  const plannedCapabilities = goal?.capabilities.filter((c) => c.status === 'planned') ?? [];
-  const capabilityIndex = plannedCapabilities.findIndex(
-    (c) => c.objective_id === w.activity.objective_id,
-  );
+
+  // Keep new work in view: a new task (or the wrap-up) scrolls to its start; new turns on the same task scroll to
+  // the first new turn, so a long reply is read from its beginning. A learner reading further up is left alone.
+  const entries = w?.timeline.length ?? 0;
+  useLayoutEffect(() => {
+    const el = scroller.current;
+    if (!el || !w) return;
+    if (!inFlow) {
+      seen.current = { scope: '', stage: '', count: 0 };
+      return;
+    }
+    const items = el.querySelectorAll<HTMLElement>('[data-entry]');
+    const prev = seen.current;
+    seen.current = { scope, stage: stage ?? '', count: items.length };
+    let target: HTMLElement | null = null;
+    if (stage === 'summary' && (prev.scope !== scope || prev.stage !== 'summary'))
+      target = el.querySelector<HTMLElement>('.wrap-up');
+    else if (prev.scope !== scope)
+      target = el.querySelector<HTMLElement>(`[data-activity="${CSS.escape(w.activity.id)}"]`);
+    else if (items.length > prev.count) target = items[prev.count];
+    else if (!stick.current) return;
+    // A new task replaces the control that opened it: focus moves to the task, not to the page.
+    if (prev.scope && prev.scope !== scope && stage !== 'summary') {
+      const card = document.getElementById('current-task');
+      const typing = document.activeElement?.matches('input, textarea, select');
+      if (card && !typing) card.focus({ preventScroll: true });
+    }
+    if (target) {
+      const top =
+        target.getBoundingClientRect().top - el.getBoundingClientRect().top + el.scrollTop - 24;
+      el.scrollTop = Math.max(0, top);
+    } else el.scrollTop = el.scrollHeight;
+    stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 96;
+    setFarFromEnd(!stick.current);
+  }, [entries, scope, stage, inFlow, tutorBusy, generating, retry, w]);
+  // While the composer grows (a transcript to confirm, a recording), keep the newest turn in view if it was.
+  useEffect(() => {
+    const el = scroller.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const observer = new ResizeObserver(() => {
+      if (stick.current) el.scrollTop = el.scrollHeight;
+    });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [inFlow]);
+
+  useEffect(() => {
+    const root = scroller.current;
+    const card = document.getElementById('current-task');
+    if (!root || !card || typeof IntersectionObserver === 'undefined') {
+      setTaskInView(true);
+      return;
+    }
+    const observer = new IntersectionObserver(([entry]) => setTaskInView(entry.isIntersecting), {
+      root,
+      threshold: 0.15,
+    });
+    observer.observe(card);
+    return () => observer.disconnect();
+  }, [scope, stage, entries]);
+
   const askTutor = async (attemptId: string) => {
+    if (!w || !session) return;
     setRetry(null);
     setError('');
     setTutorBusy(true);
@@ -338,7 +343,7 @@ export default function App() {
   };
   /** Runs a request that writes a plan or a task, with visible progress, cancellation and a deliberate retry. */
   const generate = async (label: string, name: string, args: Record<string, unknown>) => {
-    const run = async () => {
+    const runIt = async () => {
       setError('');
       setGenRetry(null);
       setGenerating(label);
@@ -349,21 +354,22 @@ export default function App() {
         const next = await command<Workspace>(name, {
           ...args,
           ...('revision' in args && revision !== undefined ? { revision } : {}),
-          scenario: w.offline ? scenario : null,
+          scenario: latest.current?.offline ? scenario : null,
         });
         active.current = next.active_session_id;
         setWorkspace(next);
         setPanel(null);
       } catch (e) {
-        setGenRetry({ label: String(e), run });
+        setGenRetry({ label: String(e), run: runIt });
         await refresh().catch(() => {});
       } finally {
         setGenerating('');
       }
     };
-    await run();
+    await runIt();
   };
   const action = (name: string, note?: string) => {
+    if (!session) return;
     if (!TRANSITIONS.includes(name)) {
       run('learning_action', { sessionId: session.id, revision: session.revision, action: name });
       return;
@@ -383,8 +389,39 @@ export default function App() {
       note: note ?? null,
     });
   };
+  /** A next step from the core. Moving to a new task with unsent text asks before the draft is discarded. */
+  const takeStep = async (step: StepOption) => {
+    const name = STEP_ACTION[step.id] ?? step.id;
+    if (TRANSITIONS.includes(name)) {
+      await flushDraft();
+      if (draftText.current.trim() || latest.current?.pending_transcript) {
+        setPendingStep(step);
+        return;
+      }
+    }
+    setPendingStep(null);
+    action(name);
+  };
+  const discardDraftAndStep = () =>
+    void task(async () => {
+      const step = pendingStep;
+      const current = latest.current;
+      if (!step || !current) return;
+      await flushDraft();
+      await command('save_draft', { sessionId: current.active_session_id, text: '' });
+      if (current.pending_transcript)
+        await command('discard_transcript', {
+          sessionId: current.active_session_id,
+          transcriptId: current.pending_transcript.id,
+        });
+      draftText.current = '';
+      setPendingStep(null);
+      await refresh();
+      action(STEP_ACTION[step.id] ?? step.id);
+    });
   const begin = (objectiveId: string, mode: 'learn' | 'check') =>
     goal &&
+    session &&
     void generate(
       mode === 'check' ? 'Writing a fresh check…' : 'Writing an opening question…',
       'begin_capability',
@@ -398,6 +435,7 @@ export default function App() {
     );
   const decide = (objectiveId: string, decision: 'skip' | 'restore') =>
     goal &&
+    session &&
     run('plan_decision', {
       sessionId: session.id,
       revision: session.revision,
@@ -407,6 +445,7 @@ export default function App() {
     });
   const revise = (instruction: string) =>
     goal &&
+    session &&
     void generate('Revising the plan…', 'revise_plan', {
       sessionId: session.id,
       revision: session.revision,
@@ -414,6 +453,7 @@ export default function App() {
       instruction,
     });
   const openSource = (id: string, anchor: string) =>
+    w &&
     void task(async () => {
       await visual.current?.flush();
       setSourceTarget({ id, anchor, activityId: w.activity.id });
@@ -433,22 +473,22 @@ export default function App() {
       setRetry(null);
       setGenRetry(null);
       setPanel(null);
-      setReport(null);
       await refresh();
     });
-  // Sessions grouped by goal: a goal's capabilities are studied in their own sessions.
-  const grouped = new Set(w.goals.flatMap((g) => g.session_ids));
   // “New goal” reuses an unstarted session instead of piling up empty ones.
   const newGoal = () => {
+    if (!w) return;
     if (home) {
       document.getElementById('goal')?.focus();
       return;
     }
+    const grouped = new Set(w.goals.flatMap((g) => g.session_ids));
     const empty = w.sessions.find((s) => !grouped.has(s.id) && isPlaceholder(s));
     if (empty) switchSession(empty.id);
     else run('new_session', { title: 'New session' });
   };
   const startReview = () =>
+    w &&
     void task(async () => {
       const first = w.unit.due_reviews[0];
       if (!first) {
@@ -487,6 +527,7 @@ export default function App() {
     intent: Intent,
     tutor: boolean,
   ) => {
+    if (!session) return;
     setError('');
     setRetry(null);
     await flushDraft();
@@ -503,27 +544,97 @@ export default function App() {
       },
     });
     setWorkspace(next);
+    draftText.current = '';
     setDraftState('Saved locally');
     if (tutor) await askTutor(submissionId);
   };
-  const sessionButton = (s: (typeof w.sessions)[number], nested: boolean) => (
-    <button
-      key={s.id}
-      aria-current={s.id === session.id ? 'page' : undefined}
-      data-nested={nested || undefined}
-      disabled={working}
-      onClick={() => switchSession(s.id)}
-      title={s.title}
-    >
-      <span>{s.title}</span>
-      {nested ? null : (
-        <small>
-          {new Date(s.created_at).toLocaleDateString([], { month: 'short', day: 'numeric' })}
-        </small>
-      )}
-    </button>
+  const cancelRequest = () => void command('cancel_request').catch(() => {});
+  const togglePanel = (kind: PanelKind, open: boolean) => {
+    if (!w) return;
+    const activityId = w.activity.id;
+    if (kind === 'sources')
+      void task(async () => {
+        await visual.current?.flush();
+        setPanel(open ? null : { kind, activityId });
+      });
+    else if (kind === 'visual') setPanel({ kind: open ? 'none' : 'visual', activityId });
+    else setPanel(open ? null : { kind, activityId });
+  };
+
+  // Global shortcuts: new goal, sidebar, settings; Escape closes a side panel when nothing else claims it.
+  const shortcuts = useRef<(e: KeyboardEvent) => void>(() => {});
+  shortcuts.current = (e: KeyboardEvent) => {
+    const mod = e.metaKey || e.ctrlKey;
+    if (document.querySelector('dialog[open]')) return;
+    if (mod && e.key.toLowerCase() === 'n' && !e.shiftKey) {
+      e.preventDefault();
+      if (!working) newGoal();
+    } else if (mod && (e.key === '\\' || e.key.toLowerCase() === 'b')) {
+      e.preventDefault();
+      setCollapsed((v) => !v);
+    } else if (mod && e.key === ',') {
+      e.preventDefault();
+      if (!working) openSettings();
+    } else if (e.key === 'Escape' && !e.defaultPrevented && openPanel.current) {
+      setPanel({ kind: 'none', activityId: latest.current?.activity.id ?? '' });
+    }
+  };
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => shortcuts.current(e);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, []);
+
+  if (!w || !session)
+    return (
+      <main className="startup">
+        <LogoMark />
+        <h1 className="display">Study Harness</h1>
+        <p role={error ? 'alert' : 'status'}>{error || 'Opening your local workspace…'}</p>
+        {error ? (
+          <button onClick={() => void refresh().catch((e) => setError(String(e)))}>
+            Try again
+          </button>
+        ) : null}
+      </main>
+    );
+
+  const paused = !!flow && (flow.quiet || flow.stopped);
+  const check = isCheck(stage);
+  const currentAnswers = w.attempts.filter(
+    (a) =>
+      a.activity_id === w.activity.id &&
+      learning?.conditions.find((c) => c.attempt_id === a.id)?.intent !== 'question',
   );
-  const loose = w.sessions.filter((s) => !grouped.has(s.id) && !isPlaceholder(s));
+  const hasAnswer = currentAnswers.length > 0;
+  const canGenerate = w.offline || w.credential.configured;
+  // The live tutor needs a saved key; offline development returns labeled simulated responses.
+  const tutorReady =
+    canGenerate && !paused && (!flow || (learning?.allowed_actions.length ?? 0) > 0);
+  const intents: Intent[] = !flow
+    ? ['answer']
+    : stage === 'exploratory' || stage === 'summary'
+      ? ['question']
+      : stage === 'diagnosis' && flow.diagnosis_count >= 3
+        ? ['question']
+        : ['answer', 'question'];
+  const showComposer = (!flow && !!w.pending_transcript) || (!!flow && !flow.stopped);
+  const sourcesOpen = panel?.kind === 'sources' && panel.activityId === w.activity.id;
+  const planOpen = panel?.kind === 'plan' && !!goal && !!flow && !check;
+  // A visual appears only when this task planned one; there is no default visual for unrelated topics.
+  const visualAvailable =
+    !!flow && ['diagnosis', 'exploration'].includes(flow.stage) && !paused && !!learning?.visual;
+  const visualOpen = !sourcesOpen && !planOpen && visualAvailable && panel?.kind !== 'none';
+  openPanel.current = sourcesOpen || planOpen || visualOpen;
+  const steps = learning?.steps ?? [];
+  const prerequisite = steps.find((s) => s.id === 'prerequisite' && !s.recommended);
+  const nextCapability = goal?.capabilities.find((c) => c.objective_id === goal.next_objective_id);
+  const plannedCapabilities = goal?.capabilities.filter((c) => c.status === 'planned') ?? [];
+  const capabilityIndex = plannedCapabilities.findIndex(
+    (c) => c.objective_id === w.activity.objective_id,
+  );
+  const currentTask = w.timeline.find((e) => e.kind === 'task' && e.activity_id === w.activity.id);
+  const reviewing = currentTask?.stage === 'review';
   const providerIssue = w.offline ? null : (PROVIDER_ISSUE[w.provider.state] ?? null);
   // Spending sits with the composer: this session's total, with the month in the tooltip and in Settings.
   const { budget } = w;
@@ -534,51 +645,42 @@ export default function App() {
     ? budget.month_spent_microusd / budget.limits.monthly_microusd
     : 1;
   const nearLimit = !w.offline && (sessionShare >= 0.8 || monthShare >= 0.8);
-  const spending = (
-    <span
-      className="tray-cost"
-      data-near={nearLimit || undefined}
-      title={`This session: ${money(budget.session_spent_microusd)} of ${money(budget.limits.session_microusd)}. This month (UTC): ${money(budget.month_spent_microusd)} of ${money(budget.limits.monthly_microusd)}. Pending and uncertain charges count toward both.`}
-    >
-      <span className="meter" aria-hidden="true">
-        <span style={{ width: `${Math.min(100, Math.max(sessionShare, monthShare) * 100)}%` }} />
-      </span>
-      <span className="numeric">{money(budget.session_spent_microusd)}</span>
-      <span className="tray-muted">
-        {nearLimit
-          ? monthShare >= 0.8
-            ? 'near your monthly limit'
-            : 'near your session limit'
-          : 'this session'}
-      </span>
-      {budget.unresolved_count ? (
-        <span className="tray-muted">· {budget.unresolved_count} pending</span>
-      ) : null}
-    </span>
-  );
-  const setupHint = providerIssue ? (
-    <button
-      type="button"
-      className="tray-link"
-      data-state={w.provider.state}
-      onClick={openSettings}
-    >
-      <Icon name={w.provider.state === 'attention' ? 'alert' : 'key'} />
-      {providerIssue}
-    </button>
-  ) : w.offline ? (
-    <span className="tray-offline">Offline · simulated replies</span>
-  ) : null;
   const tray = (
     <>
-      {spending}
-      {setupHint}
-      {visualOpen && hasAnswer && tutorReady ? (
-        <span
-          className="tray-muted"
-          title="Sends a short, bounded summary of what you explored; slider movement itself is never sent"
+      {providerIssue ? (
+        <button
+          type="button"
+          className="tray-link"
+          data-state={w.provider.state}
+          onClick={openSettings}
         >
-          + visual summary
+          <Icon name={w.provider.state === 'attention' ? 'alert' : 'key'} />
+          {providerIssue}
+        </button>
+      ) : null}
+      <span
+        className="tray-cost"
+        data-near={nearLimit || undefined}
+        title={`This session: ${money(budget.session_spent_microusd)} of ${money(budget.limits.session_microusd)}. This month (UTC): ${money(budget.month_spent_microusd)} of ${money(budget.limits.monthly_microusd)}. Pending and uncertain charges count toward both.`}
+      >
+        <span className="meter" aria-hidden="true">
+          <span style={{ width: `${Math.min(100, Math.max(sessionShare, monthShare) * 100)}%` }} />
+        </span>
+        <span className="numeric">{money(budget.session_spent_microusd)}</span>
+        <span>
+          {nearLimit
+            ? monthShare >= 0.8
+              ? 'near your monthly limit'
+              : 'near your session limit'
+            : w.offline
+              ? 'simulated · no charges'
+              : 'this session'}
+        </span>
+        {budget.unresolved_count ? <span>· {budget.unresolved_count} pending</span> : null}
+      </span>
+      {visualOpen && hasAnswer && tutorReady ? (
+        <span title="Sends a short, bounded summary of what you explored; slider movement itself is never sent">
+          · includes a visual summary
         </span>
       ) : null}
     </>
@@ -594,846 +696,529 @@ export default function App() {
     : tutorBusy
       ? w.offline
         ? 'Simulating a tutor reply…'
-        : 'Waiting for the tutor…'
+        : 'The tutor is reading your answer…'
       : '';
-  const breadcrumb = goal ? goal.title : learning ? w.unit.title : '';
+  const devControls = w.offline ? (
+    <DevControls
+      scenarios={w.scenarios}
+      scenario={scenario}
+      onScenario={setScenario}
+      cases={diagnosticCases}
+      caseId={diagnosticId}
+      onCase={setDiagnosticId}
+      now={learning?.now ?? null}
+      working={working}
+      canLoadTranscript={!w.pending_transcript && showComposer}
+      canAdvanceTime={!!learning?.reviews.some((r) => r.status === 'scheduled')}
+      onAction={(name) => {
+        if (name.startsWith('case:'))
+          setScenario(diagnosticCases.find((c) => `case:${c.id}` === name)?.scenario ?? 'correct');
+        run('development_action', { sessionId: session.id, action: name });
+      }}
+    />
+  ) : null;
+  const help =
+    flow && !paused && stage !== 'exploratory' && stage !== 'summary' ? (
+      <Menu
+        className="help-menu"
+        icon="lifebuoy"
+        label="Help"
+        title={
+          check
+            ? 'Help during a check is saved first and makes later answers on this task count as supported'
+            : 'Hints, explanations and examples; each is saved before it is shown'
+        }
+        disabled={working}
+        placement="top"
+        panelClassName="help-options"
+      >
+        {(close) => (
+          <>
+            <MenuItem
+              icon="bulb"
+              label="A hint"
+              detail="A nudge toward the next move"
+              onSelect={() => {
+                close();
+                action('hint');
+              }}
+            />
+            <MenuItem
+              icon="book"
+              label="Explain the idea"
+              onSelect={() => {
+                close();
+                action('explain');
+              }}
+            />
+            <MenuItem
+              icon="stairs"
+              label="A related worked example"
+              onSelect={() => {
+                close();
+                action('example');
+              }}
+            />
+            <MenuItem
+              icon="eye"
+              label="Show this task’s solution"
+              detail="Later answers on this task count as supported"
+              onSelect={() => {
+                close();
+                action('worked_example');
+              }}
+            />
+            {prerequisite ? (
+              <MenuItem
+                icon="review"
+                label={prerequisite.label}
+                title={prerequisite.reason}
+                onSelect={() => {
+                  close();
+                  action('prerequisite');
+                }}
+              />
+            ) : null}
+            <MenuItem
+              icon="clipboard"
+              label="I used outside help"
+              onSelect={() => {
+                close();
+                action('outside_help');
+              }}
+            />
+            <p className="menu-note">
+              {check
+                ? 'Help during a check is saved before it is shown; later answers on this task count as supported.'
+                : 'Help is saved before it is shown, so your record reflects what you used.'}
+            </p>
+          </>
+        )}
+      </Menu>
+    ) : null;
+  const scrollToTask = () =>
+    document.getElementById('current-task')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  const context =
+    flow && stage !== 'summary' && stage !== 'exploratory' && !taskInView ? (
+      <button
+        type="button"
+        className="composer-context"
+        onClick={scrollToTask}
+        title="Show the task"
+      >
+        <Icon name={STAGE_ICON[stage ?? ''] ?? 'pencil'} />
+        <span className="composer-context-stage">{learning!.stage_title}</span>
+        <span className="composer-context-text">
+          <RichText text={w.activity.prompt.split(/\n\s*\n/)[0]} />
+        </span>
+        <Icon name="arrowUp" />
+      </button>
+    ) : null;
+  const pending = requestLabel ? <Thinking label={requestLabel} onCancel={cancelRequest} /> : null;
+  const generationFailure = genRetry ? (
+    <div className="notice" data-tone="danger" role="alert">
+      <Icon name="alert" />
+      <p>
+        {genRetry.label} <span>Your work is saved and nothing was resent automatically.</span>
+      </p>
+      <button className="compact" disabled={working} onClick={() => void genRetry.run()}>
+        <Icon name="refresh" />
+        Try again
+      </button>
+      <button className="text-button" onClick={() => setGenRetry(null)}>
+        Dismiss
+      </button>
+    </div>
+  ) : null;
+  const crumbs = goal
+    ? [
+        goal.title,
+        ...(capabilityIndex >= 0
+          ? [`Part ${capabilityIndex + 1} of ${plannedCapabilities.length}`]
+          : []),
+      ]
+    : learning
+      ? [w.unit.title]
+      : [];
+
   return (
-    <div className="app-shell">
+    <div className="app" data-sidebar={collapsed ? 'collapsed' : undefined}>
       <a className="skip-link" href="#study-work">
         Skip to study activity
       </a>
-      <nav className="sidebar" aria-label="Sessions">
-        <div className="brand">
-          <LogoMark />
-          <span className="brand-name">Study Harness</span>
-        </div>
-        <button
-          className="new-session"
-          aria-current={home ? 'page' : undefined}
-          disabled={working && !home}
-          onClick={newGoal}
-        >
-          <Icon name="plus" />
-          New goal
-        </button>
-        {w.unit.due_reviews.length ? (
-          <button className="review-entry" disabled={working} onClick={startReview}>
-            <Icon name="review" />
-            <span>Reviews ready</span>
-            <span className="count">{w.unit.due_reviews.length}</span>
-          </button>
-        ) : null}
-        <div className="session-list">
-          {w.goals.map((g) => {
-            const members = g.session_ids
-              .map((id) => w.sessions.find((s) => s.id === id))
-              .filter((s): s is (typeof w.sessions)[number] => !!s);
-            return members.length ? (
-              <div className="session-group" key={g.id}>
-                <h2 title={g.title}>
-                  <span>{g.title}</span>
-                  {g.capabilities ? (
-                    <span
-                      className="group-progress"
-                      title={`${g.checked} of ${g.capabilities} shown on your own`}
-                    >
-                      {g.checked}/{g.capabilities}
-                    </span>
-                  ) : null}
-                </h2>
-                {members.map((s) => sessionButton(s, true))}
-              </div>
-            ) : null;
-          })}
-          {loose.length ? (
-            <div className="session-group">
-              <h2>{w.goals.length ? 'Other sessions' : 'Sessions'}</h2>
-              {loose.map((s) => sessionButton(s, false))}
-            </div>
-          ) : null}
-        </div>
-        <div className="sidebar-footer">
-          <button className="settings-button" disabled={working} onClick={openSettings}>
-            <Icon name="sliders" />
-            <span>Settings</span>
-            {providerIssue ? (
-              <span
-                className="setup-dot"
-                data-state={w.provider.state}
-                title={providerIssue}
-                aria-label={providerIssue}
-              />
-            ) : null}
-          </button>
-        </div>
-      </nav>
-      <div className="workspace">
+      {collapsed ? null : (
+        <Sidebar
+          workspace={w}
+          home={home}
+          working={working}
+          providerIssue={providerIssue}
+          onHome={newGoal}
+          onReview={startReview}
+          onOpen={(id) => switchSession(id)}
+          onSettings={openSettings}
+          onCollapse={() => setCollapsed(true)}
+        />
+      )}
+      <div className="main">
         {busy && !generating && !tutorBusy ? <div className="busy-bar" aria-hidden="true" /> : null}
         {flow ? (
-          <header className="workspace-header">
-            <div className="title-block">
-              {breadcrumb ? (
-                <p className="eyebrow">
-                  <span>{breadcrumb}</span>
-                  {goal && capabilityIndex >= 0 ? (
-                    <span className="numeric">
-                      {' '}
-                      · part {capabilityIndex + 1} of {plannedCapabilities.length}
-                    </span>
-                  ) : null}
-                </p>
-              ) : null}
-              <h1 title={learning!.objective_outcome}>{learning!.objective_outcome}</h1>
-              <p className="sr-only" role="status">
-                {learning!.stage_title}
-                {flow.stopped ? ' · stopped' : flow.quiet ? ' · quiet work' : ''} · {draftState}
-              </p>
-            </div>
-            <div className="header-tools">
-              <div className="session-controls">
-                {paused ? (
-                  <button
-                    className="ghost"
-                    disabled={working}
-                    title={flow.stopped ? 'Pick up where you stopped' : 'End quiet work'}
-                    onClick={() => action('resume')}
-                  >
-                    <Icon name="play" />
-                    Resume
-                  </button>
-                ) : (
-                  <>
-                    <button
-                      className="ghost"
-                      disabled={working}
-                      title="No tutor requests or prompts until you resume — work at your own pace"
-                      onClick={() => action('quiet')}
-                    >
-                      <Icon name="moon" />
-                      Quiet
-                    </button>
-                    <button
-                      className="ghost"
-                      disabled={working}
-                      title="Stop for now; your place and work are saved"
-                      onClick={() => action('stop')}
-                    >
-                      <Icon name="pause" />
-                      Stop
-                    </button>
-                  </>
-                )}
-              </div>
-              <div className="panel-tabs segmented" role="group" aria-label="Side panel">
-                {goal ? (
-                  <button
-                    data-active={planOpen || undefined}
-                    aria-pressed={planOpen}
-                    disabled={check}
-                    title={
-                      check ? 'The plan returns when this check is finished' : 'Your study plan'
-                    }
-                    onClick={() =>
-                      setPanel(planOpen ? null : { kind: 'plan', activityId: w.activity.id })
-                    }
-                  >
-                    <Icon name="list" />
-                    Plan
-                  </button>
-                ) : null}
-                <button
-                  data-active={visualOpen || undefined}
-                  aria-pressed={visualOpen}
-                  disabled={!visualAvailable}
-                  title={
-                    visualAvailable ? 'Show the interactive visual' : 'This step has no visual'
-                  }
-                  onClick={() => setPanel({ kind: 'visual', activityId: w.activity.id })}
-                >
-                  <Icon name="chart" />
-                  Visual
-                </button>
-                <button
-                  data-active={sourcesOpen || undefined}
-                  aria-pressed={sourcesOpen}
-                  disabled={tutorBusy || !!generating}
-                  title={
-                    check
-                      ? 'Opening sources during a check is recorded as support'
-                      : 'Your imported notes and documents'
-                  }
-                  onClick={() =>
-                    void task(async () => {
-                      await visual.current?.flush();
-                      setPanel(sourcesOpen ? null : { kind: 'sources', activityId: w.activity.id });
-                    })
-                  }
-                >
-                  <Icon name="doc" />
-                  Sources
-                  {check ? <span className="tab-note">recorded</span> : null}
-                </button>
-              </div>
-            </div>
-          </header>
+          <SessionHeader
+            crumbs={crumbs}
+            title={learning!.objective_outcome}
+            phases={phasesFor(stage!, reviewing)}
+            stage={stage!}
+            collapsed={collapsed}
+            paused={paused}
+            stopped={flow.stopped}
+            working={working}
+            extra={devControls}
+            panels={[
+              ...(goal
+                ? [
+                    {
+                      kind: 'plan' as const,
+                      label: 'Plan',
+                      icon: 'list' as const,
+                      active: planOpen,
+                      disabled: check,
+                      title: check
+                        ? 'The plan returns when this check is finished'
+                        : 'Your study plan',
+                    },
+                  ]
+                : []),
+              {
+                kind: 'visual' as const,
+                label: 'Visual',
+                icon: 'chart' as const,
+                active: visualOpen,
+                disabled: !visualAvailable,
+                title: visualAvailable ? 'The interactive visual' : 'This step has no visual',
+              },
+              {
+                kind: 'sources' as const,
+                label: 'Sources',
+                icon: 'doc' as const,
+                active: sourcesOpen,
+                disabled: tutorBusy || !!generating,
+                title: check
+                  ? 'Opening sources during a check is recorded as support'
+                  : 'Your imported notes and documents',
+                note: check ? 'recorded' : undefined,
+              },
+            ]}
+            onPanel={(kind) =>
+              togglePanel(
+                kind,
+                kind === 'plan' ? planOpen : kind === 'sources' ? sourcesOpen : visualOpen,
+              )
+            }
+            onSessionAction={(a) => action(a)}
+            onExpand={() => setCollapsed(false)}
+          />
         ) : (
-          <p className="sr-only" role="status">
-            {draftState}
-          </p>
+          <header className="page-bar">
+            {collapsed ? (
+              <button
+                className="icon-button"
+                onClick={() => setCollapsed(false)}
+                aria-label="Show sidebar"
+                title="Show sidebar (⌘\)"
+              >
+                <Icon name="sidebar" />
+              </button>
+            ) : null}
+            <p className="crumbs">
+              <span>{home ? 'New goal' : 'Plan'}</span>
+            </p>
+            <span className="spacer" />
+            {devControls}
+          </header>
         )}
-        {w.offline ? (
-          <section className="offline-banner" aria-label="Offline development controls">
-            <strong>Offline development · simulated responses</strong>
-            <details>
-              <summary>Scenarios and simulated time</summary>
-              <div className="dev-panel">
-                <p className="dev-note">
-                  No provider requests or billing. Separate development data. The selected scenario
-                  controls the outcome; it does not judge your answer or test speech recognition.
-                </p>
-                <div className="dev-group">
-                  <label htmlFor="scenario">Response scenario</label>
-                  <select
-                    id="scenario"
-                    value={scenario}
-                    onChange={(e) => setScenario(e.target.value)}
-                  >
-                    {w.scenarios.map((s) => (
-                      <option key={s} value={s}>
-                        {s.replaceAll('_', ' ')}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="actions">
-                    <button
-                      disabled={working || !!w.pending_transcript || !showComposer}
-                      onClick={() =>
-                        run('development_action', {
-                          sessionId: session.id,
-                          action: 'ambiguous_transcript',
-                        })
-                      }
-                    >
-                      Load simulated transcript
-                    </button>
-                    <button
-                      disabled={working || !scheduled}
-                      onClick={() =>
-                        run('development_action', {
-                          sessionId: session.id,
-                          action: 'advance_to_review',
-                        })
-                      }
-                    >
-                      Simulate time to next review
-                    </button>
-                  </div>
-                  <p className="small">
-                    Development clock:{' '}
-                    {learning ? new Date(learning.now).toLocaleString() : 'current time'}. Simulated
-                    elapsed time never counts as real delayed learning.
-                  </p>
-                </div>
-                <div className="dev-group">
-                  <label htmlFor="diagnostic-case">Versioned diagnostic case</label>
-                  <select
-                    id="diagnostic-case"
-                    value={diagnosticId}
-                    onChange={(e) => setDiagnosticId(e.target.value)}
-                  >
-                    {diagnosticCases.map((c) => (
-                      <option key={c.id} value={c.id}>
-                        {c.id.replaceAll('_', ' ')}
-                      </option>
-                    ))}
-                  </select>
-                  <div className="actions">
-                    <button
-                      disabled={working || !diagnosticId}
-                      onClick={() => {
-                        setScenario(
-                          diagnosticCases.find((c) => c.id === diagnosticId)?.scenario ?? 'correct',
-                        );
-                        run('development_action', {
-                          sessionId: session.id,
-                          action: `case:${diagnosticId}`,
-                        });
-                      }}
-                    >
-                      Load diagnostic case
-                    </button>
-                  </div>
-                  <p className="small">
-                    Creates a separate simulated session and saves the case response through the
-                    core. Selected fixture outcomes test contracts and integrity, not live model
-                    quality. Human review of the diagnostic corpus is pending.
-                  </p>
-                </div>
-              </div>
-            </details>
-          </section>
-        ) : null}
-        {error ? (
-          <div className="error" role="alert">
-            <Icon name="alert" />
-            <span>{error}</span>
-            <button className="ghost" onClick={() => setError('')}>
-              Dismiss
-            </button>
-          </div>
-        ) : null}
-        {genRetry ? (
-          <div className="error retry-generation" role="alert">
-            <Icon name="alert" />
-            <span>{genRetry.label} Your work is saved and nothing was resent automatically.</span>
-            <button disabled={working} onClick={() => void genRetry.run()}>
-              Try again
-            </button>
-            <button className="ghost" onClick={() => setGenRetry(null)}>
-              Dismiss
-            </button>
-          </div>
-        ) : null}
+        <p className="sr-only" role="status">
+          {flow
+            ? `${learning!.stage_title}${flow.stopped ? ' · stopped' : flow.quiet ? ' · quiet work' : ''} · ${draftState}`
+            : draftState}
+        </p>
         <div
-          className="workspace-body"
+          className="main-body"
           data-panel={
             visualOpen ? 'visual' : sourcesOpen ? 'sources' : planOpen ? 'plan' : undefined
           }
         >
-          {requestLabel ? (
-            <div className="request-toast" role="status">
-              <span className="spinner" aria-hidden="true" />
-              <span>{requestLabel}</span>
-              <button className="text-button" onClick={() => void command('cancel_request')}>
-                Cancel
-              </button>
-            </div>
-          ) : null}
-          <main id="study-work" tabIndex={-1} className="activity" ref={scroller}>
-            {home ? (
-              <Home
-                key={session.id}
-                workspace={w}
-                busy={working}
-                planning={generating === 'Drafting your plan…'}
-                draft={session.draft}
-                tools={modelTools}
-                onDraft={saveDraft}
-                onPlan={(text, sourceIds) =>
-                  void generate('Drafting your plan…', 'plan_goal', {
-                    sessionId: session.id,
-                    revision: session.revision,
-                    goal: text,
-                    sourceIds,
-                  })
-                }
-                onSample={(objectiveId) =>
-                  run('start_sample', {
-                    sessionId: session.id,
-                    revision: session.revision,
-                    objectiveId,
-                  })
-                }
-                onOpen={(id) => switchSession(id)}
-                onReview={startReview}
-                onSettings={openSettings}
-              />
-            ) : !flow && goal ? (
-              <div className="activity-inner plan-page">
-                <PlanView
-                  goal={goal}
-                  busy={working}
-                  canRevise={goal.origin === 'generated' && canGenerate}
-                  onBegin={begin}
-                  onDecision={decide}
-                  onRevise={revise}
-                  onOpen={(id) => switchSession(id)}
-                />
-                {!canGenerate && goal.origin === 'generated' ? (
-                  <p className="notice small">
-                    Writing tasks for this plan needs your OpenAI key.{' '}
-                    <button className="text-button inline" onClick={openSettings}>
-                      Open Settings
-                    </button>
-                  </p>
-                ) : null}
-              </div>
-            ) : (
-              <div className="activity-inner conversation">
-                {stage === 'exploratory' ? (
-                  <p className="notice notice-warn">
-                    Exploratory discussion from an earlier version: no checked reference, rubric or
-                    plan. Replies are unreviewed and create no grades, progress or reviews.
-                  </p>
-                ) : learning?.generated && !check ? (
-                  <p className="content-note">
-                    <Icon name="info" />
-                    <span>
-                      Written for your plan and checked automatically, but not reviewed by a person.
-                      If a task looks wrong, report it under <em>About this task</em> — a flawed
-                      task never counts against you.
-                    </span>
-                  </p>
-                ) : null}
-                <Timeline
-                  workspace={w}
-                  busy={working}
-                  canAsk={tutorReady}
-                  onCommand={mutate}
-                  onAsk={(id) => void askTutor(id)}
-                  onSource={check || tutorBusy || generating ? undefined : openSource}
-                />
-                {stage === 'summary' && learning ? (
-                  <section className="wrap-up" aria-label="Where you stand">
-                    <p className="eyebrow">Where you stand</p>
-                    <h2>{learning.objective_outcome}</h2>
-                    {learning.summary?.stale ? (
-                      <p className="notice notice-warn">
-                        A correction or challenge changed the evidence.{' '}
-                        <button
-                          className="text-button inline"
-                          disabled={working}
-                          onClick={() => action('recompute')}
-                        >
-                          Recompute
-                        </button>
-                      </p>
-                    ) : null}
-                    <div className="wrap-up-grid">
-                      <section data-tone="explained">
-                        <h3>
-                          <Icon name="book" />
-                          Explained to you
-                        </h3>
-                        {learning.wrap_up.explained.length ? (
-                          <ul>
-                            {learning.wrap_up.explained.map((t) => (
-                              <li key={t}>{t}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="muted">No explanations or hints were used.</p>
-                        )}
-                      </section>
-                      <section data-tone="help">
-                        <h3>
-                          <Icon name="lifebuoy" />
-                          Done with help
-                        </h3>
-                        {learning.wrap_up.needed_help.length ? (
-                          <ul>
-                            {learning.wrap_up.needed_help.map((t) => (
-                              <li key={t}>{t}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="muted">No supported work was assessed.</p>
-                        )}
-                      </section>
-                      <section data-tone="own">
-                        <h3>
-                          <Icon name="checkCircle" />
-                          Shown on your own
-                        </h3>
-                        {learning.wrap_up.demonstrated.length ? (
-                          <ul>
-                            {learning.wrap_up.demonstrated.map((t) => (
-                              <li key={t}>{t}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="muted">Nothing yet — no resolved independent check.</p>
-                        )}
-                      </section>
-                      <section data-tone="unchecked">
-                        <h3>
-                          <Icon name="circleDashed" />
-                          Not yet checked
-                        </h3>
-                        {learning.wrap_up.unchecked.length ? (
-                          <ul>
-                            {learning.wrap_up.unchecked.map((t) => (
-                              <li key={t}>{t}</li>
-                            ))}
-                          </ul>
-                        ) : (
-                          <p className="muted">Everything here has been checked.</p>
-                        )}
-                      </section>
-                    </div>
-                    {scheduled ? (
-                      <p className="review-line" data-due={due || undefined}>
-                        <Icon name="clock" />
-                        <span>
-                          <strong>
-                            {due ? 'Your review is ready now' : 'Next review'} ·{' '}
-                            {new Date(scheduled.due_at).toLocaleString([], {
-                              weekday: 'short',
-                              month: 'short',
-                              day: 'numeric',
-                              hour: 'numeric',
-                              minute: '2-digit',
-                            })}
-                          </strong>{' '}
-                          — {scheduled.reason.replace(/\.?\s*$/, '.')}
-                          {scheduled.simulated ? ' Simulated time; no retention claim.' : ''}{' '}
-                          Overdue means ready to revisit, not failed.
-                        </span>
-                      </p>
-                    ) : null}
-                    {goal && nextCapability ? (
-                      <div className="next-capability">
-                        <p className="eyebrow">Next in your plan</p>
-                        <p className="next-capability-outcome">{nextCapability.outcome}</p>
-                        <div className="actions">
-                          <button
-                            className="primary"
-                            disabled={working}
-                            onClick={() => begin(nextCapability.objective_id, 'learn')}
-                          >
-                            Continue
-                            <Icon name="arrow" />
-                          </button>
-                          <button
-                            className="text-button"
-                            disabled={working}
-                            onClick={() => begin(nextCapability.objective_id, 'check')}
-                          >
-                            I know it — check me
-                          </button>
-                        </div>
-                      </div>
-                    ) : goal ? (
-                      <p className="small muted">
-                        That was the last capability in this plan. Come back for the planned
-                        reviews, or change the plan to go further.
-                      </p>
-                    ) : null}
-                    <details className="disclosure">
-                      <summary>All attempts, feedback and help in this session</summary>
-                      <LearningRecord
-                        workspace={w}
-                        busy={working}
-                        onCommand={mutate}
-                        onAsk={(id) => void askTutor(id)}
-                        onSource={tutorBusy || generating ? undefined : openSource}
-                        showAll
-                      />
-                    </details>
-                  </section>
-                ) : null}
-              </div>
-            )}
-            {flow || w.pending_transcript ? (
-              <div className="bottom-stack" ref={stack}>
-                {flow && stage !== 'summary' ? (
-                  <section
-                    className="current-task"
-                    aria-label="Current task"
-                    data-check={check || undefined}
-                  >
-                    <div className="current-task-inner">
-                      <details className="task-scope" key={w.activity.id}>
-                        <summary>
-                          <span className="current-task-label">
-                            <Icon name={STAGE_ICON[stage ?? ''] ?? 'pencil'} />
-                            <span>{learning!.stage_title}</span>
-                            {check ? (
-                              <span className="check-note">
-                                Earlier teaching and visuals are hidden; any help is recorded
-                              </span>
-                            ) : null}
-                          </span>
-                          <span className="task-scope-toggle">
-                            <Icon name="info" />
-                            About this task
-                          </span>
-                        </summary>
-                        <div className="task-about small">
-                          {learning!.assumptions.length ? (
-                            <p>
-                              <strong>Assumptions.</strong> {learning!.assumptions.join(' ')}
-                            </p>
-                          ) : null}
-                          {learning!.rubric_lines.length ? (
-                            <div>
-                              <strong>What this task checks.</strong>
-                              <ul>
-                                {learning!.rubric_lines.map((r) => (
-                                  <li key={r}>{r}</li>
-                                ))}
-                              </ul>
-                            </div>
-                          ) : null}
-                          <p>
-                            <strong>Scope.</strong> {learning!.transfer_scope}.
-                          </p>
-                          <p>
-                            <strong>Source.</strong> {learning!.task_provenance}
-                          </p>
-                          {learning!.task_checks.length ? (
-                            <div>
-                              <strong>Automated checks before you saw it.</strong>
-                              <ul className="check-list">
-                                {learning!.task_checks.map((c) => (
-                                  <li key={c.id} data-outcome={c.outcome}>
-                                    {c.label}: {CHECK_LABEL[c.outcome] ?? c.outcome}. {c.detail}
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ) : null}
-                          {learning!.generated ? (
-                            report === null ? (
-                              <button
-                                className="text-button"
-                                disabled={working}
-                                onClick={() => setReport('')}
-                              >
-                                <Icon name="flag" />
-                                Report a problem with this task
-                              </button>
-                            ) : (
-                              <form
-                                className="task-report"
-                                onSubmit={(e) => {
-                                  e.preventDefault();
-                                  action('another', report.trim());
-                                  setReport(null);
-                                }}
-                              >
-                                <label htmlFor="task-report">What is wrong with it?</label>
-                                <input
-                                  id="task-report"
-                                  value={report}
-                                  maxLength={1000}
-                                  placeholder="e.g. a value is missing, the units don’t match, two answers are possible"
-                                  onChange={(e) => setReport(e.target.value)}
-                                />
-                                <div className="actions">
-                                  <button disabled={working || !report.trim()}>
-                                    Replace this task
-                                  </button>
-                                  <button
-                                    type="button"
-                                    className="text-button"
-                                    onClick={() => setReport(null)}
-                                  >
-                                    Cancel
-                                  </button>
-                                </div>
-                                <p className="small muted">
-                                  Your answers to this task are kept; a replacement is a new task.
-                                </p>
-                              </form>
-                            )
-                          ) : null}
-                        </div>
-                      </details>
-                      <RichText text={w.activity.prompt} className="task-prompt prose" />
-                      {w.activity.math && !check ? (
-                        <p className="task-math">
-                          <MathText tex={w.activity.math} />
+          <div className="stage">
+            <main
+              id="study-work"
+              tabIndex={-1}
+              className="scroller"
+              ref={scroller}
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                stick.current = el.scrollHeight - el.scrollTop - el.clientHeight < 96;
+                if (farFromEnd === stick.current) setFarFromEnd(!stick.current);
+              }}
+            >
+              {home ? (
+                <>
+                  {generationFailure ? <div className="column">{generationFailure}</div> : null}
+                  <Home
+                    key={session.id}
+                    workspace={w}
+                    busy={working}
+                    planning={generating === 'Drafting your plan…'}
+                    draft={session.draft}
+                    tools={modelTools}
+                    onDraft={saveDraft}
+                    onPlan={(text, sourceIds) =>
+                      void generate('Drafting your plan…', 'plan_goal', {
+                        sessionId: session.id,
+                        revision: session.revision,
+                        goal: text,
+                        sourceIds,
+                      })
+                    }
+                    onSample={(objectiveId) =>
+                      run('start_sample', {
+                        sessionId: session.id,
+                        revision: session.revision,
+                        objectiveId,
+                      })
+                    }
+                    onOpen={(id) => switchSession(id)}
+                    onReview={startReview}
+                    onSettings={openSettings}
+                  />
+                </>
+              ) : !flow && goal ? (
+                <div className="column plan-page">
+                  {generationFailure}
+                  <PlanView
+                    goal={goal}
+                    busy={working}
+                    canRevise={goal.origin === 'generated' && canGenerate}
+                    onBegin={begin}
+                    onDecision={decide}
+                    onRevise={revise}
+                    onOpen={(id) => switchSession(id)}
+                  />
+                  {!canGenerate && goal.origin === 'generated' ? (
+                    <p className="notice" data-tone="warn">
+                      <Icon name="key" />
+                      <span>Writing tasks for this plan needs your OpenAI key.</span>
+                      <button className="text-button" onClick={openSettings}>
+                        Open Settings
+                      </button>
+                    </p>
+                  ) : null}
+                </div>
+              ) : (
+                <div className="column">
+                  {learning ? (
+                    <header className="lesson-head">
+                      {crumbs.length ? (
+                        <p className="crumbs">
+                          {crumbs.map((c, i) => (
+                            <span key={i}>{c}</span>
+                          ))}
                         </p>
                       ) : null}
-                    </div>
-                  </section>
-                ) : null}
-                <div className="dock">
-                  <div className="dock-inner">
-                    {flow && !paused && stage !== 'exploratory' ? (
-                      <div className="dock-row">
-                        {stage !== 'summary' ? (
-                          <Menu
-                            className="help-menu"
-                            icon="lifebuoy"
-                            label="Help"
-                            title={
-                              check
-                                ? 'Help during a check is saved first and makes later answers on this task count as supported'
-                                : 'Hints, explanations and examples; each is saved before it is shown'
-                            }
-                            disabled={working}
-                            placement="top"
-                            panelClassName="help-options"
-                          >
-                            {(close) => (
-                              <>
-                                <MenuItem
-                                  icon="bulb"
-                                  label="A hint"
-                                  onSelect={() => {
-                                    close();
-                                    action('hint');
-                                  }}
-                                />
-                                <MenuItem
-                                  icon="book"
-                                  label="Explain the idea"
-                                  onSelect={() => {
-                                    close();
-                                    action('explain');
-                                  }}
-                                />
-                                <MenuItem
-                                  icon="stairs"
-                                  label="A related worked example"
-                                  onSelect={() => {
-                                    close();
-                                    action('example');
-                                  }}
-                                />
-                                <MenuItem
-                                  icon="eye"
-                                  label="Show this task’s solution"
-                                  onSelect={() => {
-                                    close();
-                                    action('worked_example');
-                                  }}
-                                />
-                                {prerequisite ? (
-                                  <MenuItem
-                                    icon="review"
-                                    label={prerequisite.label}
-                                    title={prerequisite.reason}
-                                    onSelect={() => {
-                                      close();
-                                      action('prerequisite');
-                                    }}
-                                  />
-                                ) : null}
-                                <MenuItem
-                                  icon="clipboard"
-                                  label="I used outside help"
-                                  onSelect={() => {
-                                    close();
-                                    action('outside_help');
-                                  }}
-                                />
-                                <p className="menu-note">
-                                  {check
-                                    ? 'Help during a check is saved before it is shown; later answers on this task count as supported.'
-                                    : 'Help is saved before it is shown, so your record reflects what you used.'}
-                                </p>
-                              </>
-                            )}
-                          </Menu>
+                      <h2 className="display">{learning.objective_outcome}</h2>
+                    </header>
+                  ) : null}
+                  {stage === 'exploratory' ? (
+                    <p className="notice" data-tone="warn">
+                      <Icon name="info" />
+                      <span>
+                        Exploratory discussion from an earlier version: no checked reference, rubric
+                        or plan. Replies are unreviewed and create no grades, progress or reviews.
+                      </span>
+                    </p>
+                  ) : null}
+                  <Conversation
+                    workspace={w}
+                    busy={working}
+                    canAsk={tutorReady}
+                    onCommand={mutate}
+                    onAsk={(id) => void askTutor(id)}
+                    onSource={check || tutorBusy || generating ? undefined : openSource}
+                    task={
+                      learning && stage !== 'summary' ? (
+                        <TaskCard
+                          key={w.activity.id}
+                          workspace={w}
+                          learning={learning}
+                          check={check}
+                          working={working}
+                          onReport={(note) => action('another', note)}
+                        />
+                      ) : currentTask ? (
+                        <PastTask
+                          stage={currentTask.stage}
+                          title={currentTask.detail}
+                          text={currentTask.text}
+                        />
+                      ) : null
+                    }
+                    after={
+                      <>
+                        {pending}
+                        {retry && !tutorBusy ? (
+                          <FailedReply
+                            message={retry.message}
+                            busy={working}
+                            onRetry={() => void askTutor(retry.attemptId)}
+                            onDismiss={() => setRetry(null)}
+                          />
                         ) : null}
-                        <div className="next-steps">
-                          {others.map((s) => (
-                            <button
-                              key={s.id}
-                              className="text-button"
-                              disabled={working || s.kind === 'unavailable'}
-                              title={s.reason}
-                              onClick={() => action(STEP_ACTION[s.id] ?? s.id)}
-                            >
-                              {STEP_ICON[s.id] ? <Icon name={STEP_ICON[s.id]} /> : null}
-                              {s.label}
-                            </button>
-                          ))}
-                          {recommended ? (
-                            <button
-                              className="step-primary"
-                              disabled={working}
-                              title={recommended.reason}
-                              onClick={() => action(STEP_ACTION[recommended.id] ?? recommended.id)}
-                            >
-                              {recommended.label}
-                              <Icon name="arrow" />
-                            </button>
-                          ) : null}
-                        </div>
-                      </div>
-                    ) : null}
-                    {flow && learning?.step_note && !paused ? (
-                      <p className="step-note" title={learning.step_note}>
-                        {learning.step_note}
-                      </p>
-                    ) : null}
-                    {paused ? (
-                      <div className="paused-note" role="status">
-                        <Icon name={flow!.stopped ? 'pause' : 'moon'} />
-                        <p>
-                          {flow!.stopped
-                            ? 'Stopped. Your work and place are saved.'
-                            : 'Quiet work: no tutor requests or prompts. Save as you go, then resume to ask the tutor.'}
-                        </p>
-                        <button disabled={working} onClick={() => action('resume')}>
-                          <Icon name="play" />
-                          Resume
-                        </button>
-                      </div>
-                    ) : null}
-                    {retry ? (
-                      <div className="retry-notice" role="alert">
-                        <Icon name="alert" />
-                        <div>
-                          <p>
-                            <strong>Saved — the tutor reply did not arrive.</strong> {retry.message}
-                          </p>
-                          <div className="actions">
-                            <button
-                              disabled={working}
-                              onClick={() => void askTutor(retry.attemptId)}
-                            >
-                              Retry tutor response
-                            </button>
-                            <button className="text-button" onClick={() => setRetry(null)}>
-                              Not now
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
-                    {showComposer ? (
-                      <Composer
-                        key={`${session.id}:${w.activity.id}:${w.pending_transcript?.id ?? ''}:${intents.join()}`}
-                        initialDraft={session.draft}
-                        initialTranscript={w.pending_transcript}
-                        sessionId={session.id}
-                        revision={session.revision}
-                        configured={w.credential.configured && !w.offline}
-                        offline={w.offline}
-                        retainFailedAudio={w.privacy.retain_failed_audio}
-                        intents={intents}
-                        defaultIntent={intentMemo.current[scope] ?? intents[0]}
-                        onIntent={(choice) => {
-                          intentMemo.current[scope] = choice;
-                        }}
-                        tutorReady={tutorReady}
-                        answerLabel={
-                          stage === 'exploration'
-                            ? 'Send prediction'
-                            : stage === 'diagnosis'
-                              ? 'Send answer'
-                              : 'Check answer'
-                        }
-                        placeholder={
-                          stage === 'exploration'
-                            ? 'Predict first: what will happen, and why?'
-                            : stage === 'diagnosis'
-                              ? 'Start from what you already think — rough reasoning is fine'
-                              : undefined
-                        }
-                        tools={tutorReady ? modelTools : null}
-                        tray={tray}
-                        disabled={busy || tutorBusy || !!generating}
-                        onDraft={saveDraft}
-                        refresh={refresh}
-                        flushDraft={flushDraft}
-                        onWorking={setComposerBusy}
-                        error={setError}
-                        onSend={send}
-                      />
-                    ) : null}
-                  </div>
+                        {generationFailure ? (
+                          <li className="turn-slot">{generationFailure}</li>
+                        ) : null}
+                        {flow &&
+                        !paused &&
+                        stage !== 'summary' &&
+                        stage !== 'exploratory' &&
+                        !pending ? (
+                          <NextStep
+                            steps={steps}
+                            note={learning?.step_note ?? null}
+                            hasAnswer={hasAnswer}
+                            busy={working}
+                            pending={pendingStep}
+                            onStep={(s) => void takeStep(s)}
+                            onConfirm={discardDraftAndStep}
+                            onCancel={() => setPendingStep(null)}
+                          />
+                        ) : null}
+                      </>
+                    }
+                  />
+                  {stage === 'summary' && learning ? (
+                    <WrapUp
+                      learning={learning}
+                      next={goal ? nextCapability : undefined}
+                      lastInPlan={!!goal && !nextCapability}
+                      steps={steps}
+                      busy={working}
+                      onRecompute={() => action('recompute')}
+                      onBegin={begin}
+                      onStep={(s) => void takeStep(s)}
+                      record={
+                        <LearningRecord
+                          workspace={w}
+                          busy={working}
+                          onCommand={mutate}
+                          onAsk={(id) => void askTutor(id)}
+                          onSource={tutorBusy || generating ? undefined : openSource}
+                          showAll
+                        />
+                      }
+                    />
+                  ) : null}
+                  {stage === 'summary' && pendingStep ? (
+                    <DraftConfirm
+                      step={pendingStep}
+                      busy={working}
+                      onConfirm={discardDraftAndStep}
+                      onCancel={() => setPendingStep(null)}
+                    />
+                  ) : null}
                 </div>
+              )}
+            </main>
+            {!flow && requestLabel ? (
+              <RequestPill label={requestLabel} onCancel={cancelRequest} />
+            ) : null}
+            {flow || w.pending_transcript ? (
+              <div className="dock">
+                {inFlow && farFromEnd ? (
+                  <button
+                    className="jump"
+                    onClick={() =>
+                      scroller.current?.scrollTo({
+                        top: scroller.current.scrollHeight,
+                        behavior: 'smooth',
+                      })
+                    }
+                  >
+                    <Icon name="arrowUp" />
+                    Latest
+                  </button>
+                ) : null}
+                {paused ? (
+                  <div className="paused-note" role="status">
+                    <Icon name={flow!.stopped ? 'pause' : 'moon'} />
+                    <p>
+                      {flow!.stopped
+                        ? 'Stopped. Your work and place are saved.'
+                        : 'Quiet work: no tutor requests or prompts. Save as you go, then resume to ask the tutor.'}
+                    </p>
+                    <button className="compact" disabled={working} onClick={() => action('resume')}>
+                      <Icon name="play" />
+                      Resume
+                    </button>
+                  </div>
+                ) : null}
+                {showComposer ? (
+                  <Composer
+                    key={`${session.id}:${w.activity.id}:${w.pending_transcript?.id ?? ''}:${intents.join()}`}
+                    initialDraft={session.draft}
+                    initialTranscript={w.pending_transcript}
+                    sessionId={session.id}
+                    revision={session.revision}
+                    configured={w.credential.configured && !w.offline}
+                    offline={w.offline}
+                    retainFailedAudio={w.privacy.retain_failed_audio}
+                    intents={intents}
+                    defaultIntent={intentMemo.current[scope] ?? intents[0]}
+                    onIntent={(choice) => {
+                      intentMemo.current[scope] = choice;
+                    }}
+                    tutorReady={tutorReady}
+                    answerLabel={
+                      stage === 'exploration'
+                        ? 'Send prediction'
+                        : stage === 'diagnosis'
+                          ? 'Send answer'
+                          : 'Check answer'
+                    }
+                    placeholder={
+                      stage === 'exploration'
+                        ? 'Predict first: what will happen, and why?'
+                        : stage === 'diagnosis'
+                          ? 'Start from what you already think — rough reasoning is fine'
+                          : undefined
+                    }
+                    tools={tutorReady ? modelTools : null}
+                    tray={tray}
+                    help={help}
+                    context={context}
+                    disabled={busy || tutorBusy || !!generating}
+                    onDraft={saveDraft}
+                    refresh={refresh}
+                    flushDraft={flushDraft}
+                    onWorking={setComposerBusy}
+                    error={setError}
+                    onSend={send}
+                  />
+                ) : null}
               </div>
             ) : null}
-          </main>
+          </div>
           {planOpen && goal ? (
-            <aside className="visual-panel plan-panel" aria-label="Plan">
+            <aside className="side-panel plan-panel" aria-label="Plan">
+              <div className="panel-head">
+                <h2 className="panel-title">
+                  <Icon name="list" />
+                  Plan
+                </h2>
+                <button
+                  className="icon-button"
+                  aria-label="Close plan"
+                  onClick={() => setPanel(null)}
+                >
+                  <Icon name="close" />
+                </button>
+              </div>
               <PlanView
                 goal={goal}
                 busy={working}
@@ -1449,7 +1234,7 @@ export default function App() {
           ) : sourcesOpen ? (
             <Suspense
               fallback={
-                <aside className="visual-panel source-panel" role="status">
+                <aside className="visual-panel side-panel source-panel" role="status">
                   Opening sources…
                 </aside>
               }
@@ -1470,7 +1255,7 @@ export default function App() {
           ) : visualOpen && learning?.visual ? (
             <Suspense
               fallback={
-                <aside className="visual-panel real-visual" role="status">
+                <aside className="visual-panel side-panel real-visual" role="status">
                   Loading the local visual player…
                 </aside>
               }
@@ -1492,6 +1277,17 @@ export default function App() {
           ) : null}
         </div>
       </div>
+      {error ? (
+        <div className="toasts" role="region" aria-label="Notifications">
+          <div className="toast" role="alert">
+            <Icon name="alert" />
+            <p>{error}</p>
+            <button className="icon-button" aria-label="Dismiss" onClick={() => setError('')}>
+              <Icon name="close" />
+            </button>
+          </div>
+        </div>
+      ) : null}
       {settings ? (
         <Settings
           workspace={w}

@@ -150,6 +150,33 @@ async fn entire_learning_return_loop_survives_restart() {
 }
 
 #[tokio::test]
+async fn support_fades_when_the_key_idea_is_applied_correctly() {
+    let (_dir, mut d, sid, _clock) = fixture();
+    action(&mut d, &sid, "teach");
+    assert_eq!(view(&d, &sid).state.stage, "instruction");
+    // A partial reconstruction keeps the full route: the related example comes next.
+    let a = submit(&mut d, &sid, "Steps shrink when the multiplier is small.");
+    assess(&mut d, &sid, &a, "partial").await;
+    let steps = view(&d, &sid).steps;
+    let next = steps.iter().find(|o| o.id == "continue").unwrap();
+    assert_eq!(next.label, "Continue: a worked example");
+    // A correct one that met every rubric part skips the remaining worked steps.
+    let a = submit(
+        &mut d,
+        &sid,
+        "x′=(1−ηa)x, so the distance shrinks exactly when |1−ηa|<1, that is 0<η<2/a.",
+    );
+    assess(&mut d, &sid, &a, "correct").await;
+    let steps = view(&d, &sid).steps;
+    let next = steps.iter().find(|o| o.id == "continue").unwrap();
+    assert_eq!(next.label, "Continue: compare two cases");
+    action(&mut d, &sid, "next");
+    assert_eq!(view(&d, &sid).state.stage, "guided");
+    // Evidence from the skipped scaffolding is never invented: only the two saved answers exist.
+    assert_eq!(d.attempts(&sid).unwrap().len(), 2);
+}
+
+#[tokio::test]
 async fn all_eight_objectives_freeze_distinct_tasks_and_keep_evidence_scoped() {
     let (dir, mut d, _sid, clock) = fixture();
     for o in crate::curriculum::unit()["objectives"].as_array().unwrap() {

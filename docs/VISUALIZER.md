@@ -10,7 +10,7 @@ Six `@explorable-models/*` packages are retained as exact tarballs in `vendor/vi
 
 ## Learner surface
 
-`src/components/RealVisualPanel.tsx` mounts the player in its embedded dark theme. Installed models cover quadratic gradient descent, function/derivative, 2×2 linear transformation, 3D vector orientation, and quadratic surface gradient. The spatial renderer loads only when needed.
+`src/components/RealVisualPanel.tsx` mounts the player in its embedded theme, matching the app's light or dark appearance when the visual loads. Installed models cover quadratic gradient descent, function/derivative, 2×2 linear transformation, 3D vector orientation, and quadratic surface gradient. The spatial renderer loads only when needed.
 
 Visuals are attached to relevant capabilities and tasks. Parameters are fixed with each task and validated against the installed model's ranges and constraints. When the model cannot represent a task's exact parameters, the app labels the visual as a contrasting example. A saved answer is required before revealing a solution-bearing result; a question alone is not a prediction.
 

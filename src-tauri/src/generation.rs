@@ -481,17 +481,24 @@ pub fn check_task(p: TaskProposal, ctx: &TaskContext) -> Result<Material> {
         return reject("the rubric needs one to four lines.".into());
     }
     let mut dims: Vec<String> = vec![];
-    let mut criteria = vec![];
+    let mut criteria: Vec<String> = vec![];
     for line in &p.rubric {
-        if !DIMENSIONS.contains(&line.dimension.as_str()) || dims.contains(&line.dimension) {
-            return reject("each rubric dimension must be known and listed once.".into());
+        if !DIMENSIONS.contains(&line.dimension.as_str()) {
+            return reject("a rubric dimension is not one of the known dimensions.".into());
         }
         let text = line.criterion.trim();
         if text.chars().count() < 8 || text.chars().count() > 600 {
             return reject("a rubric criterion is empty or too long.".into());
         }
-        dims.push(line.dimension.clone());
-        criteria.push(format!("{}: {text}", dimension_label(&line.dimension)));
+        // The schema cannot forbid a repeated dimension, and the tutor grades one finding per dimension, so
+        // several criteria for one dimension become a single line.
+        match dims.iter().position(|d| d == &line.dimension) {
+            Some(i) => criteria[i] = format!("{} {text}", criteria[i]),
+            None => {
+                dims.push(line.dimension.clone());
+                criteria.push(format!("{}: {text}", dimension_label(&line.dimension)));
+            }
+        }
     }
     if p.reference_solution.trim().chars().count() < 10
         || p.reference_solution.chars().count() > 9000
@@ -836,5 +843,30 @@ mod tests {
             ..ctx
         };
         assert!(check_task(proposal(), &repeat).is_err());
+    }
+
+    #[test]
+    fn repeated_rubric_dimensions_merge_into_one_line() {
+        let r = request();
+        let ctx = TaskContext {
+            objective_id: "cap",
+            stage: "independent",
+            prior_tasks: &[],
+            request: &r,
+            model: "gpt-6.1-sol",
+            content_version: "generated:g:plan-r1".into(),
+            visual: None,
+        };
+        let mut p = proposal();
+        p.rubric.push(RubricLine {
+            dimension: "setup".into(),
+            criterion: "States that the time is in hours.".into(),
+        });
+        let m = check_task(p, &ctx).unwrap();
+        assert_eq!(m.rubric, vec!["setup", "execution"]);
+        assert_eq!(
+            m.criteria[0],
+            "Setup: Uses average speed = distance / time. States that the time is in hours."
+        );
     }
 }

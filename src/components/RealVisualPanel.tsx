@@ -19,6 +19,7 @@ import {
 import type { Attempt, VisualPlan } from '../generated/contracts';
 import { nativeHost, visualCall } from '../visualizer/host';
 import { Icon } from './Icon';
+import { resolvedTheme } from '../theme';
 
 type OpenRecord = {
   request: ActivityRequest;
@@ -35,9 +36,13 @@ export type VisualHandle = {
   summary(): unknown | null;
 };
 const operation = () => crypto.randomUUID();
-// The SDK's own warm-neutral dark defaults match the app; the embedded variant leaves the lesson prompt, composer
-// and title to the app. System fonts for controls; KaTeX fonts come from the app's stylesheet.
-const surfaceTheme = { theme: 'dark', variant: 'embedded' } as const;
+// The SDK surface follows the app's light or dark appearance at mount; the embedded variant leaves the lesson
+// prompt, composer and title to the app. System fonts for controls; KaTeX fonts come from the app's stylesheet.
+const surfaceTheme = () =>
+  ({
+    theme: resolvedTheme(),
+    variant: 'embedded',
+  }) as const;
 function failure(outcome: { ok: boolean; diagnostics?: { message: string }[] }) {
   if (!outcome.ok)
     throw new Error(
@@ -133,7 +138,7 @@ export const RealVisualPanel = forwardRef<
     const placeholder = mountStudyActivityPlaceholder(container, {
       state: 'preparing',
       title: 'Preparing the visual',
-      ...surfaceTheme,
+      ...surfaceTheme(),
     });
     setReady(false);
     setError('');
@@ -153,7 +158,7 @@ export const RealVisualPanel = forwardRef<
           if (active) void callbacks.current.changed();
         }),
         maxWorkers: 2,
-        surfaceDefaults: { ...surfaceTheme, fonts: 'system' },
+        surfaceDefaults: { ...surfaceTheme(), fonts: 'system' },
       });
       const outcome = opened.artifact
         ? await visualizer.restore(opened.artifact, {
@@ -176,7 +181,7 @@ export const RealVisualPanel = forwardRef<
           const archive = archivalView(opened.artifact, { audience: 'learner' });
           if (archive.ok)
             mountArchivalRecord(container, archive.view, {
-              ...surfaceTheme,
+              ...surfaceTheme(),
               labels: archivalLabels(template),
               returnAction: { label: 'Return to the session', onSelect: () => container.focus() },
             });

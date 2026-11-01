@@ -26,6 +26,8 @@ export function Composer({
   placeholder,
   tools,
   tray,
+  help,
+  context,
   onSend,
   onDraft,
   refresh,
@@ -56,6 +58,10 @@ export function Composer({
   tools?: ReactNode;
   /** The status line attached under the composer (spending, setup state). */
   tray?: ReactNode;
+  /** The help menu (hints, explanations, the solution), shown in the composer bar. */
+  help?: ReactNode;
+  /** A line above the box saying which task this answers. */
+  context?: ReactNode;
   /** Saves first (with frozen conditions); `tutor` then requests a response for the saved submission. */
   onSend: (
     text: string,
@@ -283,8 +289,9 @@ export function Composer({
   };
   return (
     <section className="composer" aria-label="Response composer">
+      {context}
       <div
-        className="composer-pill"
+        className="composer-box"
         data-state={recording ? 'recording' : transcript ? 'transcript' : undefined}
         data-disabled={disabled || undefined}
       >
@@ -337,46 +344,44 @@ export function Composer({
           disabled={disabled || working}
         />
         {recording ? (
-          <div className="composer-recording" role="status">
+          <div className="composer-status" data-kind="recording" role="status">
             <span className="rec-dot" aria-hidden="true" />
             <span>
               Recording <span className="numeric">{clock(seconds)}</span>
               <span className="muted"> / {clock(MAX_SECONDS)}</span>
             </span>
-            <button type="button" className="ghost" onClick={stop}>
+            <span className="spacer" />
+            <button type="button" className="compact" onClick={stop}>
               <Icon name="stop" />
               Stop
             </button>
           </div>
         ) : wav ? (
-          <div className="composer-recorded">
-            <p>
-              <Icon name="mic" />
-              <span>
-                <span className="numeric">{recorded.toFixed(1)} s</span> recorded ·{' '}
-                {offline
-                  ? 'offline, nothing is uploaded'
-                  : `about ${money(recorded * 75)} to transcribe`}
-              </span>
-            </p>
-            <div className="composer-recorded-actions">
-              <button
-                type="button"
-                className="primary compact"
-                disabled={!configured || working}
-                onClick={() => void transcribe()}
-              >
-                Transcribe
-              </button>
-              <button
-                type="button"
-                className="ghost compact"
-                disabled={working}
-                onClick={() => void discard()}
-              >
-                Discard
-              </button>
-            </div>
+          <div className="composer-status" data-kind="recorded">
+            <Icon name="mic" />
+            <span>
+              <span className="numeric">{recorded.toFixed(1)} s</span> recorded ·{' '}
+              {offline
+                ? 'offline, nothing is uploaded'
+                : `about ${money(recorded * 75)} to transcribe`}
+            </span>
+            <span className="spacer" />
+            <button
+              type="button"
+              className="primary compact"
+              disabled={!configured || working}
+              onClick={() => void transcribe()}
+            >
+              Transcribe
+            </button>
+            <button
+              type="button"
+              className="ghost compact"
+              disabled={working}
+              onClick={() => void discard()}
+            >
+              Discard
+            </button>
             {!configured ? (
               <p className="composer-hint">
                 {offline
@@ -393,10 +398,15 @@ export function Composer({
           </p>
         ) : null}
         {working && phase ? (
-          <p className="composer-working" role="status">
+          <p className="composer-status" data-kind="working" role="status">
+            <span className="spinner" aria-hidden="true" />
             {phase}
             {phase === 'Transcribing…' ? (
-              <button type="button" onClick={() => void command('cancel_request')}>
+              <button
+                type="button"
+                className="text-button"
+                onClick={() => void command('cancel_request')}
+              >
                 Cancel
               </button>
             ) : null}
@@ -405,7 +415,7 @@ export function Composer({
         <div className="composer-bar">
           {intents.length > 1 ? (
             <div
-              className="intent-switch"
+              className="segmented intent-switch"
               role="radiogroup"
               aria-label="What are you sending?"
               onKeyDown={(e) => {
@@ -436,33 +446,23 @@ export function Composer({
                   }
                   onClick={() => choose(option)}
                 >
-                  <Icon name={option === 'answer' ? 'pencil' : 'question'} />
                   {option === 'answer' ? 'Answer' : 'Question'}
                 </button>
               ))}
             </div>
           ) : (
-            <span className="intent-chip">
+            <span
+              className="intent-chip"
+              title={kind === 'question' ? 'A question is never graded' : undefined}
+            >
               <Icon name={kind === 'answer' ? 'pencil' : 'question'} />
               {kind === 'answer' ? 'Answer' : 'Question'}
             </span>
           )}
-          {transcript ? null : (
-            <button
-              type="button"
-              className="ghost record-button"
-              disabled={disabled || working || recording || !!wav}
-              title="Record up to two minutes. You choose whether to transcribe it, then check the text."
-              onClick={() => void start()}
-            >
-              <Icon name="mic" />
-              <span>Record</span>
-            </button>
-          )}
           {transcript ? (
             <button
               type="button"
-              className="ghost"
+              className="ghost compact"
               disabled={disabled || working}
               onClick={async () => {
                 busy('Discarding…');
@@ -483,8 +483,20 @@ export function Composer({
               <Icon name="trash" />
               <span>Discard</span>
             </button>
-          ) : null}
-          <span className="composer-spacer" />
+          ) : (
+            <button
+              type="button"
+              className="icon-button record-button"
+              disabled={disabled || working || recording || !!wav}
+              aria-label="Record your reasoning"
+              title="Record up to two minutes. You choose whether to transcribe it, then check the text."
+              onClick={() => void start()}
+            >
+              <Icon name="mic" />
+            </button>
+          )}
+          {help}
+          <span className="spacer" />
           {tools}
           <button
             type="button"
@@ -505,21 +517,21 @@ export function Composer({
           </button>
         </div>
       </div>
-      <div className="composer-tray">
+      <div className="composer-foot">
         {tray}
-        <span className="composer-spacer" />
+        <span className="spacer" />
         {tutorReady ? (
           <button
             type="button"
-            className="tray-action"
+            className="text-button"
             disabled={!ready}
             title="Save it to your record without asking the tutor"
             onClick={() => void send(false)}
           >
-            Save only
+            Save without feedback
           </button>
         ) : null}
-        <span className="tray-muted kbd-hint" aria-hidden="true">
+        <span className="kbd-hint" aria-hidden="true">
           <kbd>⌘</kbd>
           <kbd>↩</kbd>
           {tutorReady ? ' send' : ' save'}

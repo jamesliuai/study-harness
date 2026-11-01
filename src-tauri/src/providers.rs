@@ -35,8 +35,8 @@ pub struct TutorInput {
     /// The tutor model and reasoning effort frozen for this request (the learner's preference when it was prepared).
     pub choice: ModelChoice,
 }
-pub const PROMPT_VERSION: &str = "tutor-v5";
-pub const PROMPT: &str = include_str!("../../prompts/tutor-v5.txt");
+pub const PROMPT_VERSION: &str = "tutor-v6";
+pub const PROMPT: &str = include_str!("../../prompts/tutor-v6.txt");
 pub struct TutorResult {
     pub proposal: Result<TutorProposal>,
     pub usage: Usage,

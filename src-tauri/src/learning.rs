@@ -1109,19 +1109,7 @@ impl Store {
                 } else if action == "teach" {
                     "instruction".to_owned()
                 } else {
-                    let route = crate::goals::route(
-                        &self.conn,
-                        &crate::curriculum::selected(&self.conn, sid)?,
-                    );
-                    let position = route
-                        .iter()
-                        .position(|x| *x == s.stage)
-                        .ok_or("Unknown stage")?;
-                    route
-                        .get(position + 1)
-                        .copied()
-                        .unwrap_or("independent")
-                        .to_owned()
+                    self.next_stage(sid, &s)?.ok_or("Unknown stage")?.0.to_owned()
                 };
                 Ok(Some(next))
             }
@@ -1646,6 +1634,33 @@ impl Store {
             .map_err(sql)?;
         raw.map(parse).transpose()
     }
+    /// The lesson stage after the current one, and whether scaffolding was skipped to reach it. Support fades with
+    /// evidence: when the latest answer on the key-idea or worked-example task met every rubric part, the remaining
+    /// worked steps (related example, completion problem) are skipped for guided practice. Otherwise, or without a
+    /// resolved answer, the full route continues. None when the stage is not on this capability's route.
+    pub(crate) fn next_stage(
+        &self,
+        sid: &str,
+        s: &LearningState,
+    ) -> Result<Option<(&'static str, bool)>> {
+        let route = crate::goals::route(&self.conn, &crate::curriculum::selected(&self.conn, sid)?);
+        let Some(position) = route.iter().position(|x| *x == s.stage) else {
+            return Ok(None);
+        };
+        let demonstrated = ["instruction", "worked_example"].contains(&s.stage.as_str())
+            && self
+                .latest_answer(sid, &s.active_activity_id)?
+                .and_then(|(_, g)| g)
+                .is_some_and(|g| all_met(&g));
+        let guided = route.iter().position(|x| *x == "guided");
+        Ok(Some(match guided {
+            Some(g) if demonstrated && g > position + 1 => (route[g], true),
+            _ => (
+                route.get(position + 1).copied().unwrap_or("independent"),
+                false,
+            ),
+        }))
+    }
     fn revealed(&self, aid: &str) -> Result<bool> {
         let actual: bool = self.conn.query_row("SELECT EXISTS(SELECT 1 FROM visual_exposures e JOIN visual_activities a ON a.id=e.activity_id WHERE a.learning_activity_id=? AND json_extract(e.data,'$.scope')!='exploration' AND json_array_length(json_extract(e.data,'$.groups'))>0)",[aid],|r|r.get(0)).map_err(sql)?;
         Ok(actual || self.scene(aid).is_ok_and(|s| s.revealed))
@@ -1714,13 +1729,7 @@ impl Store {
             }
             stage => {
                 let objective = crate::curriculum::selected(&self.conn, sid)?;
-                let route = crate::goals::route(&self.conn, &objective);
-                let next = route
-                    .iter()
-                    .position(|x| *x == stage)
-                    .and_then(|p| route.get(p + 1))
-                    .copied()
-                    .unwrap_or("independent");
+                let (next, skipped) = self.next_stage(sid, &s)?.unwrap_or(("independent", false));
                 // Authored variants change with each new task except in the original hand-written sequence.
                 let generated = crate::goals::is_generated(&self.conn, &objective)?;
                 let another = if generated {
@@ -1807,6 +1816,7 @@ impl Store {
                     ("worked_example" | "completion" | "guided", Some(_), Some(g)) if another && g.verdict == "incorrect" && g.uncertainty == "resolved" => Some(("another".into(), "One more problem of the same kind should make the method reliable before you move on.".into())),
                     ("completion" | "guided", Some(_), Some(_)) => Some(("continue".into(), "Another supported problem is likely to help before a check.".into())),
                     ("exploration", _, _) if !ready => None,
+                    (_, Some(_), Some(_)) if skipped => Some(("continue".into(), "You applied the idea correctly, so the remaining worked steps are skipped for practice.".into())),
                     (_, _, _) if (!needs_answer || latest.is_some()) && ready => Some(("continue".into(), format!("Next: {}.", stage_title(next).to_lowercase()))),
                     _ => None,
                 };

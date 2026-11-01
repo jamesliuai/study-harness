@@ -98,77 +98,123 @@ export function splitMath(text: string): Piece[] {
   return pieces;
 }
 
+/** `**bold**` and `code` spans in plain text; an unmatched marker stays literal. Never interprets HTML. */
+function Emphasis({ text, bold }: { text: string; bold: boolean }) {
+  const pieces = text.split(/(`[^`\n]+`)/);
+  const out = pieces.map((piece, i) =>
+    /^`[^`]+`$/.test(piece) ? (
+      <code key={i}>{piece.slice(1, -1)}</code>
+    ) : (
+      <Fragment key={i}>{piece}</Fragment>
+    ),
+  );
+  return bold ? <strong>{out}</strong> : <>{out}</>;
+}
+
 function Inline({ text }: { text: string }) {
+  const pieces = splitMath(text);
+  // Bold may span typeset maths (“**the value $x$ is**”), so markers are counted across text pieces.
+  const markers = pieces
+    .filter((p) => p.kind === 'text')
+    .reduce((n, p) => n + p.value.split('**').length - 1, 0);
+  const emphasis = markers > 0 && markers % 2 === 0;
+  const out: ReactNode[] = [];
+  let bold = false;
+  pieces.forEach((p, i) => {
+    if (p.kind !== 'text') {
+      const node = <MathText key={i} tex={p.value} block={p.kind === 'display'} />;
+      out.push(bold ? <strong key={i}>{node}</strong> : node);
+      return;
+    }
+    (emphasis ? p.value.split('**') : [p.value]).forEach((segment, j) => {
+      if (j > 0) bold = !bold;
+      if (segment) out.push(<Emphasis key={`${i}-${j}`} text={segment} bold={bold} />);
+    });
+  });
+  return <>{out}</>;
+}
+
+const isStep = (l: string) => /^\s*\d+[.)]\s+/.test(l);
+const isBullet = (l: string) => /^\s*[-*•]\s+/.test(l);
+
+/** Lines that form a list (with an optional lead line), or null when the block is ordinary prose. */
+function listOf(lines: string[], test: (l: string) => boolean) {
+  const items = lines.filter(test);
+  if (items.length < 2 || items.length < lines.length - 1) return null;
+  const first = lines.findIndex(test);
+  const lead = lines.slice(0, first);
+  const rows: string[][] = [];
+  // Lines keep their order: a line after an item continues that item.
+  for (const l of lines.slice(first)) {
+    if (test(l)) rows.push([l.replace(/^\s*(?:\d+[.)]|[-*•])\s+/, '')]);
+    else rows[rows.length - 1].push(l.trim());
+  }
+  return { lead, rows, start: Number(/\d+/.exec(items[0])?.[0] ?? 1) || undefined };
+}
+
+function Rows({ rows }: { rows: string[][] }) {
   return (
     <>
-      {splitMath(text).map((p, i) =>
-        p.kind === 'text' ? (
-          <Fragment key={i}>{p.value}</Fragment>
-        ) : (
-          <MathText key={i} tex={p.value} block={p.kind === 'display'} />
-        ),
-      )}
+      {rows.map((item, i) => (
+        <li key={i}>
+          {item.map((l, j) => (
+            <Fragment key={j}>
+              {j ? <br /> : null}
+              <Inline text={l} />
+            </Fragment>
+          ))}
+        </li>
+      ))}
     </>
   );
 }
 
-/**
- * Bounded, escaped prose with mathematics: paragraphs split on blank lines, single line breaks kept, numbered steps
- * (“1. …”) rendered as an ordered list, `$…$`/`$$…$$` typeset with KaTeX. Used for tasks, learner text and tutor
- * replies alike. Never renders HTML from its input.
- */
-export function RichText({ text, className }: { text: string; className?: string }) {
-  const bounded = text.length > MAX_TEXT ? `${text.slice(0, MAX_TEXT)}…` : text;
-  const blocks = bounded.split(/\n\s*\n/).filter((b) => b.trim());
+function Blocks({ text, keyPrefix }: { text: string; keyPrefix: string }) {
+  const blocks = text.split(/\n\s*\n/).filter((b) => b.trim());
   const out: ReactNode[] = [];
   blocks.forEach((block, b) => {
+    const key = `${keyPrefix}-${b}`;
     const lines = block.split('\n').filter((l) => l.trim());
-    const isStep = (l: string) => /^\s*\d+[.)]\s+/.test(l);
-    const steps = lines.filter(isStep);
-    if (steps.length >= 2 && steps.length >= lines.length - 1) {
-      // Lines keep their order: text before the first step introduces the list, and a line after a step
-      // continues that step. The list starts at the first step's own number.
-      const first = lines.findIndex(isStep);
-      const lead = lines.slice(0, first);
-      const items: string[][] = [];
-      for (const l of lines.slice(first)) {
-        if (isStep(l)) items.push([l.replace(/^\s*\d+[.)]\s+/, '')]);
-        else items[items.length - 1].push(l.trim());
-      }
-      if (lead.length)
+    const steps = listOf(lines, isStep);
+    const bullets = steps ? null : listOf(lines, isBullet);
+    const list = steps ?? bullets;
+    if (list) {
+      if (list.lead.length)
         out.push(
-          <p key={`${b}-lead`}>
-            <Inline text={lead.join(' ')} />
+          <p key={`${key}-lead`}>
+            <Inline text={list.lead.join(' ')} />
           </p>,
         );
       out.push(
-        <ol
-          key={`${b}-steps`}
-          className="rich-steps"
-          start={Number(/\d+/.exec(steps[0])?.[0] ?? 1) || undefined}
-        >
-          {items.map((item, i) => (
-            <li key={i}>
-              {item.map((l, j) => (
-                <Fragment key={j}>
-                  {j ? <br /> : null}
-                  <Inline text={l} />
-                </Fragment>
-              ))}
-            </li>
-          ))}
-        </ol>,
+        steps ? (
+          <ol key={key} className="rich-steps" start={list.start}>
+            <Rows rows={list.rows} />
+          </ol>
+        ) : (
+          <ul key={key} className="rich-list">
+            <Rows rows={list.rows} />
+          </ul>
+        ),
+      );
+      return;
+    }
+    const heading = lines.length === 1 && /^\s*#{1,4}\s+\S/.test(lines[0]);
+    if (heading) {
+      out.push(
+        <p key={key} className="rich-heading">
+          <Inline text={lines[0].replace(/^\s*#{1,4}\s+/, '')} />
+        </p>,
       );
       return;
     }
     const display = /^\s*\$\$[\s\S]*\$\$\s*$/.test(block);
     out.push(
       display ? (
-        <div key={b} className="rich-display">
+        <div key={key} className="rich-display">
           <Inline text={block.trim()} />
         </div>
       ) : (
-        <p key={b}>
+        <p key={key}>
           {lines.map((l, i) => (
             <Fragment key={i}>
               {i ? <br /> : null}
@@ -179,6 +225,31 @@ export function RichText({ text, className }: { text: string; className?: string
       ),
     );
   });
+  return <>{out}</>;
+}
+
+/**
+ * Bounded, escaped prose with mathematics: paragraphs split on blank lines, single line breaks kept, numbered steps
+ * and bullets rendered as lists, `**bold**`, `code` and fenced code blocks, `$…$`/`$$…$$` typeset with KaTeX. Used
+ * for tasks, learner text and tutor replies alike. Never renders HTML from its input.
+ */
+export function RichText({ text, className }: { text: string; className?: string }) {
+  const bounded = text.length > MAX_TEXT ? `${text.slice(0, MAX_TEXT)}…` : text;
+  const out: ReactNode[] = [];
+  const fence = /^```[^\n]*\n([\s\S]*?)\n?```[ \t]*$/gm;
+  let last = 0;
+  let n = 0;
+  for (let m = fence.exec(bounded); m; m = fence.exec(bounded)) {
+    out.push(<Blocks key={`t${n}`} keyPrefix={`t${n}`} text={bounded.slice(last, m.index)} />);
+    out.push(
+      <pre key={`c${n}`} className="rich-code">
+        <code>{m[1]}</code>
+      </pre>,
+    );
+    last = fence.lastIndex;
+    n++;
+  }
+  out.push(<Blocks key={`t${n}`} keyPrefix={`t${n}`} text={bounded.slice(last)} />);
   return <div className={className ? `rich-text ${className}` : 'rich-text'}>{out}</div>;
 }
 

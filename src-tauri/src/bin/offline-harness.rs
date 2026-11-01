@@ -115,6 +115,10 @@ async fn dispatch(d: &mut Store, cmd: &str, a: &Value) -> std::result::Result<Va
                 d.save_draft(text(a, "sessionId")?, text(a, "text")?)?;
                 Ok(Value::Null)
             }
+            "discard_transcript" => {
+                d.discard_transcript(text(a, "sessionId")?, text(a, "transcriptId")?)?;
+                Ok(Value::Null)
+            }
             "start_goal" => {
                 let sid = text(a, "sessionId")?;
                 d.start_goal_for(
